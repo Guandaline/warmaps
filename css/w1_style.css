@@ -1,0 +1,43 @@
+html{
+    width: 100%;
+    height: 100%
+}
+
+body{
+    
+    background-image: url('../image/Background-Light.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.tudo{   
+    width: 100%;
+    height: 100%;
+    
+}
+
+#sidebar{
+    
+    background-color: rgba(255,255,255, 0.4);
+    width: 20%;
+    height: 100%;
+
+    display: inline-block;
+
+    
+    box-shadow: 1px 0 10px #888888;
+    -moz-box-shadow: 1px 0 10px #888888;
+    -webkit-box-shadow: 1px 0 10px #888888;
+    
+    border-radius: 0px 5px 5px 0px;
+    -moz-border-radius: 0px 5px 5px 0px;
+    -webkit-border-radius: 0px 5px 5px 0px;
+}
+
+#conteudo{
+    display: inline-block;
+    width: 76%;
+    height: 100%;
+}
