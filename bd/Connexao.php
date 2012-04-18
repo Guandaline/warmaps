@@ -1,6 +1,14 @@
 <?php
+/*
+ * Classe de Conexão - Reponsavel por todos os acessos ao banco.
+ */
 
-class connexao {
+/*
+ * pegando as configurações do banco
+ */
+include 'DataBaseConfig.php';
+
+class Connexao {
 
     private $banco;
     private $user;
@@ -10,19 +18,20 @@ class connexao {
     private $obj = NULL;
     private $array = NULL;
 
-    function __construct($host, $banco, $user, $pass = NULL) {
-        $this->banco = $banco;
-        $this->pass = $pass;
-        $this->host = $host;
-        $this->user = $user;
+    function __construct() {
+        $database = new DataBaseConfig(); 
+        $this->banco = $database->banco;
+        $this->pass = $database->pass;
+        $this->host = $database->host;
+        $this->user = $database->user;
         try {
-            if ($pass != NULL)
+            if ($this->pass == '')
                 $this->conexao = new PDO('mysql:host=' . $this->host . ';port=3306;dbname=' . $this->banco, $this->user); // conecta o servidor
             else
                 $this->conexao = new PDO('mysql:host=' . $this->host . ';port=3306;dbname=' . $this->banco, $this->user, $this->pass); // conecta o servidor
             echo 'Conexão estabelecida!';
         } catch (PDOException $e) {
-            echo 'error: falha ao criar conexão\n'.$e->getMessage();
+            echo 'error: falha ao criar conexão<br/>'.$e->getMessage();
         }
     }
 
@@ -30,7 +39,7 @@ class connexao {
         try{
             $this->resultado = $this->conexao->prepare($sql);
         }catch(PDOException $e){
-            echo 'error: function query\n'.$e->getMessage();
+            echo 'error: function query<br/>'.$e->getMessage();
         }
     }
     
@@ -38,7 +47,7 @@ class connexao {
         try{
             $this->resultado->execute($dados);
         }  catch (PDOException $e){
-            echo 'error: function execute\n'.$e->getMessage();
+            echo 'error: function execute<br/>'.$e->getMessage();
         }
     }
     
@@ -46,7 +55,7 @@ class connexao {
         try{
             $this->obj = $this->resultado->fetch(PDO::FETCH_OBJ);
         }  catch (PDOException $e){
-            echo 'error: function fetch\n'.$e->getMessage();
+            echo 'error: function fetch<br/>'.$e->getMessage();
             $this->obj = NULL;
         }
         return $this->obj;
@@ -56,7 +65,7 @@ class connexao {
         try{
             $this->array = $this->resultado->fetchAll();
         }  catch (PDOException $e){
-            echo 'error: function fetchAll\n'.$e->getMessage();
+            echo 'error: function fetchAll<br/>'.$e->getMessage();
             $this->array = NULL;
         }
         return $this->array;
@@ -68,7 +77,7 @@ class connexao {
             execute($dados);
             return fetchAll();
         }catch(PDOException $e){
-            echo 'error: function queryAll'.$e->getMessage();
+            echo 'error: function queryAll<br/>'.$e->getMessage();
             return NULL;
         }
     }
