@@ -1,11 +1,9 @@
 <?php
-
+include 'Model.php';
 class teste extends Model{
+    var $name = 'teste';
+    var $useTable = 'teste';
     
-    function __construct($table) {
-        parent::$table = $table;   
-    }
-
 }
 
 /*

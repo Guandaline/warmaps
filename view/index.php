@@ -25,7 +25,6 @@ if (!strstr($page, '.php'))
             </div>
             <div id="conteudo">
                 <?php
-                echo $page;
                 include 'page/' . $page;
                 ?>
             </div>
