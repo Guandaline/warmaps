@@ -85,9 +85,9 @@ class Connexao {
     
     public function queryAll($sql, $dados){
         try{
-            query($sql);
-            execute($dados);
-            return fetchAll();
+            $this->query($sql);
+            $this->execute($dados);
+            return $this->fetchAll();
         }catch(PDOException $e){
             $this->errors[] =  'error: function queryAll<br/>'.$e->getMessage();
             return NULL;

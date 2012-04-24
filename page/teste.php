@@ -3,18 +3,16 @@
     ini_set('display_errors', 1);
 
     include 'model/teste.php';
-
-    $data = array('teste' => 50);
-    
+    $teste = new teste();
+    $teste->data = array('teste' => 55);
+    $teste->where = array('id' => 5, 'teste' => 78);
+    $teste->del = array('id'=> 9, 'teste' => 50);
     ?>
  
 <pre>
    <?php
-        $teste = new teste();
-        echo $teste->useTable.'<br/><br/>';
-        $teste->data = $data;
         
-        echo 'id: '. $teste->id;
-       
+        echo $teste->delete();
+        
     ?>
 </pre>
