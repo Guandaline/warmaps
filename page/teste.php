@@ -4,15 +4,13 @@
 
     include 'model/teste.php';
     $teste = new teste();
-    $teste->data = array('teste' => 55);
-    $teste->where = array('id' => 5, 'teste' => 78);
-    $teste->del = array('id'=> 9, 'teste' => 50);
+    $teste->data = array('campos' => 'teste, id','teste' => 500);
     ?>
  
 <pre>
    <?php
         
-        echo $teste->delete();
-        
+       echo $teste->select();
+       print_r($teste->array); 
     ?>
 </pre>
