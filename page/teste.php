@@ -8,8 +8,8 @@
     ?>
  
 <pre>
-   <?php
-        
-       echo $teste->getName();
+   <?php   
+      $teste->index();
+      echo getcwd();
     ?>
 </pre>

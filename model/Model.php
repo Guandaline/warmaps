@@ -1,17 +1,20 @@
 <?php
 
-include 'bd/Connexao.php';
-
+include '../../bd/Connexao.php';
+//include 'bd/Connexao.php';
+/**
+ * Abstrai todo o acesso ao banco de dados.
+ **/
 class Model {
 
     public $data = array();
     public $conn;
     public $id = 0;
-#    public $resultado;
+//   public $resultado;
     public $array = array();
     protected $name;
     protected $useTable;
-#    protected $schema;
+//   protected $schema;
     private $sql;
     private $aux;
 
@@ -132,7 +135,7 @@ class Model {
     public function selectById($id) {
         $sql = 'SELECT * FROM' . $this->useTable . ' WHERE id = :id;';
         $this->conn->query($sql);
-        $this->conn->execute();
+        $this->conn->execute(array('id' => $id));
         $this->array = $this->conn->fetch();
         return $this->array;
     }
