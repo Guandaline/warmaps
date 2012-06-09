@@ -1,13 +1,6 @@
 <?php
-ini_set('display_errors', 1);
-include_once '../../view/testeview.php';
-
-$t = new testeview();
+ echo 'esse é o titulo '.$titulo;
 ?>
 <pre>
-aaaaa
-    <?php
-    //$t->incluirController();
-    print_r($t);
-    ?>
+    <?php print_r($arr)?>
 </pre>

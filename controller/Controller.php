@@ -1,23 +1,24 @@
 <?php
 
-ini_set('display_errors', 1);
+
 /*Definir a classe controler (atributos e metodos)
  * criar tarefas para desenvolver os metodos
  */
 
 /**
- * Classe representa os dados.
+ * Classe que representa os dados.
  **/
 class Controller{
     
     public $viewVars = array();
-    protected $name;
     public $Model;
     protected $uses = array();
-
+    protected $name;
+    
     function __construct() {
         
         $this->incluirModel();
+        $this->setTitulo($this->name);
         
     }
     
@@ -26,8 +27,8 @@ class Controller{
      * Inclui o model do correspondente ao controller
      **/
     public function incluirModel($model = NULL){
-        $model = $this->name;
-        include '../../model/'.$this->name.'.php';
+        $model = $this->name.'Model';
+        //include_once 'model/'.$this->name.'Model.php';
         $this->Model = new $model();
     }
     
@@ -68,7 +69,24 @@ class Controller{
 		$this->viewVars = array_merge($this->viewVars, $data);
     }
     
+    /**
+     * Seta o titulo da página
+     * @param string $titulo Titulo da Página
+     **/
+    public function setTitulo($titulo){
+        $this->set('titulo', $titulo);
+    }
+    
+    /**
+     * Indica a página
+     * @param string $page Titulo da Página
+     **/
+//    public function setPage($page){
+//        $this->set('pagina', 'page/'.$this->name.'/'.$page.'.php');
+//    }
+    
 
 }
 
 ?>
+

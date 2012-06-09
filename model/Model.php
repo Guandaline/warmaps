@@ -1,6 +1,6 @@
 <?php
 
-include '../../bd/Connexao.php';
+//include_once 'bd/Connexao.php';
 //include 'bd/Connexao.php';
 /**
  * Abstrai todo o acesso ao banco de dados.

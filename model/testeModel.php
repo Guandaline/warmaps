@@ -1,6 +1,6 @@
 <?php
-include 'Model.php';
-class teste extends Model{
+include_once 'Model.php';
+class testeModel extends Model{
     var $name = 'teste';
     var $useTable = 'teste';
     
