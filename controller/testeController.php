@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Controller.php';
+//include_once 'Controller.php';
 
 class testeController extends Controller {
 

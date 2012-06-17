@@ -12,12 +12,10 @@
             ?>
         </div>
 
-        <div id="corpo">
-            <div id="conteudo">
-                <?php
-                include $this->page;
-                ?>
-            </div>
+        <div id="conteudo">
+            <?php
+            include $this->page;
+            ?>
         </div>
     </body>
 </html>

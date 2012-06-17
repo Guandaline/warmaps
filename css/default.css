@@ -4,9 +4,9 @@ Este arquivo deve ser chamado por todas as views
 
 */
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, 
+html, body, div, span, applet, object, iframe, p, 
 blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, 
-font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, 
+font, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, dl, 
 dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, 
 thead, tr, th, td {
 margin: 0;

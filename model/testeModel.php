@@ -1,5 +1,5 @@
 <?php
-include_once 'Model.php';
+//include_once 'Model.php';
 class testeModel extends Model{
     var $name = 'teste';
     var $useTable = 'teste';

@@ -8,7 +8,7 @@
 class Model {
 
     public $data = array();
-    public $conn;
+    private $conn;
     public $id = 0;
 //   public $resultado;
     public $array = array();
@@ -19,8 +19,10 @@ class Model {
     private $aux;
 
     function __construct() {
-        $this->conn = new Connexao();
-        $this->setID();
+        if($this->useTable != FALSE){
+            $this->conn = new Connexao();
+            $this->setID();
+        }
     }
 
     private function setID() {
@@ -111,6 +113,7 @@ class Model {
             $this->geraDelete();
             $this->conn->query($this->sql);
             $this->conn->execute(array('id' => $id));
+            $this->setID();
             return 1;
         } else {
             return 0;
