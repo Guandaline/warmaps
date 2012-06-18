@@ -11,11 +11,11 @@ class mapaController extends Controller {
     public function novo() {
         $this->setTitulo('Novo Mapa');
     }
-opa
-    
+
     public function salvar($data) {
 
-
+        $this->uses('territorio');
+        
         $file_name = $data['file']['mapafile']['name'];
         $file_type = $data['file']['mapafile']['type'];
         $file_size = $data['file']['mapafile']['size'];
@@ -30,7 +30,7 @@ opa
             $this->set('mensagem', $mensagem);
             return;
         }
-        $arquivo = fopen("file/mapas/" . $img, "r");
+        $arquivo = fopen("file/mapas/" . $file_name, "r");
         if ($arquivo) {
             $i = 0;
             while (!feof($arquivo)) {

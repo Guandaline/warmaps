@@ -10,23 +10,51 @@
 class Controller {
 
     public $viewVars = array();
-    public $Model;
+    protected $Model;
+    public $View;
+    public $action;
     protected $uses = array();
     protected $name;
-
-    function __construct() {
-
+   
+    
+    function __construct($action = NULL, $method = NULL, $dados = NULL) {
+        
         $this->incluirModel();
+        $this->incluirView();
+        
         $this->setTitulo($this->name);
+        
+        $action = is_string($action) ? $action : 'index';
+        $this->action = $action;
+
+        if (is_string($method)) {
+            if (method_exists($this, $method))
+                $this->$method($dados);
+        }else {
+            $this->set('errors','A classe controller ' . $this->name . 'Controller não possui o metodo ' . $method . '();<br/>');
+        }
+        
+        
+        
+        
+        
     }
 
     /**
      * Inclui o model do correspondente ao controller
      * */
-    public function incluirModel($model = NULL) {
+    
+    private function incluirModel($model = NULL) {
         $model = $this->name . 'Model';
-        //include_once 'model/'.$this->name.'Model.php';
         $this->Model = new $model();
+    }
+    
+    /**
+     * Inclui a VIEW
+     * */
+    
+    private function incluirView() {
+        $this->View = new View($this->name);
     }
 
     /**
@@ -63,7 +91,7 @@ class Controller {
         } else {
             $data = array($var => $value);
         }
-        $this->viewVars = array_merge($this->viewVars, $data);
+        $this->view->vars = array_merge($this->view->vars, $data);
     }
 
     /**
@@ -72,6 +100,10 @@ class Controller {
      * */
     public function setTitulo($titulo) {
         $this->set('titulo', $titulo);
+    }
+    
+    public function setData($dados) {
+        $this->Model->data = $dados;
     }
 
     public function getId() {

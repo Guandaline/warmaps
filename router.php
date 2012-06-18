@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 include_once 'element/includes.php';
 
-$view = isset($_GET['view']) ? $_GET['view'] : 'home';
+$controller = isset($_GET['ctrl']) ? $_GET['ctrl'] : 'home';
 $action = isset($_GET['action']) ? $_GET['action'] : NULL;
 $method = isset($_GET['method']) ? $_GET['method'] : NULL;
 
@@ -17,13 +17,13 @@ if($method != NULL){
 }
 //if(empty($_FILES)) $file = $_FILES;
 
-Utils::incluirMC($view);
+Utils::incluirMC($controller);
 
-$obj = new View($view, $action, $method, $data);
+$obj = $controller.'Controller';
 
-/*
-  if($post){
-  if(is_string($method))
-  $obj->controller->$method($_POST);
-  } */
+$ctr = new $obj($action, $method, $data);
+
+
+
+
 ?>
