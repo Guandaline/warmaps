@@ -12,42 +12,66 @@ class View {
     public $error = '';
     protected $name;
     protected $template = 'default';
-    private $html;
+    private $html =NULL;
 
-    function __construct($name) {
-
-
+    function __construct($name, $action = NULL, $method = NULL, $dados = NULL) {
+ob_clean();
         $this->name = $name;
-        //$this->incluirTemplate();
-        ob_start();
+        $this->incluirController();
+        $action = is_string($action) ? $action : 'index';
+        $this->action = $action;
 
-        //$this->render();
+        if (is_string($method)) {
+            if (method_exists($this->controller, $method))
+                $this->controller->$method($dados);
+        }else {
+            $this->error = 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $method . '();<br/>';
+        }
+
+
+        if (method_exists($this->controller, $action)) {
+            $this->controller->$action();
+            $this->vars = $this->controller->viewVars;
+            $this->setPage();
+        } else {
+            $this->error .= 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $this->action . '()';
+        }
+        
+        $this->incluirTemplate();
+        if (is_string($method)) {
+            if (method_exists($this->controller, $method))
+                $this->controller->$method($dados);
+        }else {
+            $this->error = 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $method . '();<br/>';
+        }
+        $this->render();
     }
 
     /**
      * Inclue o Controller da View 
      * * */
-    /*  public function incluirController() {
-      // include_once 'controller/'.$this->name.'Controller.php';
-      $controller = $this->name . 'Controller';
-      $this->controller = new $controller;
-      } */
+    public function incluirController() {
+        // include_once 'controller/'.$this->name.'Controller.php';
+        $controller = $this->name . 'Controller';
+        $this->controller = new $controller;
+    }
 
     /**
      * Inclue o Template 
      * * */
-    public function incluirTemplate() {
+    private function incluirTemplate() {
+        ob_start();
         extract($this->vars);
         include 'template/' . $this->template . '.php';
         $this->html = ob_get_clean();
+        ob_clean();
     }
 
     /**
      * Mostra a pagina
      * */
-    public function render() {
+    private function render() {
         echo $this->html;
-        ob_clean();
     }
 
     /**

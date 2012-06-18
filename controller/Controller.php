@@ -11,50 +11,23 @@ class Controller {
 
     public $viewVars = array();
     protected $Model;
-    public $View;
-    public $action;
     protected $uses = array();
     protected $name;
-   
-    
-    function __construct($action = NULL, $method = NULL, $dados = NULL) {
-        
-        $this->incluirModel();
-        $this->incluirView();
-        
-        $this->setTitulo($this->name);
-        
-        $action = is_string($action) ? $action : 'index';
-        $this->action = $action;
+    function __construct() {
 
-        if (is_string($method)) {
-            if (method_exists($this, $method))
-                $this->$method($dados);
-        }else {
-            $this->set('errors','A classe controller ' . $this->name . 'Controller não possui o metodo ' . $method . '();<br/>');
-        }
-        
-        
-        
-        
-        
+        $this->incluirModel();
+        $this->setTitulo($this->name);
     }
 
     /**
      * Inclui o model do correspondente ao controller
      * */
-    
-    private function incluirModel($model = NULL) {
+    public function incluirModel($model = NULL) {
         $model = $this->name . 'Model';
+        //$nomeModel = ucfirst($this->name); 
+        include_once 'model/'.$this->name.'Model.php';
+        //$this->Model = $nomeModel;
         $this->Model = new $model();
-    }
-    
-    /**
-     * Inclui a VIEW
-     * */
-    
-    private function incluirView() {
-        $this->View = new View($this->name);
     }
 
     /**
@@ -63,9 +36,12 @@ class Controller {
       @return objectModel O novo modelo pode ser acessado pelo atributo $uses.
      * */
     protected function uses($model) {
-        include 'model/' . $model . '.php';
-        $this->uses[$model] = new $model();
-        extract($this->uses[$model]);
+        
+        include_once 'model/' . $model . 'Model.php';
+        $nameModel = ucfirst($model);
+        $classModel = $model.'Model';
+        $this->uses[$model] = $nameModel;
+        $this->$nameModel= new $classModel();
     }
 
     /* retorna o nome do model */
@@ -91,7 +67,7 @@ class Controller {
         } else {
             $data = array($var => $value);
         }
-        $this->view->vars = array_merge($this->view->vars, $data);
+        $this->viewVars = array_merge($this->viewVars, $data);
     }
 
     /**
@@ -101,11 +77,11 @@ class Controller {
     public function setTitulo($titulo) {
         $this->set('titulo', $titulo);
     }
-    
+
     public function setData($dados) {
         $this->Model->data = $dados;
     }
-
+    
     public function getId() {
         return $this->Model->id;
     }
