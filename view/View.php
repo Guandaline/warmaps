@@ -12,10 +12,10 @@ class View {
     public $error = '';
     protected $name;
     protected $template = 'default';
-    private $html =NULL;
+    private $html = NULL;
 
     function __construct($name, $action = NULL, $method = NULL, $dados = NULL) {
-ob_clean();
+
         $this->name = $name;
         $this->incluirController();
         $action = is_string($action) ? $action : 'index';
@@ -36,14 +36,8 @@ ob_clean();
         } else {
             $this->error .= 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $this->action . '()';
         }
-        
+
         $this->incluirTemplate();
-        if (is_string($method)) {
-            if (method_exists($this->controller, $method))
-                $this->controller->$method($dados);
-        }else {
-            $this->error = 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $method . '();<br/>';
-        }
         $this->render();
     }
 

@@ -7,6 +7,7 @@ class mapaController extends Controller {
     public function index() {
         
     }
+   
 
     public function novo() {
         $this->uses('tipo');
@@ -15,32 +16,36 @@ class mapaController extends Controller {
         $this->setTitulo('Novo Mapa');
     }
 
+     public function config() {
+        
+    }
     public function salvar($data) {
 
         $this->uses('territorio');
-         
+
         $tipo = $data['post']['tipo'];
-        
+
         $file_name = $data['file']['mapafile']['name'];
         $file_type = $data['file']['mapafile']['type'];
         $file_tmp_name = $data['file']['mapafile']['tmp_name'];
-                
+
         $mensagem = '';
         $this->set('mensagem', $mensagem);
-       
-        if (stristr($file_type , "svg"))
+
+        if (stristr($file_type, "svg"))
             @move_uploaded_file($file_tmp_name, 'file/mapas/' . $file_name);
         else {
             $mensagem = "Formato de arquivo inválido";
             $this->set('mensagem', $mensagem);
             return;
         }
-        
+
         $arquivo = fopen("file/mapas/" . $file_name, "r");
         
+
         $territorios = NULL;
         if ($arquivo) {
-           $mapa = null;
+            $mapa = null;
             $i = 0;
             while (!feof($arquivo)) {
                 $linha = fgets($arquivo);
@@ -61,17 +66,32 @@ class mapaController extends Controller {
                 }
             }
         }
-        
-        $num_territorios = count($territorios);        
-        $dados = array('numero_territorios' => $num_territorios, 
-                       'nome' => $file_name, 
-                       'tipo' => $tipo,
-                       'mapa' => $mapa);
-        $this->setData($dados); 
-        $this->save();
-        
-        $this->set('regioes', $territorios);
 
+        $num_territorios = count($territorios);
+        $dados = array('numero_territorios' => $num_territorios,
+            'nome' => $file_name,
+            'tipo' => $tipo,
+            'mapa' => $mapa);
+        $this->setData($dados);
+        $this->save();
+        $id_mapa = $this->getId();
+
+        foreach ($territorios as $value) {
+            
+            $dados = array('id_mapa' => $id_mapa,
+                'label' => 'l_' . $value['name'],
+                'inome' => 't_' . $value['name'],
+                'nome' =>  $value['name']);
+            $this->Territorio->data = $dados;
+            $this->set('sql', $this->Territorio->save());
+        }
+
+        $this->set('dir', "file/mapas/" . $file_name);
+        $this->set('f_name', $file_name);
+        $this->set('num_t', $num_territorios);
+        
     }
+
 }
+
 ?>

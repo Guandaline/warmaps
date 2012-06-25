@@ -25,7 +25,7 @@ class Controller {
     public function incluirModel($model = NULL) {
         $model = $this->name . 'Model';
         //$nomeModel = ucfirst($this->name); 
-        include_once 'model/'.$this->name.'Model.php';
+        //include_once 'model/'.$this->name.'Model.php';
         //$this->Model = $nomeModel;
         $this->Model = new $model();
     }

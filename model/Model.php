@@ -100,6 +100,7 @@ class Model {
         $this->conn->query($this->sql);
         $this->conn->execute($this->data);
         $this->setID();
+        return $this->sql;
     }
 
     public function update($id) {
