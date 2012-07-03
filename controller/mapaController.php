@@ -7,7 +7,6 @@ class mapaController extends Controller {
     public function index() {
         
     }
-   
 
     public function novo() {
         $this->uses('tipo');
@@ -16,22 +15,19 @@ class mapaController extends Controller {
         $this->setTitulo('Novo Mapa');
     }
 
-     public function config() {
+    public function config() {
         
     }
+
     public function salvar($data) {
 
         $this->uses('territorio');
-
         $tipo = $data['post']['tipo'];
-
         $file_name = $data['file']['mapafile']['name'];
         $file_type = $data['file']['mapafile']['type'];
         $file_tmp_name = $data['file']['mapafile']['tmp_name'];
-
         $mensagem = '';
         $this->set('mensagem', $mensagem);
-
         if (stristr($file_type, "svg"))
             @move_uploaded_file($file_tmp_name, 'file/mapas/' . $file_name);
         else {
@@ -41,8 +37,6 @@ class mapaController extends Controller {
         }
 
         $arquivo = fopen("file/mapas/" . $file_name, "r");
-        
-
         $territorios = NULL;
         if ($arquivo) {
             $mapa = null;
@@ -50,18 +44,15 @@ class mapaController extends Controller {
             while (!feof($arquivo)) {
                 $linha = fgets($arquivo);
                 $mapa .= $linha;
-                if (stristr($linha, "<path")) {
-                    while (!stristr($linha, "/>") && !feof($arquivo)) {
-                        if (stristr($linha, "id=")) {
-                            $novo = explode("\"", $linha);
-                            if (!stristr($novo[1], "path") && stristr($novo[1], "t_")) {
-                                $nome = explode("_", $novo[1]);
-                                $territorios[$i]['name'] = $nome[1];
-                                $territorios[$i]['path'] = $linha;
-                                $i = $i + 1;
-                            }
-                        }
-                        $linha = fgets($arquivo);
+                if (stristr($linha, "id=")) {
+                    $novo = explode("\"", $linha);
+                    
+                    if (!stristr($novo[1], "path") && stristr($novo[1], "t_")) {
+                        $nome = explode("_", $novo[1]);
+                        $territorios[$i]['id'] = $novo[1];
+                        $territorios[$i]['name'] = $nome[1];
+                        $territorios[$i]['path'] = $linha;
+                        $i = $i + 1;
                     }
                 }
             }
@@ -77,11 +68,11 @@ class mapaController extends Controller {
         $id_mapa = $this->getId();
 
         foreach ($territorios as $value) {
-            
+
             $dados = array('id_mapa' => $id_mapa,
                 'label' => 'l_' . $value['name'],
                 'inome' => 't_' . $value['name'],
-                'nome' =>  $value['name']);
+                'nome' => $value['name']);
             $this->Territorio->data = $dados;
             $this->set('sql', $this->Territorio->save());
         }
@@ -89,7 +80,8 @@ class mapaController extends Controller {
         $this->set('dir', "file/mapas/" . $file_name);
         $this->set('f_name', $file_name);
         $this->set('num_t', $num_territorios);
-        
+        $this->set('territorios', $territorios);
+        return $territorios;
     }
 
 }
