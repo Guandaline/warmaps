@@ -38,6 +38,7 @@ class mapaController extends Controller {
 
         $arquivo = fopen("file/mapas/" . $file_name, "r");
         $territorios = NULL;
+        
         if ($arquivo) {
             $mapa = null;
             $i = 0;
@@ -74,13 +75,18 @@ class mapaController extends Controller {
                 'inome' => 't_' . $value['name'],
                 'nome' => $value['name']);
             $this->Territorio->data = $dados;
-            $this->set('sql', $this->Territorio->save());
+            //$this->set('sql', $this->Territorio->save());
         }
 
         $this->set('dir', "file/mapas/" . $file_name);
         $this->set('f_name', $file_name);
         $this->set('num_t', $num_territorios);
         $this->set('territorios', $territorios);
+        
+        $this->Territorio->data = null;
+        //$this->Territorio->data['campos'] = 'inome';
+       // $this->set('lista_territorios', $this->Territorio->select('inome'));
+        
         return $territorios;
     }
 

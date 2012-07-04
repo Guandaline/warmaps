@@ -4,7 +4,7 @@
 //include 'bd/Connexao.php';
 /**
  * Abstrai todo o acesso ao banco de dados.
- **/
+ * */
 class Model {
 
     public $data = array();
@@ -18,10 +18,11 @@ class Model {
     private $sql;
     private $aux;
 
-    function __construct() {
-        if($this->useTable != FALSE){
+    function __construct($id = 0) {
+        if ($this->useTable != FALSE) {
             $this->conn = new Connexao();
-            $this->setID();
+            if($id == 0) $this->setID();
+            else $this->id = $id;
         }
     }
 
@@ -33,27 +34,42 @@ class Model {
         $this->id = $this->array['id'];
         $this->array = array();
     }
+    
+    private function arrayToString($campos){
+        $string = '';
+        $num = count($campos);
+        $i = 0;
+        foreach ($campos as $value) {
+            $string .= $value;
+            if($i < $num - 1)
+                $string .= ', ';
+        }
+        return $string;
+    }
 
-    private function geraSelect() {
+    private function geraSelect($campos = null) {
         $sql = 'SELECT ';
-        if (!empty($this->data['campos'])) {
-            $sql .= $this->data['campos'];
-            $this->aux = $this->data['campos'];
-            unset($this->data['campos']);
+        if(is_array($campos)) {
+            $campos = arrayToString($campos);
+        }
+        if ($campos != null) {
+            $sql .= $campos;
         } else {
             $sql .= '*';
         }
-        $sql .= ' FROM ' . $this->useTable.' WHERE ';
-        foreach ($this->data as $key => $value) {
-            $num = count($this->data);
-            $i = 0;
+        $sql .= ' FROM ' . $this->useTable;
+        if (!empty($this->data)) {
+            $sql .= ' WHERE ';
+            foreach ($this->data as $key => $value) {
+                $num = count($this->data);
+                $i = 0;
                 $sql .= $key . ' = :' . $key;
                 if ($i < $num - 1)
                     $sql .= ' AND ';
-  
-            $i++;
-        }
 
+                $i++;
+            }
+        }
         $this->sql = $sql;
     }
 
@@ -121,13 +137,12 @@ class Model {
         }
     }
 
-    public function select() {
-        $this->geraSelect();
+    public function select($campos) {
+        $this->geraSelect($campos);
         $this->conn->query($this->sql);
         $this->conn->execute($this->data);
-        $this->array = $this->conn->fetch();
-        $this->data['campos'] = $this->aux;
-        return $this->sql;
+        $this->array = $this->conn->fetchALL();
+        return $this->array;
     }
 
     public function selectAll() {
@@ -140,7 +155,7 @@ class Model {
         $sql = 'SELECT * FROM' . $this->useTable . ' WHERE id = :id;';
         $this->conn->query($sql);
         $this->conn->execute(array('id' => $id));
-        $this->array = $this->conn->fetch();
+        $this->array = $this->conn->fetchAll();
         return $this->array;
     }
 

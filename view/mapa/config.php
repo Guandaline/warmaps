@@ -1,6 +1,9 @@
 <script>
    $(document).ready(function(){
-   console.log("Inicio.....");
+    
+    
+
+        console.log("Inicio.....");
         $("#game").svg({      
         onLoad: function() {       
             console.log("leu.....");
@@ -12,12 +15,15 @@
             });      
         },      
         settings: {}    });
+    
+    
+    
    });
 </script>
 
 <pre>
 <?php
-    print_r($territorios);
+    print_r($lista_territorios);
 ?>
 </pre>
 

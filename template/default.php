@@ -5,8 +5,8 @@
         <link rel="stylesheet" type="text/css" href="css/w1_style.css"/>
         <link rel="stylesheet" type="text/css" href="js/jquery.svg.css"/>
         <script type="text/javascript" src="js/jquery-1.7.1.js"></script>
-        <script type="text/javascript" src="js/jquery.svg.js"></script>
-        <script type="text/javascript" src="js/jquery.svgdom.js"></script>
+        <script type="text/javascript" src="js/jquery.svg.package-1.4.5/jquery.svg.js"></script>
+        <script type="text/javascript" src="js/jquery.svg.package-1.4.5/jquery.svgdom.js"></script>
         <title><?php echo $titulo; ?></title>
     </head>
     <body>
