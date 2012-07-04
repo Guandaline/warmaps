@@ -3,7 +3,7 @@
  * Incluir todos os controlles/views/models nesta pagina
  */
 
-/*Concexa com o banco*/
+/*Concexão com o banco*/
 include_once 'bd/Connexao.php';
 /*Classe de funções uteis*/
 include_once 'lib/Utils.php';

@@ -8,8 +8,8 @@ class territorioController extends Controller{
     }
     
     public function getListaterritorios(){
-        $this->Model->data['campos'] = 'inome';
-        $this->select();
+        $this->Model->data['id'] = 10;
+        $this->select('inome');
     }
     
     
