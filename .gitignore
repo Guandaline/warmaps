@@ -1,1 +1,9 @@
+# Ignorar arquivos específicos
+.DS_Store
+
+/bd/DataBaseConfig.php
 /nbproject/private/
+
+# Ignorar todos os diretórios e arquivos em um diretório.
+# tmp/**/*
+
