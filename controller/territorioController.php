@@ -6,9 +6,9 @@ class territorioController extends Controller{
     public function index(){
         
     }
-    
-    public function getListaterritorios(){
-        $this->Model->data['id'] = 10;
+
+    public function getListaTerritorios(){
+       // $this->Model->data['id'] = 10;
         $this->select('inome');
     }
     

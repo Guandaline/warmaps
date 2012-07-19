@@ -3,8 +3,8 @@
 
 class Utils{
     
-    public static function incluir($classe, $tipo){
-        $url = $tipo.'/'.$classe.ucfirst($tipo).'php';
+    public static function incluir($classe, $tipo, $nivel = ''){
+        $url = $nivel . $tipo.'/'.$classe.ucfirst($tipo).'.php';
         include_once $url;
     }
     

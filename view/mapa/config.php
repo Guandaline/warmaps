@@ -4,10 +4,10 @@
         function getListaIdTerritorios(){
             $.ajax({                       
                 context: $(this),
-                url: "ajax/json.php?controller=territorio&method=getListaterritorios",
+                url: "ajax/json.php?controller=territorio&method=getListaTerritorios",
                 success: function(msg) {
                     console.log(msg);
-                    msg = JSON.parse(msg);
+                    //msg = JSON.parse(msg);
                 }
             });
         }

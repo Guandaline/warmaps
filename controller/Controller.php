@@ -98,8 +98,8 @@ class Controller {
         $this->Model->delete($id);
     }
 
-    public function select() {
-        return $this->Model->select();
+    public function select($campos) {
+        return $this->Model->select($campos);
     }
 
     public function selectAll() {
