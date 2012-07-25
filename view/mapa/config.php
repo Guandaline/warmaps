@@ -8,7 +8,11 @@
                 success: function(msg) {
                     msg = JSON.parse(msg);
                    // console.log(msg);
-                    $.each();/*percorrer json*/
+                    $.each(msg, function(k, val){/*percorrer json*/
+                        console.log(val);
+                        $('path#' + val).removeAttr('style');
+                        $('path#' + val).addClass('territorio');  
+                    });
                 }
             });
         }
@@ -35,8 +39,8 @@
         setTimeout(function(){
             getListaIdTerritorios();
            $('path').each(function(){
-               $(this).removeAttr('style');
-               $(this).addClass('territorio');
+            //   $(this).removeAttr('style');
+              // $(this).addClass('territorio');
                //console.log($(this).attr('id'));
             })
         }, 1000);
