@@ -7,12 +7,13 @@
                 url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parm=30",
                 success: function(msg) {
                     msg = JSON.parse(msg);
-                    // console.log(msg);
+                   // console.log(msg);
+                    $.each();/*percorrer json*/
                 }
             });
         }
         
-        getListaIdTerritorios();
+        
 
         console.log("Inicio.....");
         $("#game").svg({      
@@ -23,11 +24,8 @@
                 svg.load('file/mapas/mapa2.svg', {          
                     addTo: true,          
                     changeSize: false        
-                }),
+                })
                 
-                $('#t_brasil').addClass('territorio');
-                console.log($('path#t_brasil'));
-                               
             },      
             settings: {}
            
@@ -35,10 +33,11 @@
         });
         
         setTimeout(function(){
+            getListaIdTerritorios();
            $('path').each(function(){
+               $(this).removeAttr('style');
                $(this).addClass('territorio');
-               $(this).
-                console.log($(this).attr('id'));
+               //console.log($(this).attr('id'));
             })
         }, 1000);
         

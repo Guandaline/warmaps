@@ -9,7 +9,14 @@ class territorioController extends Controller{
 
     public function getListaTerritorios($id){
         $this->Model->data['id_mapa'] = (int) $id;
-        return $this->select('inome');
+        $res = $this->select('inome');
+        $arr = array();
+        $i = 0;
+        foreach ($res as $val){
+            $arr[$i] = $val['inome'];
+            $i++;
+        }
+        return $arr;    
     }
     
     
