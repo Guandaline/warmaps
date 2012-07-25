@@ -12,6 +12,7 @@ include_once '../view/View.php';
 
 $controller = isset($_GET['controller']) ? $_GET['controller'] : NULL;
 $method = isset($_GET['method']) ? $_GET['method'] : NULL;
+$parm = isset($_GET['parm']) ? $_GET['parm'] : NULL;
 
 if ($controller != NULL && $method != NULL) {
     
@@ -19,14 +20,14 @@ if ($controller != NULL && $method != NULL) {
     Utils::incluir($controller, 'model', '../');
     $classe = $controller . 'Controller';
     $obj = new $classe();
-    $res = $obj->$method();
+    $res = $obj->$method($parm);
     
-    //echo json_encode($res);
+    echo json_encode($res);
 }else{
     
-    //echo json_encode(NULL);
+    echo json_encode(NULL);
     
 }
 
-echo $controller . ' ' . $method;
+//echo $controller . ' ' . $method;
 ?>

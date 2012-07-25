@@ -4,10 +4,10 @@
         function getListaIdTerritorios(){
             $.ajax({                       
                 context: $(this),
-                url: "ajax/json.php?controller=territorio&method=getListaTerritorios",
+                url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parm=30",
                 success: function(msg) {
-                    console.log(msg);
-                    //msg = JSON.parse(msg);
+                    msg = JSON.parse(msg);
+                    // console.log(msg);
                 }
             });
         }
@@ -23,9 +23,26 @@
                 svg.load('file/mapas/mapa2.svg', {          
                     addTo: true,          
                     changeSize: false        
-                });      
+                }),
+                
+                $('#t_brasil').addClass('territorio');
+                console.log($('path#t_brasil'));
+                               
             },      
-            settings: {}    });
+            settings: {}
+           
+            
+        });
+        
+        setTimeout(function(){
+           $('path').each(function(){
+               $(this).addClass('territorio');
+               $(this).
+                console.log($(this).attr('id'));
+            })
+        }, 1000);
+        
+        
     
     });
 </script>

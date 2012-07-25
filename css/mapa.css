@@ -4,4 +4,6 @@ root {
 
 .territorio{
     background: #484;
+    fill-opacity: 0.3;
+    fill: green;
 }
