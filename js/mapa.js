@@ -76,8 +76,10 @@ $(document).ready(function(){
         $.each(label, function(k, val){/*percorrer json*/
             var y = $('text#' + val).position().top;
             var x = $('text#' + val).position().left;
+            $('text#' + val);
            // console.log($('text#' + val).position().top);
             //console.log($('text#' + val).position().left);
+            $('<tspan>10</tspan>').appendTo($('text#' + val)).show();
             $('<input>').attr('type', 'checkbox')
             .attr('name', 'nome')
             .attr('value', val)
