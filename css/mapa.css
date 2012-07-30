@@ -3,10 +3,60 @@ root {
 }
 
 .territorio{
-    background: #484;
+    fill: #FFF;
+    fill-opacity: 0.9;
+    stroke-width:1;
+    stroke: grey;
 }
 
 .territorio:hover{
-    fill-opacity: 0.3;
+    fill-opacity: 0.7;
+    stroke-width: 2;
+    stroke: grey;
 }
+.continente{
+  fill-opacity: 1;
+}
+
+
+.selecionado, .selecionado:hover{
+    fill-opacity:0.9;
+    stroke-width:2;
+    stroke: black;
+}
+
+.jogavel{
+    fill-opacity: 1;
+    stroke-width:2;
+    stroke: black;
+}
+
+.apaga {
+    fill-opacity: 0.2;
+}
+
+.amarelo{
+  fill:yellow;
+}
+
+.vermelho{
+  fill:red;
+}
+
+.azul{
+  fill:blue;
+}
+
+.verde{
+  fill:green;
+}
+
+.preto{
+  fill:#343327;
+}
+
+.branco{
+  fill:#ffffff;
+}
+
 
