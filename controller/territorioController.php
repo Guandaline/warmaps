@@ -19,6 +19,18 @@ class territorioController extends Controller{
         return $arr;    
     }
     
+    public function getListaLabels($id){
+        $this->Model->data['id_mapa'] = (int) $id;
+        $res = $this->select('label');
+        $arr = array();
+        $i = 0;
+        foreach ($res as $val){
+            $arr[$i] = $val['label'];
+            $i++;
+        }
+        return $arr;    
+    }
+    
     
     
 }
