@@ -44,8 +44,8 @@ $(document).ready(function(){
                         //console.log(val);
                         l = $('#' + val);
                         span = l.find('tspan');
-                        l.removeData(span);
-                        console.log(l.find('tspan'));
+                        span.text(' ');
+                        console.log(span);
                     });
                 }
             });
@@ -119,14 +119,13 @@ $(document).ready(function(){
     }
     
     function adicionarCheckbox(name){
-        var l;
+        var l, t;
         $.each(label, function(k, val){/*percorrer json*/
             l = $('#' + val);
+            t = l.find('tspan');
             var y = l.position().top;
             var x = l.position().left;
             var id = getName(l, 2);
-           // l.hide();
-            //console.log(id);
             if(name != id){
                 $('<input>').attr('type', 'checkbox')
                 .attr('name', name)
@@ -146,7 +145,7 @@ $(document).ready(function(){
     getListaLabels();
     
        
-    $('path[class=territorio]').live('click', function(){
+    $('.territorio').live('click', function(){
         desselecinar();
         $(this).addClass('selecionado');
         var name = getName($(this), 2);
@@ -158,7 +157,7 @@ $(document).ready(function(){
         }
     });
         
-    $('path[class=territorio selecionado]').live('click', function(){
+    $('.territorio.selecionado').live('click', function(){
         $(this).removeClass('selecionado');
         var name = getName($(this), 2);
         var input = getInput(name);
