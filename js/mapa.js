@@ -1,5 +1,9 @@
 $(document).ready(function(){
     
+    jQuery.fn.exists = function (){
+        return jQuery(this).length > 0 ? true : false;
+    };
+    
     var territorios;
     var label;
     
@@ -15,8 +19,8 @@ $(document).ready(function(){
                     // console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         // console.log(val);
-                        $('path#' + val).removeAttr('style');
-                        $('path#' + val).addClass('territorio');  
+                        $('#' + val).removeAttr('style');
+                        $('#' + val).addClass('territorio');
                     });
                 }
             });
@@ -26,17 +30,21 @@ $(document).ready(function(){
     
     function getListaLabels(){
         setTimeout(function(){
-        
+            console.log('text');
             $.ajax({                       
                 context: $(this),
                 url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parm=30",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     label = msg;
-                // console.log(msg);
-                //                    $.each(msg, function(k, val){/*percorrer json*/
-                //                         console.log(val);
-                //                    });
+                    var l;
+                    //                 console.log(msg);
+                    $.each(msg, function(k, val){/*percorrer json*/
+                        //console.log(val);
+                        l = $('#' + val);
+                        l.html('<span></span>');
+                        console.log(l);
+                    });
                 }
             });
             
@@ -59,32 +67,72 @@ $(document).ready(function(){
         });
         
     } 
+    
+    function getName(element, pos){
+        return element.attr('id').toString().substring(pos);
+    }
+    
+    function getInput(name){
+        var input = $('input[name=' + name + ']');
+        if(input[0]){
+            //console.log(input);
+            return input;
+        }
+        return null
+    }
+    
+    function hiddeAll(element){
+        element.each(function(){
+            $(this).hide();
+        });
+    }
+    
+    function showAll(element){
+        element.each(function(){
+            $(this).show();
+        });
+    }
+    
+    function toggleAll(element){
+        element.each(function(){
+            $(this).toggle();
+        });
+    }
    
     function desselecinar(){
         
         $('path').each(function(){
             var classe = $(this).attr('class');
             if(classe == 'territorio selecionado'){
+                var name = getName($(this), 2);
+                console.log(name);
+                var input = getInput(name);
+                if(input != null){
+                    hiddeAll(input);
+                }
                 $(this).removeClass('selecionado');
             }
         });
         
     }
     
-    function adicionarCheckbox(){
-        console.log('addando...');
+    function adicionarCheckbox(name){
         $.each(label, function(k, val){/*percorrer json*/
-            var y = $('text#' + val).position().top;
-            var x = $('text#' + val).position().left;
-            $('text#' + val);
-           // console.log($('text#' + val).position().top);
-            //console.log($('text#' + val).position().left);
-            $('<tspan>10</tspan>').appendTo($('text#' + val)).show();
-            $('<input>').attr('type', 'checkbox')
-            .attr('name', 'nome')
-            .attr('value', val)
-            .css({position: 'absolute', top: y, left: x})
-            .appendTo('#inputs');
+            var y = $('#' + val).position().top;
+            var x = $('#' + val).position().left;
+            var id = getName($('text#' + val), 2);
+            //console.log(id);
+            if(name != id){
+                $('<input>').attr('type', 'checkbox')
+                .attr('name', name)
+                .attr('value', id)
+                .css({
+                    position: 'absolute', 
+                    top: y, 
+                    left: x
+                })
+                .appendTo('#inputs');
+            }
         });
     }
 
@@ -96,11 +144,22 @@ $(document).ready(function(){
     $('path[class=territorio]').live('click', function(){
         desselecinar();
         $(this).addClass('selecionado');
-        adicionarCheckbox();
+        var name = getName($(this), 2);
+        var input = getInput(name);
+        if(input != null){
+            showAll(input);
+        }else{
+            adicionarCheckbox(name);
+        }
     });
         
     $('path[class=territorio selecionado]').live('click', function(){
         $(this).removeClass('selecionado');
+        var name = getName($(this), 2);
+        var input = getInput(name);
+        if(input != null){
+            hiddeAll(input);
+        }
     });
     
     
