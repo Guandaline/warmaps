@@ -159,9 +159,10 @@ $(document).ready(function(){
         if(input != null){
             hiddeAll(input);
         }
+        console.log($('input'));
     });
     
-    $('input').on('change', function(){
+    $('input[type=checkbox]').live('click', function(){
         var e = $(this);
         var territorio_name = e.attr('name');
         var vizinho_name = e.attr('id');
@@ -169,17 +170,21 @@ $(document).ready(function(){
         
         console.log('click');
         
-        $.each(label, function(k, val){
+        $.each(territorios, function(k, val){
+          //  console.log(val.substring(2) + ' == ' + territorio_name);
             if(val.substring(2) == territorio_name){
-                t_id = K;
+                t_id = k;
+                console.log('t =' + t_id);
             }else{
                 if(val.substring(2) == vizinho_name){
-                    v_id = K;
+                    v_id = k;
+                    console.log('v =' + v_id);
                 }   
             }
+            
         });
-        consol.log('t =' + t_id + ' v =' + v_id);
-        /*
+        //console.log('t =' + t_id + ' v =' + v_id);
+    /*
         $.ajax({                       
             context: $(this),
             url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parm=30",
