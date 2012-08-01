@@ -15,5 +15,11 @@ class Utils{
         include_once $controller;
     }
     
+    public static function pa($var){
+        echo '<pre>';
+        print_r($var);
+        echo '</pre>';
+    }
+    
 }
 ?>

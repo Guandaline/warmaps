@@ -7,5 +7,8 @@
         </a>|
         <a href="index.php?view=teste">
                 Teste
+        </a>|
+        <a href="index.php?view=mapa&action=lista">
+                Editar
         </a>
 </div>

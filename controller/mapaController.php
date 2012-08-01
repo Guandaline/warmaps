@@ -18,6 +18,10 @@ class mapaController extends Controller {
     public function config() {
         
     }
+    
+    public function lista(){
+        $this->set('mapas', $this->select('id , nome'));
+    }
 
     public function salvar($data) {
 
