@@ -42,8 +42,8 @@ $(document).ready(function(){
                     $.each(msg, function(k, val){/*percorrer json*/
                         //console.log(val);
                         l = $('#' + val);
-                        l.html('<span></span>');
-                        console.log(l);
+                        l.find('tspan');
+                        console.log(l.find('tspan').html(''));
                     });
                 }
             });
