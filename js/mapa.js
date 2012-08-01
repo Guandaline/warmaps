@@ -38,14 +38,13 @@ $(document).ready(function(){
                     msg = JSON.parse(msg);
                     label = msg;
                     var l;
-                    var span;
+                    var tspan;
                     //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         //console.log(val);
                         l = $('#' + val);
-                        span = l.find('tspan');
-                        l.removeData(span);
-                        console.log(l.find('tspan'));
+                        tspan = l.find('tspan');
+                        tspan.text(' ');
                     });
                 }
             });
@@ -102,20 +101,15 @@ $(document).ready(function(){
     }
    
     function desselecinar(){
-        
-        $('path').each(function(){
-            var classe = $(this).attr('class');
-            if(classe == 'territorio selecionado'){
-                var name = getName($(this), 2);
-                console.log(name);
-                var input = getInput(name);
-                if(input != null){
-                    hiddeAll(input);
-                }
-                $(this).removeClass('selecionado');
+        var e = $('.territorio.selecionado');
+        if(e.exists()){
+            var name = getName(e, 2);
+            var input = getInput(name);
+            if(input != null){
+                hiddeAll(input);
             }
-        });
-        
+            e.removeClass('selecionado');
+        }
     }
     
     function adicionarCheckbox(name){
@@ -125,7 +119,7 @@ $(document).ready(function(){
             var y = l.position().top;
             var x = l.position().left;
             var id = getName(l, 2);
-           // l.hide();
+            // l.hide();
             //console.log(id);
             if(name != id){
                 $('<input>').attr('type', 'checkbox')
@@ -136,7 +130,7 @@ $(document).ready(function(){
                     top: y, 
                     left: x
                 })
-                .appendTo('#inputs');
+                .appendTo('div#inputs');
             }
         });
     }
@@ -146,7 +140,7 @@ $(document).ready(function(){
     getListaLabels();
     
        
-    $('path[class=territorio]').live('click', function(){
+    $('.territorio').live('click', function(){
         desselecinar();
         $(this).addClass('selecionado');
         var name = getName($(this), 2);
@@ -158,7 +152,7 @@ $(document).ready(function(){
         }
     });
         
-    $('path[class=territorio selecionado]').live('click', function(){
+    $('.territorio.selecionado').live('click', function(){
         $(this).removeClass('selecionado');
         var name = getName($(this), 2);
         var input = getInput(name);
@@ -166,7 +160,5 @@ $(document).ready(function(){
             hiddeAll(input);
         }
     });
-    
-    
     
 });
