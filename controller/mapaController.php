@@ -75,7 +75,7 @@ class mapaController extends Controller {
                 'inome' => 't_' . $value['name'],
                 'nome' => $value['name']);
             $this->Territorio->data = $dados;
-            //$this->set('sql', $this->Territorio->save());
+            $this->set('sql', $this->Territorio->save());
         }
 
         $this->set('dir', "file/mapas/" . $file_name);
@@ -85,7 +85,7 @@ class mapaController extends Controller {
         
         $this->Territorio->data = null;
         //$this->Territorio->data['campos'] = 'inome';
-       // $this->set('lista_territorios', $this->Territorio->select('inome'));
+        //$this->set('lista_territorios', $this->Territorio->select('inome'));
         
         return $territorios;
     }

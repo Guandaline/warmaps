@@ -38,12 +38,14 @@ $(document).ready(function(){
                     msg = JSON.parse(msg);
                     label = msg;
                     var l;
+                    var span;
                     //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         //console.log(val);
                         l = $('#' + val);
-                        l.find('tspan');
-                        console.log(l.find('tspan').html(''));
+                        span = l.find('tspan');
+                        l.removeData(span);
+                        console.log(l.find('tspan'));
                     });
                 }
             });
@@ -117,10 +119,13 @@ $(document).ready(function(){
     }
     
     function adicionarCheckbox(name){
+        var l;
         $.each(label, function(k, val){/*percorrer json*/
-            var y = $('#' + val).position().top;
-            var x = $('#' + val).position().left;
-            var id = getName($('text#' + val), 2);
+            l = $('#' + val);
+            var y = l.position().top;
+            var x = l.position().left;
+            var id = getName(l, 2);
+           // l.hide();
             //console.log(id);
             if(name != id){
                 $('<input>').attr('type', 'checkbox')
