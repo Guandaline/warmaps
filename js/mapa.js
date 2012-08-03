@@ -12,7 +12,7 @@ $(document).ready(function(){
         
             $.ajax({                       
                 context: $(this),
-                url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parm=30",
+                url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parametros=30",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     territorios = msg;
@@ -33,12 +33,12 @@ $(document).ready(function(){
             console.log('text');
             $.ajax({                       
                 context: $(this),
-                url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parm=30",
+                url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parametros=30",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     label = msg;
                     var l;
-                    var span;
+                    var tspan;
                     //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         //console.log(val);
@@ -102,20 +102,15 @@ $(document).ready(function(){
     }
    
     function desselecinar(){
-        
-        $('path').each(function(){
-            var classe = $(this).attr('class');
-            if(classe == 'territorio selecionado'){
-                var name = getName($(this), 2);
-                console.log(name);
-                var input = getInput(name);
-                if(input != null){
-                    hiddeAll(input);
-                }
-                $(this).removeClass('selecionado');
+        var e = $('.territorio.selecionado');
+        if(e.exists()){
+            var name = getName(e, 2);
+            var input = getInput(name);
+            if(input != null){
+                hiddeAll(input);
             }
-        });
-        
+            e.removeClass('selecionado');
+        }
     }
     
     function adicionarCheckbox(name){
@@ -129,13 +124,13 @@ $(document).ready(function(){
             if(name != id){
                 $('<input>').attr('type', 'checkbox')
                 .attr('name', name)
-                .attr('value', id)
+                .attr('id', id)
                 .css({
                     position: 'absolute', 
                     top: y, 
                     left: x
                 })
-                .appendTo('#inputs');
+                .appendTo('div#inputs');
             }
         });
     }
@@ -164,8 +159,38 @@ $(document).ready(function(){
         if(input != null){
             hiddeAll(input);
         }
+        console.log($('input'));
     });
     
+    $('input[type=checkbox]').live('click', function(){
+        var e = $(this);
+        var territorio_name = e.attr('name');
+        var vizinho_name = e.attr('id');
+        var t_id, v_id, val;
+        val = e.is(':checked');
+        $.each(territorios, function(k, val){
+          //  console.log(val.substring(2) + ' == ' + territorio_name);
+            if(val.substring(2) == territorio_name){
+                t_id = k;
+            }else{
+                if(val.substring(2) == vizinho_name){
+                    v_id = k;
+                }   
+            }
+            
+        });
+        //console.log('t =' + t_id + ' v =' + v_id);
     
+        $.ajax({                       
+            context: $(this),
+            url: "ajax/ajax.php?controller=vizinho&method=setVizinho&territorio=" + t_id 
+                + "&vizinho=" + v_id + '&val=' + val,
+            success: function(msg) {
+                //msg = JSON.parse(msg);
+                console.log(msg);
+            }
+        });
+        
+    });
     
 });

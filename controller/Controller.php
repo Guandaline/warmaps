@@ -109,14 +109,9 @@ class Controller {
     public function selectById($id) {
         return $this->Model->selectById($id);
     }
+    
+    
 
-    /**
-     * Indica a página
-     * @param string $page Titulo da Página
-     * */
-//    public function setPage($page){
-//        $this->set('pagina', 'page/'.$this->name.'/'.$page.'.php');
-//    }
 }
 ?>
 
