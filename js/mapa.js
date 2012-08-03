@@ -12,7 +12,7 @@ $(document).ready(function(){
         
             $.ajax({                       
                 context: $(this),
-                url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parm=30",
+                url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parametros=30",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     territorios = msg;
@@ -33,7 +33,7 @@ $(document).ready(function(){
             console.log('text');
             $.ajax({                       
                 context: $(this),
-                url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parm=30",
+                url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parametros=30",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     label = msg;
@@ -166,33 +166,31 @@ $(document).ready(function(){
         var e = $(this);
         var territorio_name = e.attr('name');
         var vizinho_name = e.attr('id');
-        var t_id, v_id;
-        
-        console.log('click');
-        
+        var t_id, v_id, val;
+        val = e.is(':checked');
         $.each(territorios, function(k, val){
           //  console.log(val.substring(2) + ' == ' + territorio_name);
             if(val.substring(2) == territorio_name){
                 t_id = k;
-                console.log('t =' + t_id);
             }else{
                 if(val.substring(2) == vizinho_name){
                     v_id = k;
-                    console.log('v =' + v_id);
                 }   
             }
             
         });
         //console.log('t =' + t_id + ' v =' + v_id);
-    /*
+    
         $.ajax({                       
             context: $(this),
-            url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parm=30",
+            url: "ajax/ajax.php?controller=vizinho&method=setVizinho&territorio=" + t_id 
+                + "&vizinho=" + v_id + '&val=' + val,
             success: function(msg) {
-                msg = JSON.parse(msg);
+                //msg = JSON.parse(msg);
+                console.log(msg);
             }
         });
-        */
+        
     });
     
 });

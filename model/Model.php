@@ -15,7 +15,7 @@ class Model {
     protected $name;
     protected $useTable;
 //   protected $schema;
-    private $sql;
+    public $sql;
     private $aux;
 
     function __construct($id = 0) {
@@ -60,9 +60,9 @@ class Model {
         $sql .= ' FROM ' . $this->useTable;
         if (!empty($this->data)) {
             $sql .= ' WHERE ';
+            $i = 0;
             foreach ($this->data as $key => $value) {
                 $num = count($this->data);
-                $i = 0;
                 $sql .= $key . ' = :' . $key;
                 if ($i < $num - 1)
                     $sql .= ' AND ';
