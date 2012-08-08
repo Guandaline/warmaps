@@ -28,5 +28,4 @@ if ($controller != NULL && $method != NULL) {
     
 }
 
-//echo $controller . ' ' . $method;
 ?>
