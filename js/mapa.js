@@ -6,6 +6,7 @@ $(document).ready(function(){
     
     var territorios;
     var label;
+    var vizinhos;
     
     function getListaIdTerritorios(){
         setTimeout(function(){
@@ -30,22 +31,36 @@ $(document).ready(function(){
     
     function getListaLabels(){
         setTimeout(function(){
-            console.log('text');
             $.ajax({                       
                 context: $(this),
                 url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parametros=30",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     label = msg;
-                    var l;
-                    var tspan;
-                    //                 console.log(msg);
+                    var l;                    //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         //console.log(val);
                         l = $('#' + val);
                         span = l.find('tspan');
                         span.text(' ');
-                        console.log(span);
+                    });
+                }
+            });
+            
+        }, 1500);
+    }
+    
+    function getListaVizinhos(territorio){
+        setTimeout(function(){
+            $.ajax({                       
+                context: $(this),
+                url: "ajax/vizinho.php?func=1&territorio=" + territorio_id,
+                success: function(msg) {
+                    msg = JSON.parse(msg);
+                    vizinhos = msg;
+                    var l;                    //                 console.log(msg);
+                    $.each(msg, function(k, val){/*percorrer json*/
+                        
                     });
                 }
             });
@@ -69,6 +84,17 @@ $(document).ready(function(){
         });
         
     } 
+    
+    function getIdTerritorio(name){
+        
+        $.each(territorios, function(k, val){
+          //  console.log(val.substring(2) + ' == ' + territorio_name);
+            if(val.substring(2) == name){
+                return k;
+            }            
+        });
+        
+    }
     
     function getName(element, pos){
         return element.attr('id').toString().substring(pos);
