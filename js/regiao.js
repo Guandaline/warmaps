@@ -45,18 +45,6 @@ $(document).ready(function(){
         });
     });
     
-    $('form[name=form_regiao]').submit(function(e){
-        e.preventDefault();
-        var params = $(this).serialize();
-        $.ajax({
-            type: 'post',
-            data: params,
-            url: "ajax/regiao.php?func=1&mapa=30",
-            success: function(data){
-                
-            },
-            async: false
-        });
-    });
+    
     
 });

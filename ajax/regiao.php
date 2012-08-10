@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 include_once 'includes.php';
 
-$controller = isset($_GET['controller']) ? $_GET['controller'] : 'vizinho';
+$controller = isset($_GET['controller']) ? $_GET['controller'] : 'regiao';
 $func = isset($_GET['func']) ? $_GET['func'] : 0;
 $mapa = isset($_GET['mapa']) ? $_GET['mapa'] : NULL;
 
@@ -19,6 +19,14 @@ switch ($func) {
         break;
     case 2:
         /*pegar dados do post*/
+        $nome = $_POST['nome'];
+        $cor = $_POST['cor'];
+        $valor = $_POST['estrategico'];
+        $exercitos = $_POST['exercitos'];
+        $id = isset($_POST['id']) ? $_POST['id'] : NULL;
+        
+        $res = $obj->setRegiao($mapa, $nome, $exercitos, $valor, $cor, $id);
+        
         break;
     default:
         $res = array('func invalida');
