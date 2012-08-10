@@ -22,14 +22,16 @@ $(document).ready(function(){
                         $('#' + val).removeAttr('style');
                         $('#' + val).addClass('territorio');
                     });
-                }
+                },
+                async: false
             });
             
         }, 1500);
     }
     
+    
+    
     function getListaLabels(){
-        setTimeout(function(){
             $.ajax({                       
                 context: $(this),
                 url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parametros=30",
@@ -42,10 +44,9 @@ $(document).ready(function(){
                         span = l.find('tspan');
                         span.text(' ');
                     });
-                }
-            });
-            
-        }, 1500);
+                },
+                async: false
+            });            
     }
     
     function getListaVizinhos(territorio_id){
@@ -57,13 +58,15 @@ $(document).ready(function(){
                 console.log(msg);
                 lista_vizinhos = JSON.parse(msg);
                 console.log(lista_vizinhos);
-            }
+            },
+            async: false
         });
     }
     
     function inserirMapa(name){
         
         $("#game").svg({      
+            
             onLoad: function() {       
                 var svg;        
                 svg = $("#game").svg('get');        
@@ -93,7 +96,7 @@ $(document).ready(function(){
         $.each(territorios, function(k, val){
             //  console.log(val.substring(2) + ' == ' + territorio_name);
             if(id == k){
-              r = val.substring(2);
+                r = val.substring(2);
             }            
         });
         return r;
@@ -180,17 +183,12 @@ $(document).ready(function(){
         }else{
             id = getTerritorioIdByName(name);
             adicionarCheckbox(name);
-            console.log('id = ' + id);
             getListaVizinhos(id);
-            setTimeout(function(){
             console.log('lista vizinhos ' + lista_vizinhos);
             $.each(lista_vizinhos, function(k , val){
                 name_vizinho = getTerritorioNameById(val);
-                console.log(k + '==' + val);
-                console.log(name_vizinho);
                 $('input[name=' + name + ']#' + name_vizinho).attr('checked', true);
             });
-            }, 1500);
         }
     });
         
@@ -224,7 +222,7 @@ $(document).ready(function(){
     
         $.ajax({                       
             context: $(this),
-            url: "ajax/ajax.php?controller=vizinho&method=setVizinho&territorio=" + t_id 
+            url: "ajax/vizinho.php?func=2&territorio=" + t_id 
             + "&vizinho=" + v_id + '&val=' + val
         });
         

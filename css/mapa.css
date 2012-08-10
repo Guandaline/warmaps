@@ -2,7 +2,7 @@ root {
     display: block;
 }
 
-.territorio{
+.territorio, .regiao{
     fill: #FFF;
     fill-opacity: 0.9;
     stroke-width:1;
