@@ -6,8 +6,7 @@ $(document).ready(function(){
     
     var territorios;
     var label;
-    var vizinhos;
-    
+    var lista_vizinhos;
     function getListaIdTerritorios(){
         setTimeout(function(){
         
@@ -39,7 +38,6 @@ $(document).ready(function(){
                     label = msg;
                     var l;                    //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
-                        //console.log(val);
                         l = $('#' + val);
                         span = l.find('tspan');
                         span.text(' ');
@@ -50,22 +48,17 @@ $(document).ready(function(){
         }, 1500);
     }
     
-    function getListaVizinhos(territorio){
-        setTimeout(function(){
-            $.ajax({                       
-                context: $(this),
-                url: "ajax/vizinho.php?func=1&territorio=" + territorio_id,
-                success: function(msg) {
-                    msg = JSON.parse(msg);
-                    vizinhos = msg;
-                    var l;                    //                 console.log(msg);
-                    $.each(msg, function(k, val){/*percorrer json*/
-                        
-                    });
-                }
-            });
-            
-        }, 1500);
+    function getListaVizinhos(territorio_id){
+        var res;    
+        $.ajax({                       
+            context: $(this),
+            url: "ajax/vizinho.php?func=1&territorio=" + territorio_id,
+            success: function(msg) {
+                console.log(msg);
+                lista_vizinhos = JSON.parse(msg);
+                console.log(lista_vizinhos);
+            }
+        });
     }
     
     function inserirMapa(name){
@@ -85,14 +78,25 @@ $(document).ready(function(){
         
     } 
     
-    function getIdTerritorio(name){
-        
+    function getTerritorioIdByName(name){
+        var res;
         $.each(territorios, function(k, val){
-          //  console.log(val.substring(2) + ' == ' + territorio_name);
             if(val.substring(2) == name){
-                return k;
+                res =  k;
             }            
         });
+        return res;
+    }
+    
+    function getTerritorioNameById(id){
+        var r = null;
+        $.each(territorios, function(k, val){
+            //  console.log(val.substring(2) + ' == ' + territorio_name);
+            if(id == k){
+              r = val.substring(2);
+            }            
+        });
+        return r;
         
     }
     
@@ -174,7 +178,19 @@ $(document).ready(function(){
         if(input != null){
             showAll(input);
         }else{
+            id = getTerritorioIdByName(name);
             adicionarCheckbox(name);
+            console.log('id = ' + id);
+            getListaVizinhos(id);
+            setTimeout(function(){
+            console.log('lista vizinhos ' + lista_vizinhos);
+            $.each(lista_vizinhos, function(k , val){
+                name_vizinho = getTerritorioNameById(val);
+                console.log(k + '==' + val);
+                console.log(name_vizinho);
+                $('input[name=' + name + ']#' + name_vizinho).attr('checked', true);
+            });
+            }, 1500);
         }
     });
         
@@ -185,7 +201,6 @@ $(document).ready(function(){
         if(input != null){
             hiddeAll(input);
         }
-        console.log($('input'));
     });
     
     $('input[type=checkbox]').live('click', function(){
@@ -195,7 +210,7 @@ $(document).ready(function(){
         var t_id, v_id, val;
         val = e.is(':checked');
         $.each(territorios, function(k, val){
-          //  console.log(val.substring(2) + ' == ' + territorio_name);
+            //  console.log(val.substring(2) + ' == ' + territorio_name);
             if(val.substring(2) == territorio_name){
                 t_id = k;
             }else{
@@ -210,11 +225,7 @@ $(document).ready(function(){
         $.ajax({                       
             context: $(this),
             url: "ajax/ajax.php?controller=vizinho&method=setVizinho&territorio=" + t_id 
-                + "&vizinho=" + v_id + '&val=' + val,
-            success: function(msg) {
-                //msg = JSON.parse(msg);
-                console.log(msg);
-            }
+            + "&vizinho=" + v_id + '&val=' + val
         });
         
     });

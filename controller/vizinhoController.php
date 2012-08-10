@@ -6,11 +6,10 @@ class vizinhoController extends Controller {
 
     public function getVizinho($territorio) {
         $this->Model->data['territorio'] = $territorio;
-        $res = $this->selectAll();
+        $res = $this->select('vizinho');
         $arr = array();
         foreach ($res as $val) {
-            $arr[$val['id']]['territorio'] = $val['territorio'];
-            $arr[$val['id']]['vizinho'] = $val['vizinho'];
+            $arr []  = $val['vizinho'];
         }
         return $arr;
     }

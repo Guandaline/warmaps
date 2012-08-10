@@ -17,7 +17,7 @@ switch ($func) {
     case 1:
         $res = $obj->getVizinho($territorio);
         break;
-    case 2: 
+    case 2:
         $vizinho = isset($_GET['vizinho']) ? $_GET['vizinho'] : NULL;
         $val = isset($_GET['val']) ? $_GET['val'] : NULL;
         $res = $obj->setVizinho($territorio, $vizinho, $val);
@@ -28,6 +28,6 @@ switch ($func) {
 }
 
 
-    echo json_encode($res);
+echo json_encode($res);
 
 ?>
