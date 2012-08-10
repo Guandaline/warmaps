@@ -16,7 +16,7 @@
             </a>
         </div>
         <div class="regs">
-            Lista de Vizinhos
+            Lista de Regiões Aqui
         </div>
     </div>
 </div>    
