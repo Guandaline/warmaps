@@ -22,8 +22,9 @@
             </a>
         </div>
         <div class="regs">
-            Lista de Regiões Aqui
+            Lista de Regiões Aqui<br/>
         </div>
+        
     </div>
 </div>    
 <div id="game" style="width: 95%; height: 90%; border: solid 1px #000; text-align: center;"></div>

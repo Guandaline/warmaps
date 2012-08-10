@@ -1,7 +1,6 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $('form[name=form_regiao]').submit(function(e){
-            console.log('aaaaaaaaaaaaaaaaa');
             e.preventDefault();
             var params = $(this).serialize();
             $.ajax({
@@ -9,13 +8,30 @@
                 data: params,
                 url: "ajax/regiao.php?func=2&mapa=30",
                 success: function(msg){
-                    console.log('Salvou?');
-                    console.log(msg);
-                    //$( "#dialog-form" ).dialog("close");
+                    //console.log('Salvou?');
+                    //console.log(msg);
+                    $( "#dialog-form" ).dialog("close");
                 },
                 async: false
             });
         });
+        
+        function edit(){
+            input = $('input[name=id]');
+            if(input[0]){
+                id = input.attr('id');
+                $.ajax({
+                    context: $(this),
+                    url: "ajax/regiao.php?func=3&mapa=30",
+                    success: function(msg) {
+                        if(msg){
+                            
+                        }
+                    },
+                    async: false
+                });
+            }
+        }
     });
 </script>
 <?php

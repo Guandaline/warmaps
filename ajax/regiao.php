@@ -28,6 +28,12 @@ switch ($func) {
         $res = $obj->setRegiao($mapa, $nome, $exercitos, $valor, $cor, $id);
         
         break;
+    case 3:
+        
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+        $res = $obj->getRegiao($id);
+        
+        break;
     default:
         $res = array('func invalida');
         break;
