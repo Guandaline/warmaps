@@ -18,9 +18,7 @@ switch ($func) {
         $res = $obj->getListaregiao($mapa);
         break;
     case 2:
-        $vizinho = isset($_GET['vizinho']) ? $_GET['vizinho'] : NULL;
-        $val = isset($_GET['val']) ? $_GET['val'] : NULL;
-        $res = $obj->setVizinho($territorio, $vizinho, $val);
+        /*pegar dados do post*/
         break;
     default:
         $res = array('func invalida');

@@ -1,5 +1,5 @@
 <div>
-    <form name="regiao" method="post" action="">
+    <form name="form_regiao" method="post" action="">
         Nome: <input name="nome" type="text"/>
         <br/>
         Cor: 
