@@ -19,10 +19,11 @@
         function edit(){
             input = $('input[name=id]');
             if(input[0]){
-                id = input.attr('id');
+                id = input.val();
+                 console.log(id);
                 $.ajax({
                     context: $(this),
-                    url: "ajax/regiao.php?func=3&mapa=30",
+                    url: "ajax/regiao.php?func=3&id=" + id,
                     success: function(msg) {
                         msg = JSON.parse(msg);
                         console.log(msg);

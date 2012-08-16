@@ -13,8 +13,8 @@ class regiaoController extends Controller{
     }
     
     public function getRegiao($id){
-        $this->Model->data['id'] = $id;
-        $res = $this->selectAll();
+        $this->Model->data['id'] = (int)$id;
+        $res = $this->select();
         return $res;
     }
     

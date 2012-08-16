@@ -1,6 +1,8 @@
 $(document).ready(function(){
     var regioes;
     $.ajax({
+        
+        /*Montar um menu e atualizar toda vez que uma região for alterada*/
         context: $(this),
         url: "ajax/regiao.php?func=1&mapa=30",
         success: function(msg) {
@@ -15,7 +17,7 @@ $(document).ready(function(){
                     .attr('id', k)
                     .val(val)
                     .appendTo($('div.regs'));
-                    
+                    $('<br/>').appendTo($('div.regs'));
                 });
             }
         },
@@ -53,7 +55,6 @@ $(document).ready(function(){
     
     
     $('a.editar_regiao').click(function(){
-        console.log('vaiiii');
         $('a.mod_regioes').click();
         var id = $(this).attr('id');
         $.ajax({

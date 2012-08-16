@@ -23,6 +23,7 @@
         </div>
         <div class="regs">
             Lista de Regiões Aqui<br/>
+            <hr/>
         </div>
         
     </div>
