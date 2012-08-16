@@ -24,14 +24,20 @@
                     context: $(this),
                     url: "ajax/regiao.php?func=3&mapa=30",
                     success: function(msg) {
+                        msg = JSON.parse(msg);
+                        console.log(msg);
                         if(msg){
-                            
+                            $('input[name=nome]').val(msg[0].nome);
+                            $('input[name=estrategico]').val(msg[0].valor_estrategico);
+                            $('input[name=exercitos]').val(msg[0].exercitos);
                         }
                     },
                     async: false
                 });
             }
         }
+        
+        edit();
     });
 </script>
 <?php

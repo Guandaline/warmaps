@@ -1,6 +1,5 @@
 <?php
 
-ini_set('display_errors', 1);
 include_once 'includes.php';
 
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'vizinho';

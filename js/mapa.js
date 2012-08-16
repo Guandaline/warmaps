@@ -55,9 +55,7 @@ $(document).ready(function(){
             context: $(this),
             url: "ajax/vizinho.php?func=1&territorio=" + territorio_id,
             success: function(msg) {
-                console.log(msg);
                 lista_vizinhos = JSON.parse(msg);
-                console.log(lista_vizinhos);
             },
             async: false
         });
@@ -72,7 +70,7 @@ $(document).ready(function(){
                 svg = $("#game").svg('get');        
                 svg.load('file/mapas/mapa2.svg', {          
                     addTo: true,          
-                    changeSize: false        
+                    changeSize: true       
                 })
                 
             },      
