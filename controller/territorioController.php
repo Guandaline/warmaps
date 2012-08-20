@@ -29,6 +29,12 @@ class territorioController extends Controller{
         return $arr;    
     }
     
+    public function setRegiao($territorio, $regiao){
+        
+        $this->Model->data['id_regiao'] = $regiao;
+        $this->update($territorio);
+        return array('sql' => $this->Model->sql);
+    }
     
     
 }

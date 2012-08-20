@@ -1,29 +1,99 @@
 $(document).ready(function(){
-    var regioes;
-    $.ajax({
-        
-        /*Montar um menu e atualizar toda vez que uma região for alterada*/
-        context: $(this),
-        url: "ajax/regiao.php?func=1&mapa=30",
-        success: function(msg) {
-            if(msg){
+    
+    var cores;
+    
+    
+    function getCores(){
+        $.ajax({
+            context: $(this),
+            url: "ajax/regiao.php?func=4&mapa=30",
+            success: function(msg) {
                 msg = JSON.parse(msg);
-                regioes = msg;
-                $.each(msg, function(k, val){/*percorrer json*/
-                    
-                    $('<a>' + val +'</a>')
-                    .addClass('editar_regiao')
-                    .attr('name', val)
-                    .attr('id', k)
-                    .val(val)
-                    .appendTo($('div.regs'));
-                    $('<br/>').appendTo($('div.regs'));
-                });
+                cores = msg;
             }
-        },
-        async: false
+        });
+    }
+   
+    function getRegs(){
+        $.ajax({
+        
+            /*Montar um menu e atualizar toda vez que uma região for alterada*/
+            context: $(this),
+            url: "ajax/regiao.php?func=1&mapa=30",
+            success: function(msg) {
+                if(msg){
+                    msg = JSON.parse(msg);
+                    regioes = msg;
+                    $('div.regs').html('');
+                    $.each(msg, function(k, val){/*percorrer json*/
+                        $('<a>' + val +'</a>')
+                        .addClass('editar_regiao')
+                        .attr('name', val)
+                        .attr('id', k)
+                        .val(val)
+                        .appendTo($('div.regs'));
+                        
+                        $('<span> | </span>').appendTo($('div.regs'));
+                        
+                        $('<a>Excluir</a>')
+                        .addClass('excluir_regiao')
+                        .attr('name', val)
+                        .attr('id', k)
+                        .val(val)
+                        .appendTo($('div.regs'));
+                        
+                        $('<span> | </span>').appendTo($('div.regs'));
+                        $('<a>Territorios</a>')
+                        .addClass('territorios_regiao')
+                        .attr('name', val)
+                        .attr('id', k)
+                        .val(val)
+                        .appendTo($('div.regs'));
+                       
+                        
+                        $('<br/>').appendTo($('div.regs'));
+                        $('<hr/>').appendTo($('div.regs'));
+                    });
+                }
+            },
+            async: false
+        });
+    }
+    
+    
+    function marcarRegs(reg){
+        console.log($('.regiao'));
+        $('.regiao').each(function(){
+            console.log($(this))
+            $(this).attr('reg', reg);
+        })
+    }
+    
+    getRegs();
+    getCores();
+    
+    $('.regiao').live('click', function(){
+        t = $(this);
+        var reg = t.attr('reg');
+        var territorio = t.attr('id');
+        t.addClass(cores[reg]);
+        $.ajax({
+            context: this,
+            url: "ajax/territorio.php?func=1&regiao=" + reg + "&territorio=" + territorio,
+            success: function(data){
+                
+            } 
+        });
     });
     
+    $('a.territorios_regiao').live('click', function(){
+        console.log('aaaaaaaaaaaa');
+        /*chamar função de esconder o menu lateral*/
+        var reg = $(this).attr('id');
+        marcarRegs(reg);
+    });
+        
+      
     $('a.nova_regiao').click(function(){
         $('a.mod_regioes').click();
         $.ajax({
@@ -45,6 +115,7 @@ $(document).ready(function(){
                         }
                     },
                     close: function() {
+                        getRegs();
                     // allFields.val( "" ).removeClass( "ui-state-error" );
                     }
                 });
@@ -54,7 +125,7 @@ $(document).ready(function(){
     });
     
     
-    $('a.editar_regiao').click(function(){
+    $('a.editar_regiao').live('click',function(){
         $('a.mod_regioes').click();
         var id = $(this).attr('id');
         $.ajax({
@@ -76,13 +147,13 @@ $(document).ready(function(){
                         }
                     },
                     close: function() {
-                    // allFields.val( "" ).removeClass( "ui-state-error" );
+                        getRegs();
                     }
                 });
                 $( "#dialog-form" ).dialog( "open" ); 
-            }            
+            },
+            async: false
         });
     });
-    
     
 });

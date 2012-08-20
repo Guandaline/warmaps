@@ -31,7 +31,15 @@ class regiaoController extends Controller{
         return $this->Model->sql;
     }
     
-    
+    public function getCores($mapa){
+        $this->Model->data['id_mapa'] = $mapa;
+        $res = $this->select('id, cor');
+        $arr = array();
+        foreach ($res as $val) {
+            $arr [$val['id']]  = $val['cor'];
+        }
+        return $arr;
+    }
     
 }
 

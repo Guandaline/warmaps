@@ -33,6 +33,9 @@ switch ($func) {
         $res = $obj->getRegiao($id);
         
         break;
+    case 4:
+        $res = $obj->getCores($mapa);
+        break;
     default:
         $res = array('func invalida');
         break;

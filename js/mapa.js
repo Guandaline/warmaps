@@ -20,7 +20,9 @@ $(document).ready(function(){
                     $.each(msg, function(k, val){/*percorrer json*/
                         // console.log(val);
                         $('#' + val).removeAttr('style');
-                        $('#' + val).addClass('territorio');
+                        $('#' + val).addClass('territorio')
+                                    .attr('id', k)
+                                    .attr('name', val.toString().substring(2));
                     });
                 },
                 async: false
@@ -41,6 +43,7 @@ $(document).ready(function(){
                     var l;                    //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         l = $('#' + val);
+                        l.addClass('label').attr('id', k).attr('name', val);
                         span = l.find('tspan');
                         span.text(' ');
                     });
@@ -132,10 +135,10 @@ $(document).ready(function(){
         });
     }
    
-    function desselecinar(){
+    function desselecionar(){
         var e = $('.territorio.selecionado');
         if(e.exists()){
-            var name = getName(e, 2);
+            var name = e.attr('id');
             var input = getInput(name);
             if(input != null){
                 hiddeAll(input);
@@ -147,15 +150,16 @@ $(document).ready(function(){
     function adicionarCheckbox(name){
         var l, t;
         $.each(label, function(k, val){/*percorrer json*/
-            l = $('#' + val);
+            l = $('[name='+ val +'].label');
             t = l.find('tspan');
             var y = l.position().top;
             var x = l.position().left;
-            var id = getName(l, 2);
+            var id = $('[name='+ val.toString().substring(2) +'].territorio').attr('id');
             if(name != id){
                 $('<input>').attr('type', 'checkbox')
                 .attr('name', name)
                 .attr('id', id)
+                /*.addClass(id)*/
                 .css({
                     position: 'absolute', 
                     top: y, 
@@ -172,27 +176,28 @@ $(document).ready(function(){
     
        
     $('.territorio').live('click', function(){
-        desselecinar();
+        desselecionar();
         $(this).addClass('selecionado');
-        var name = getName($(this), 2);
+        var name = getName($(this), 0);
         var input = getInput(name);
         if(input != null){
             showAll(input);
         }else{
-            id = getTerritorioIdByName(name);
+            id = $(this).attr('id');
             adicionarCheckbox(name);
             getListaVizinhos(id);
             console.log('lista vizinhos ' + lista_vizinhos);
             $.each(lista_vizinhos, function(k , val){
-                name_vizinho = getTerritorioNameById(val);
-                $('input[name=' + name + ']#' + name_vizinho).attr('checked', true);
+                name_vizinho = val;
+                console.log('input[name=' + name + '] #' + name_vizinho);
+                $('input[name=' + name + '][id=' + name_vizinho + ']').attr('checked', true);
             });
         }
     });
         
     $('.territorio.selecionado').live('click', function(){
         $(this).removeClass('selecionado');
-        var name = getName($(this), 2);
+        var name = $(this).attr('id');
         var input = getInput(name);
         if(input != null){
             hiddeAll(input);
@@ -201,23 +206,10 @@ $(document).ready(function(){
     
     $('input[type=checkbox]').live('click', function(){
         var e = $(this);
-        var territorio_name = e.attr('name');
-        var vizinho_name = e.attr('id');
-        var t_id, v_id, val;
-        val = e.is(':checked');
-        $.each(territorios, function(k, val){
-            //  console.log(val.substring(2) + ' == ' + territorio_name);
-            if(val.substring(2) == territorio_name){
-                t_id = k;
-            }else{
-                if(val.substring(2) == vizinho_name){
-                    v_id = k;
-                }   
-            }
-            
-        });
-        //console.log('t =' + t_id + ' v =' + v_id);
-    
+        var t_id = e.attr('name');
+        var v_id = e.attr('id');
+        var val = e.is(':checked');
+   
         $.ajax({                       
             context: $(this),
             url: "ajax/vizinho.php?func=2&territorio=" + t_id 

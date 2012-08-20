@@ -1,7 +1,3 @@
-<script src="js/mapa.js"></script>
-<script src="js/lateral.js"></script>
-<script src="js/regiao.js"></script>
-
 <div class="lateral">
     <div class="mostrar">  </div>
     <div class="options">
@@ -16,21 +12,14 @@
                 Nova região
             </a>
         </div>
-        <div style="display: none;">
+        <div>
             <a class="mod_regioes" href="#">
                 Indicar Regiões
             </a>
         </div>
-           <hr/>
-           <br/>
-           <strong>Editar regiões</strong>
-           <br/>
-           <br/>
+            <hr/>
         <div class="regs">
         </div>
         
     </div>
-</div>    
-<div id="game" style="width: 95%; height: 90%; border: solid 1px #000; text-align: center;"></div>
-<div id="inputs"></div>
-<div id="dialog-form"></div>
+</div>  
