@@ -10,8 +10,19 @@ $(document).ready(function(){
             success: function(msg) {
                 msg = JSON.parse(msg);
                 cores = msg;
-            }
+            },
+            async: false
         });
+    }
+   
+    
+    function setCores(){
+        console.log('cores em territorios' );
+        $('.territorio').each(function(){
+            console.log($(this).attr('name'))
+            reg = $(this).attr('reg');
+            $(this).addClass(cores[reg]);
+        });        
     }
    
     function getRegs(){
@@ -62,15 +73,19 @@ $(document).ready(function(){
     
     
     function marcarRegs(reg){
-        console.log($('.regiao'));
         $('.regiao').each(function(){
-            console.log($(this))
             $(this).attr('reg', reg);
-        })
+        });
     }
+   
     
     getRegs();
-    getCores();
+    
+    console.log('evento');
+   $('a[name=cores]').click(function(){
+        getCores();
+        setCores();
+   });
     
     $('.regiao').live('click', function(){
         t = $(this);
@@ -87,7 +102,8 @@ $(document).ready(function(){
     });
     
     $('a.territorios_regiao').live('click', function(){
-        console.log('aaaaaaaaaaaa');
+        setCores();
+        $('a.mod_regioes').click();
         /*chamar função de esconder o menu lateral*/
         var reg = $(this).attr('id');
         marcarRegs(reg);

@@ -18,12 +18,14 @@ $(document).ready(function(){
                     territorios = msg;
                     // console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
-                        // console.log(val);
-                        $('#' + val).removeAttr('style');
-                        $('#' + val).addClass('territorio')
+                        $('#' + val['name']).removeAttr('style');
+                        $('#' + val['name']).addClass('territorio')
                                     .attr('id', k)
-                                    .attr('name', val.toString().substring(2));
+                                    .attr('name', val['name'].toString().substring(2))
+                                    .attr('reg', val['reg']);
                     });
+                    console.log('dispara evento');
+                    $('a[name=cores]').click();
                 },
                 async: false
             });

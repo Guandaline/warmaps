@@ -36,27 +36,33 @@ root {
 }
 
 .amarelo{
-  fill:yellow;
+    stroke-width:2;
+  stroke: #efe661;
 }
 
 .vermelho{
-  fill:red;
+    stroke-width:2;
+  stroke: #f64a2d;
 }
 
 .azul{
-  fill:blue;
+    stroke-width:2;
+  stroke: #4567BA;
 }
 
 .verde{
-  fill:green;
+    stroke-width:2;
+  stroke: #45BA67;
 }
 
 .preto{
-  fill:#343327;
+    stroke-width:2;
+  stroke: #343327;
 }
 
 .branco{
-  fill:#ffffff;
+    stroke-width:2;
+  stroke: #ffffff;
 }
 
 

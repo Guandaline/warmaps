@@ -34,6 +34,8 @@ $(document).ready(function(){
         //esconder();
     });
     
+   
+    
     $('a.mod_regioes').click(function(){
         $('.territorio').each(function(){
             $(this).removeClass('territorio');

@@ -9,10 +9,11 @@ class territorioController extends Controller{
 
     public function getListaTerritorios($id){
         $this->Model->data['id_mapa'] = (int) $id;
-        $res = $this->select('id, inome');
+        $res = $this->select('id, inome, id_regiao');
         $arr = array();
         foreach ($res as $val){
-            $arr[$val['id']] = $val['inome'];
+            $arr[$val['id']]['name'] = $val['inome'];
+            $arr[$val['id']]['reg'] = $val['id_regiao'];
         }
         return $arr;    
     }
@@ -34,6 +35,10 @@ class territorioController extends Controller{
         $this->Model->data['id_regiao'] = $regiao;
         $this->update($territorio);
         return array('sql' => $this->Model->sql);
+    }
+    
+    public function getRegiao(){
+        
     }
     
     
