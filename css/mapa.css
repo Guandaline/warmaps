@@ -3,21 +3,35 @@ root {
 }
 
 .territorio, .regiao{
-    fill: #FFF;
-    fill-opacity: 0.9;
+    background-color: #cdcece;
+    fill: #bde0f6;
+    fill-opacity: 0.8;
     stroke-width:1;
     stroke: grey;
 }
 
 .territorio:hover{
-    fill-opacity: 0.7;
+    fill-opacity: 1;
     stroke-width: 2;
-    stroke: grey;
+    stroke: black;
+}
+
+.regiao:hover{
+    fill-opacity: 1;
+    stroke-width: 2;
+    stroke: #fff;
 }
 .continente{
   fill-opacity: 1;
 }
 
+.tropas{
+    width: 15px;
+    height: 15px;
+    border: solid 1px #343327;
+    border-radius: 10px;
+    
+}
 
 .selecionado, .selecionado:hover{
     fill-opacity:0.9;
@@ -36,33 +50,27 @@ root {
 }
 
 .amarelo{
-    stroke-width:2;
-  stroke: #efe661;
+   
+  fill: #f6f38b;
 }
 
 .vermelho{
-    stroke-width:2;
-  stroke: #f64a2d;
+  fill:red;
 }
 
 .azul{
-    stroke-width:2;
-  stroke: #4567BA;
+  fill: #4567BA;
 }
 
 .verde{
-    stroke-width:2;
-  stroke: #45BA67;
+  fill:green;
 }
 
 .preto{
-    stroke-width:2;
-  stroke: #343327;
+  fill:#343327;
 }
 
 .branco{
-    stroke-width:2;
-  stroke: #ffffff;
+  fill:#ffffff;
 }
-
 

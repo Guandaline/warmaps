@@ -1,6 +1,6 @@
 $(document).ready(function(){
     
-    var cores;
+    var cores, reg;
     
     
     function getCores(){
@@ -71,17 +71,11 @@ $(document).ready(function(){
         });
     }
     
-    
-    function marcarRegs(reg){
-        $('.regiao').each(function(){
-            $(this).attr('reg', reg);
-        });
-    }
+
    
     
     getRegs();
     
-    console.log('evento');
    $('a[name=cores]').click(function(){
         getCores();
         setCores();
@@ -89,8 +83,9 @@ $(document).ready(function(){
     
     $('.regiao').live('click', function(){
         t = $(this);
-        var reg = t.attr('reg');
         var territorio = t.attr('id');
+        t.attr('class', 'regiao');
+        t.attr('reg', reg);
         t.addClass(cores[reg]);
         $.ajax({
             context: this,
@@ -102,11 +97,10 @@ $(document).ready(function(){
     });
     
     $('a.territorios_regiao').live('click', function(){
-        setCores();
         $('a.mod_regioes').click();
         /*chamar função de esconder o menu lateral*/
-        var reg = $(this).attr('id');
-        marcarRegs(reg);
+        reg = $(this).attr('id');
+        
     });
         
       
@@ -170,6 +164,10 @@ $(document).ready(function(){
             },
             async: false
         });
+    });
+    
+    $('a.excluir_regiao').live('click', function(){
+        
     });
     
 });

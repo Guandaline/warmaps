@@ -45,7 +45,8 @@ $(document).ready(function(){
                     var l;                    //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         l = $('#' + val);
-                        l.addClass('label').attr('id', k).attr('name', val);
+                        l.addClass('label').attr('id', k).attr('name', val).removeAttr('style');
+                        //$('<div>').addClass('tropas').attr('name', val).appendTo(l).show();
                         span = l.find('tspan');
                         span.text(' ');
                     });
@@ -158,6 +159,18 @@ $(document).ready(function(){
             var x = l.position().left;
             var id = $('[name='+ val.toString().substring(2) +'].territorio').attr('id');
             if(name != id){
+                
+               /* $('<div>').attr('name', name)
+                .attr('id', id)
+                .addClass('tropas')
+                .text('5')
+                .css({
+                    position: 'absolute', 
+                    top: y, 
+                    left: x
+                })
+                .appendTo('div#inputs');
+                */
                 $('<input>').attr('type', 'checkbox')
                 .attr('name', name)
                 .attr('id', id)
@@ -168,6 +181,7 @@ $(document).ready(function(){
                     left: x
                 })
                 .appendTo('div#inputs');
+                
             }
         });
     }
