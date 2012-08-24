@@ -41,6 +41,20 @@ class regiaoController extends Controller{
         return $arr;
     }
     
+    public function excluir($id){
+        ini_set('display_errors', 1);
+        $this->uses('territorio', '../');
+        $this->Territorio->data['id_regiao'] = $id;
+        $territorio = $this->Territorio->select('id');
+        foreach ($territorio as $t){
+            $this->Territorio->data['id_regiao'] = null;
+            $this->Territorio->update($t['id']);            
+        }
+        $this->delete($id);
+        //$territorio = array('fudeo');
+        return $territorio;
+    }
+    
 }
 
 ?>

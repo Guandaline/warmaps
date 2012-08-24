@@ -36,12 +36,16 @@ switch ($func) {
     case 4:
         $res = $obj->getCores($mapa);
         break;
+    case 5:
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+        $res = $obj->excluir($id);
+        break;
     default:
         $res = array('func invalida');
         break;
 }
 
-
+//echo $res;
 echo json_encode($res);
 
 ?>
