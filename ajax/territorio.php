@@ -7,6 +7,10 @@ $func = isset($_GET['func']) ? $_GET['func'] : 0;
 $territorio = isset($_GET['territorio']) ? $_GET['territorio'] : NULL;
 
 
+Session::start("warmaps");
+$mapa = Session::getVal('mapa');
+
+
 Utils::incluir($controller, 'controller', '../');
 Utils::incluir($controller, 'model', '../');
 $classe = $controller . 'Controller';
@@ -18,6 +22,10 @@ switch ($func) {
         $res = $obj->setRegiao($territorio, $regiao);
         break;
     case 2:
+        $res = $obj->getListaTerritorios($mapa);
+        break;
+    case 3:
+        $res = $obj->getListaLabels($mapa);
         break;
     default:
         $res = array('func invalida');

@@ -6,6 +6,8 @@ $controller = isset($_GET['controller']) ? $_GET['controller'] : 'vizinho';
 $func = isset($_GET['func']) ? $_GET['func'] : 0;
 $territorio = isset($_GET['territorio']) ? $_GET['territorio'] : NULL;
 
+Session::start("warmaps");
+$mapa = Session::getVal('mapa');
 
 Utils::incluir($controller, 'controller', '../');
 Utils::incluir($controller, 'model', '../');

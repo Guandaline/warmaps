@@ -12,7 +12,7 @@ $(document).ready(function(){
         
             $.ajax({                       
                 context: $(this),
-                url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parametros=30",
+                url: "ajax/territorio.php?func=2",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     territorios = msg;
@@ -24,7 +24,6 @@ $(document).ready(function(){
                                     .attr('name', val['name'].toString().substring(2))
                                     .attr('reg', val['reg']);
                     });
-                    console.log('dispara evento');
                     $('a[name=cores]').click();
                 },
                 async: false
@@ -38,7 +37,7 @@ $(document).ready(function(){
     function getListaLabels(){
             $.ajax({                       
                 context: $(this),
-                url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parametros=30",
+                url: "ajax/territorio.php?func=3",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     label = msg;

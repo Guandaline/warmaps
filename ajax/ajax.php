@@ -8,6 +8,8 @@ $territorio = isset($_GET['territorio']) ? $_GET['territorio'] : NULL;
 $vizinho = isset($_GET['vizinho']) ? $_GET['vizinho'] : NULL;
 $val = isset($_GET['val']) ? $_GET['val'] : NULL;
 
+$parametros = Session::getVal('mapa');
+
 if ($controller != NULL && $method != NULL) {
     
     Utils::incluir($controller, 'controller', '../');

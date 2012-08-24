@@ -3,6 +3,8 @@
 ini_set('display_errors', 1);
 include_once 'element/includes.php';
 
+Session::start("warmaps");
+
 $view = isset($_GET['view']) ? $_GET['view'] : 'home';
 $action = isset($_GET['action']) ? $_GET['action'] : NULL;
 $method = isset($_GET['method']) ? $_GET['method'] : NULL;

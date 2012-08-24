@@ -71,7 +71,10 @@ class mapaController extends Controller {
         $this->setData($dados);
         $this->save();
         $id_mapa = $this->getId();
-
+        
+        Session::setVal('mapa', $id_mapa);
+        Session::setVal('nome', $file_name);
+        
         foreach ($territorios as $value) {
 
             $dados = array('id_mapa' => $id_mapa,
@@ -87,9 +90,6 @@ class mapaController extends Controller {
         $this->set('num_t', $num_territorios);
         $this->set('territorios', $territorios);
         
-        $this->Territorio->data = null;
-        //$this->Territorio->data['campos'] = 'inome';
-        //$this->set('lista_territorios', $this->Territorio->select('inome'));
         
         return $territorios;
     }
