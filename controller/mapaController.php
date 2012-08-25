@@ -32,6 +32,7 @@ class mapaController extends Controller {
         $file_tmp_name = $data['file']['mapafile']['tmp_name'];
         $mensagem = '';
         $this->set('mensagem', $mensagem);
+        
         if (stristr($file_type, "svg"))
             @move_uploaded_file($file_tmp_name, 'file/mapas/' . $file_name);
         else {
