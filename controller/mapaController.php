@@ -18,8 +18,8 @@ class mapaController extends Controller {
     public function config() {
         
     }
-    
-    public function lista(){
+
+    public function lista() {
         $this->set('mapas', $this->select('id , nome'));
     }
 
@@ -32,7 +32,7 @@ class mapaController extends Controller {
         $file_tmp_name = $data['file']['mapafile']['tmp_name'];
         $mensagem = '';
         $this->set('mensagem', $mensagem);
-        
+
         if (stristr($file_type, "svg"))
             @move_uploaded_file($file_tmp_name, 'file/mapas/' . $file_name);
         else {
@@ -43,7 +43,7 @@ class mapaController extends Controller {
 
         $arquivo = fopen("file/mapas/" . $file_name, "r");
         $territorios = NULL;
-        
+
         if ($arquivo) {
             $mapa = null;
             $i = 0;
@@ -52,7 +52,7 @@ class mapaController extends Controller {
                 $mapa .= $linha;
                 if (stristr($linha, "id=")) {
                     $novo = explode("\"", $linha);
-                    
+
                     if (!stristr($novo[1], "path") && stristr($novo[1], "t_")) {
                         $nome = explode("_", $novo[1]);
                         $territorios[$i]['id'] = $novo[1];
@@ -72,10 +72,10 @@ class mapaController extends Controller {
         $this->setData($dados);
         $this->save();
         $id_mapa = $this->getId();
-        
+
         Session::setVal('mapa', $id_mapa);
         Session::setVal('nome', $file_name);
-        
+
         foreach ($territorios as $value) {
 
             $dados = array('id_mapa' => $id_mapa,
@@ -90,9 +90,39 @@ class mapaController extends Controller {
         $this->set('f_name', $file_name);
         $this->set('num_t', $num_territorios);
         $this->set('territorios', $territorios);
-        
-        
+
+
         return $territorios;
+    }
+
+    public function vizinhos() {
+        $id_mapa = Session::getVal('mapa');
+        $file_name = Session::getVal('nome');
+        $arquivo = fopen("file/mapas/" . $file_name, "r");
+
+        if (stristr($linha, "id=t_")) {
+            if (stristr($linha, "id=t_")) {
+                
+            }
+        }
+        
+        
+        $d = array();
+        
+        if ($arquivo) {
+            $i = 0;
+            while (!feof($arquivo)) {
+                $linha = fgets($arquivo);
+                if (strstr($linha, '<') && !strstr($linha, '>')) {
+                    while (!strstr($linha, '>')) {
+                        $linha = fgets($arquivo);
+                        if (stristr($linha, "id=t_")) {
+                            
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

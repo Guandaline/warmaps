@@ -24,6 +24,7 @@ $(document).ready(function(){
                                     .attr('name', val['name'].toString().substring(2))
                                     .attr('reg', val['reg']);
                     });
+                    findVizinhos();
                     $('a[name=cores]').click();
                 },
                 async: false
@@ -65,6 +66,40 @@ $(document).ready(function(){
             async: false
         });
     }
+    
+    var tabela = new Array( );
+    function findVizinhos(){
+
+        var i = 0;
+        $('.territorio').each(function(){
+            id = $(this).attr('id');
+            d = $(this).attr('d');
+            $('<input>').addClass('path')
+                        .attr('name', id)
+                        .attr('value',d)
+                        .hide()
+                        .appendTo($('form[name=form_path]'));
+            i++;
+        });
+        
+        $('form[name=form_path]').submit();
+    }
+    
+    $('form[name=form_path]').submit(function(e){
+            e.preventDefault();
+            var params = $(this).serialize();
+            $.ajax({
+                type: 'post',
+                data: params,
+                url: "ajax/territorio.php?func=4",
+                success: function(msg){
+                    console.log('Salvou?');
+                    console.log(msg);
+                    
+                },
+                async: false
+            });
+        });
     
     function inserirMapa(name){
         var arq = $('input[name=arquivo]').val();

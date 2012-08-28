@@ -106,7 +106,7 @@ $(document).ready(function(){
     $('a.nova_regiao').click(function(){
         $.ajax({
             context: this,
-            url: "ajax/regiaoForm.php?mapa=30",
+            url: "ajax/regiaoForm.php?",
             success: function(data){
                 $('#dialog-form').html(data);
                 $( "#dialog-form" ).dialog({

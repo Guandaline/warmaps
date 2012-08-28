@@ -10,5 +10,8 @@
         </a>|
         <a href="index.php?view=mapa&action=lista">
                 Editar
+        </a>|
+        <a href="index.php?view=mapa&action=vizinhos">
+                Editar
         </a>
 </div>

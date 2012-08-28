@@ -37,3 +37,6 @@
 <div id="game" style="width: 95%; height: 90%; border: solid 1px #000; text-align: center; background-color: #4567BA;"></div>
 <div id="inputs"></div>
 <div id="dialog-form"></div>
+
+<form name="form_path" method="post" action="">
+</form>

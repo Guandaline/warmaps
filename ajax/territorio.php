@@ -27,6 +27,10 @@ switch ($func) {
     case 3:
         $res = $obj->getListaLabels($mapa);
         break;
+    case 4:
+        $res = $obj->vizinhos($_POST);
+        
+        break;
     default:
         $res = array('func invalida');
         break;

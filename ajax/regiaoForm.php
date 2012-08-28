@@ -6,7 +6,7 @@
             $.ajax({
                 type: 'post',
                 data: params,
-                url: "ajax/regiao.php?func=2&mapa=30",
+                url: "ajax/regiao.php?func=2",
                 success: function(msg){
                     //console.log('Salvou?');
                     //console.log(msg);
@@ -20,13 +20,11 @@
             input = $('input[name=id]');
             if(input[0]){
                 id = input.val();
-                 console.log(id);
                 $.ajax({
                     context: $(this),
                     url: "ajax/regiao.php?func=3&id=" + id,
                     success: function(msg) {
                         msg = JSON.parse(msg);
-                        console.log(msg);
                         if(msg){
                             $('input[name=nome]').val(msg[0].nome);
                             $('input[name=estrategico]').val(msg[0].valor_estrategico);
