@@ -98,3 +98,32 @@ svg{
     color: #fff;
     vertical-align: central;
 }
+
+.box-mapas{
+    display: block;
+    width: 90%;
+    /*border: solid 1px black;*/
+}
+
+.botao-mapa{
+    padding: 3px;
+    display: inline-block;
+    width: 180px;
+    height: 120px;
+    border: solid 1px #555;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+    margin: 3px;
+    text-align: center;
+    vertical-align: central;
+    background: #f6f6f6;
+}
+
+a.mapas{
+        vertical-align: central;
+       color: black; 
+}
+
+a.mapas:hover{
+    color: gray;
+}

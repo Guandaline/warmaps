@@ -52,27 +52,21 @@ class territorioController extends Controller {
                 }
                 if (strtoupper($d[$i]) == 'C') {
                     $j = 0;
+                    $i++;
                     do {
-                        $i++;
+
                         $val = explode(',', $d[$i]);
                         $aux[$t_id]['pt'][$j]['x'] = $val[0];
                         $aux[$t_id]['pt'][$j]['y'] = $val[1];
-                    } while (!is_string($val));
+                        $j++;
+                        $i++;
+                    } while (strtoupper($d[$i]) != 'Z');
                 }
                 $i++;
             }
-
-            foreach ($d as $k => $v) {
-                if (strtoupper($v) == 'M') {
-                    $aux[$t_id]['pos'] = $d[$k + 1];
-                }
-
-                $aux[$t_id] = 1;
-            }
         }
 
-
-        return $dados;
+        return $aux;
     }
 
     public function getRegiao() {

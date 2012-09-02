@@ -24,7 +24,7 @@ $(document).ready(function(){
                                     .attr('name', val['name'].toString().substring(2))
                                     .attr('reg', val['reg']);
                     });
-                    findVizinhos();
+                    //findVizinhos();
                     $('a[name=cores]').click();
                 },
                 async: false
@@ -96,8 +96,7 @@ $(document).ready(function(){
                     console.log('Salvou?');
                     console.log(msg);
                     
-                },
-                async: false
+                }
             });
         });
     
@@ -193,18 +192,7 @@ $(document).ready(function(){
             var x = l.position().left;
             var id = $('[name='+ val.toString().substring(2) +'].territorio').attr('id');
             if(name != id){
-                
-               /* $('<div>').attr('name', name)
-                .attr('id', id)
-                .addClass('tropas')
-                .text('5')
-                .css({
-                    position: 'absolute', 
-                    top: y, 
-                    left: x
-                })
-                .appendTo('div#inputs');
-                */
+                               
                 $('<input>').attr('type', 'checkbox')
                 .attr('name', name)
                 .attr('id', id)
