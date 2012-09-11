@@ -69,6 +69,35 @@ class territorioController extends Controller {
         return $aux;
     }
 
+    public function getNewDefines($mapa) {
+        $this->uses('regiao', '../');
+        $this->Regiao->data['id_mapa'] = $mapa;
+        $regs = $this->Regiao->select();
+        $contis = array();
+
+        foreach ($regs as $val) {
+
+            $contis['continentes'][$val['nome']]['valorEstrategico'] = $val['valor_estrategico'];
+            $contis['continentes'][$val['nome']]['exercitos'] = $val['valor_estrategico'];
+            $this->Model->data['id_mapa'] = $mapa;
+            $paises = $this->select('nome');
+
+            foreach ($paises as $p) {
+            
+                $contis['continentes'][$val['nome']]['paises'][] = $p['mome'];
+                
+            }
+            
+            $contis['continentes'][$val['nome']]['qtdPaises'] = count($paises);
+        }
+
+        $this->Model->data['id_mapa'] = $mapa;
+        $territorios = $this->select();
+        
+        
+        
+    }
+
     public function getRegiao() {
         
     }

@@ -1,0 +1,119 @@
+/* ============= Configurações da janela =============== */
+.desktop{
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  width:100%;
+  height: 100%;
+  background-image: url("images/black_50.png");
+}
+
+.janela{
+  background-color: #FFFEEE;
+
+  margin-top: 12.5%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.janela h2{
+  padding: 0px;
+  background-color: #EEEDDD;
+  text-align: center;
+}
+
+
+.janela div{
+  padding: 10px;
+}
+
+.janela div input[type='text'], .janela div select{
+  width: 300px;
+}
+
+.janela div input[type='button']{
+  font-size:x-large;
+}
+
+.janela div label{
+  display:block;
+  width: 120px;
+  float:left;
+  font-weight: bolder;
+}
+
+
+
+/*input:selected{
+  background-color: transparent;
+}*/
+
+
+/* ================================================== */
+
+text:hover{
+  fill: gray;
+    font-weight: bolder;
+}
+
+
+text{
+  font-size:16px;
+/*   font-weight: bolder; */
+  /*stroke: white;*/
+  fill:black;
+  font-family: monospace;
+}
+
+
+.continente{
+  fill-opacity: 1;
+}
+
+ .pais{   
+  fill-opacity:0.3;
+ } 
+
+.pais:hover{
+  fill-opacity: 1;
+}
+
+.selecionado{
+    fill-opacity:1;
+    stroke-width:2;
+    stroke: gray;
+}
+
+.jogavel{
+    fill-opacity: 1;
+    stroke-width:2;
+    stroke: black;
+}
+
+.apaga {
+    fill-opacity: 0.2;
+}
+
+.amarelo{
+  fill:yellow;
+}
+
+.vermelho{
+  fill:red;
+}
+
+.azul{
+  fill:blue;
+}
+
+.verde{
+  fill:green;
+}
+
+.preto{
+  fill:#343327;
+}
+
+.branco{
+  fill:#ffffff;
+}

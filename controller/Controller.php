@@ -32,7 +32,7 @@ class Controller {
     }
 
     /**
-      Inclue modulos no controller.
+      Inclui modulos no controller.
       @param string $model Nome do Modelo a ser utilizado.
       @return objectModel O novo modelo pode ser acessado pelo atributo $uses.
      * */
@@ -95,8 +95,8 @@ class Controller {
         $this->Model->update($id);
     }
 
-    public function delete($id) {
-        $this->Model->delete($id);
+    public function delete() {
+        $this->Model->delete();
     }
 
     public function select($campos) {

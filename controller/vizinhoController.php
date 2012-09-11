@@ -30,8 +30,10 @@ class vizinhoController extends Controller {
         } else {
             if (!empty($id)) {
                 $id = $id[0]['id'];
-                $this->delete($id);
-                return 'removido ' . $id;
+                $this->Model->data = null;
+                $this->Model->data['id'] = $id;
+                $this->delete();
+                return 'removido ' . $id . ' ' . $this->Model->sql;
             }
         }
 

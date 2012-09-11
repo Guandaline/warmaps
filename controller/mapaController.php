@@ -94,6 +94,23 @@ class mapaController extends Controller {
 
         return $territorios;
     }
+    
+    
+    public function excluir($mapa){
+        
+        $this->uses('territorio', '../');
+        $this->Territorio->data['id_mapa'] = $mapa;
+        $this->Territorio->delete();
+        $this->uses('regiao', '../');
+        $this->Regiao->data['id_mapa'] = $mapa;
+        $this->Regiao->delete();
+        $this->Model->data = null;
+        $this->Model->data['id'] = $mapa;
+        $this->delete();
+        
+    }
+
+
 
     public function vizinhos() {
         $id_mapa = Session::getVal('mapa');

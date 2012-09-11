@@ -1,0 +1,47 @@
+* {
+	padding:0px;
+	margin:0px;
+}
+
+body {
+    background-color:#BFE6FF;
+}
+
+.page {
+    width: 1095px;
+    margin: 0 auto;
+}
+
+.redondo {
+	-moz-border-radius:20px;
+	-webkit-border-radius:20px;
+	padding:5px;
+}
+
+
+/* ========================================================================== */
+.amarelo{
+	background-color: yellow;
+}
+
+.branco{
+	background-color: white;
+}
+
+.vermelho{
+	background-color: red;
+}
+
+.verde{
+	background-color: green;
+}
+
+.azul{
+	background-color: blue;
+}
+
+.black{
+	background-color:black;
+}
+
+

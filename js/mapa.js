@@ -30,7 +30,7 @@ $(document).ready(function(){
                 async: false
             });
             
-        }, 1500);
+        }, 2000);
     }
     
     
@@ -68,8 +68,8 @@ $(document).ready(function(){
     }
     
     var tabela = new Array( );
+    
     function findVizinhos(){
-
         var i = 0;
         $('.territorio').each(function(){
             id = $(this).attr('id');
@@ -100,7 +100,7 @@ $(document).ready(function(){
             });
         });
     
-    function inserirMapa(name){
+    function inserirMapa(){
         var arq = $('input[name=arquivo]').val();
         $("#game").svg({      
             
@@ -208,7 +208,7 @@ $(document).ready(function(){
         });
     }
 
-    inserirMapa(name);
+    inserirMapa();
     getListaIdTerritorios();
     getListaLabels();
     
@@ -251,7 +251,10 @@ $(document).ready(function(){
         $.ajax({                       
             context: $(this),
             url: "ajax/vizinho.php?func=2&territorio=" + t_id 
-            + "&vizinho=" + v_id + '&val=' + val
+            + "&vizinho=" + v_id + '&val=' + val,
+        success: function(msg){
+            console.log(msg);
+        }
         });
         
     });

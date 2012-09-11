@@ -28,14 +28,15 @@ switch ($func) {
         $res = $obj->getListaLabels($mapa);
         break;
     case 4:
+        $res = $obj->getNewDefines($mapa);
+        break;
+    case 999:
         $res = $obj->vizinhos($_POST);
-        
         break;
     default:
         $res = array('func invalida');
         break;
 }
-
 
 echo json_encode($res);
 ?>

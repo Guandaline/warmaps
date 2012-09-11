@@ -17,6 +17,18 @@
             });
             
         });
+        
+         $('.excluir').click(function(e){
+            var mapa = $(this).attr('id');
+            $.ajax({
+                url: 'ajax/mapa.php?func=1&mapa=' + mapa,
+                success: function(msg){
+                    console.log(msg);
+                },
+                assync: false
+            });
+            
+        });
     });
 
 
@@ -46,7 +58,13 @@
                     Editar
                 </a>
                 |
-                <a  href="#">Jogar</a>
+                 <a class="mapas" href="index.php?view=war" name="<?php echo $val['nome']; ?>" id="<?php echo $val['id']; ?>">
+                    Jogar
+                </a>
+                |
+                 <a class="excluir" href="" name="<?php echo $val['nome']; ?>" id="<?php echo $val['id']; ?>">
+                    Excluir
+                </a>
             </div>
 
             <?
