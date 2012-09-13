@@ -38,8 +38,6 @@ Pais.prototype._init = function (name, continente){
 
     this.qtdExercitosAnterior = 0;
 
-
-
     this.figura = defines.paises[ name ].figura;
 
     this.valorEstrategico = defines.paises[ name ].valorEstrategico;
@@ -47,8 +45,11 @@ Pais.prototype._init = function (name, continente){
     this.continente = continente;
 
     this.noMapa = document.getElementById( name );
-
-    this.noMapaLabel = document.getElementById( name + "Label");
+    
+    console.log('erro  = ');
+    console.log(name);
+    
+    this.noMapaLabel = document.getElementById("l_" + name.toString().substring(2));
 
 
 

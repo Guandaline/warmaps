@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
     
     jQuery.fn.exists = function (){
@@ -16,12 +17,12 @@ $(document).ready(function(){
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     territorios = msg;
-                    // console.log(msg);
+                    
                     $.each(msg, function(k, val){/*percorrer json*/
                         $('#' + val['name']).removeAttr('style');
                         $('#' + val['name']).addClass('territorio')
                                     .attr('id', k)
-                                    .attr('name', val['name'].toString().substring(2))
+                                    .attr('name', val['name'])
                                     .attr('reg', val['reg']);
                     });
                     //findVizinhos();
@@ -42,6 +43,7 @@ $(document).ready(function(){
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     label = msg;
+                    
                     var l;                    //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         l = $('#' + val);
@@ -93,8 +95,7 @@ $(document).ready(function(){
                 data: params,
                 url: "ajax/territorio.php?func=4",
                 success: function(msg){
-                    console.log('Salvou?');
-                    console.log(msg);
+                   
                     
                 }
             });
@@ -141,25 +142,26 @@ $(document).ready(function(){
     }
     
     function getName(element, pos){
-        return element.attr('id').toString().substring(pos);
+        return element.attr('name').toString().substring(pos);
     }
     
     function getInput(name){
         var input = $('input[name=' + name + ']');
         if(input[0]){
-            //console.log(input);
             return input;
         }
         return null
     }
     
     function hiddeAll(element){
+                        console.log('esconde');
         element.each(function(){
             $(this).hide();
         });
     }
     
     function showAll(element){
+                            console.log('mostra');
         element.each(function(){
             $(this).show();
         });
@@ -174,24 +176,28 @@ $(document).ready(function(){
     function desselecionar(){
         var e = $('.territorio.selecionado');
         if(e.exists()){
-            var name = e.attr('id');
+            var name = e.attr('name');
+            console.log('imputs')
+            console.log(name)
             var input = getInput(name);
             if(input != null){
+                console.log('achou');
                 hiddeAll(input);
             }
             e.removeClass('selecionado');
         }
     }
     
-    function adicionarCheckbox(name){
+    function adicionarCheckbox(name, t_id){
         var l, t;
         $.each(label, function(k, val){/*percorrer json*/
+           // console.log('[name='+ val.toString().replace('Label', '')+'].territorio');
             l = $('[name='+ val +'].label');
             t = l.find('tspan');
             var y = l.position().top;
             var x = l.position().left;
-            var id = $('[name='+ val.toString().substring(2) +'].territorio').attr('id');
-            if(name != id){
+            var id = $('[name='+ val.toString().replace('Label', '')+'].territorio').attr('id');
+            if(t_id != id){
                                
                 $('<input>').attr('type', 'checkbox')
                 .attr('name', name)
@@ -222,7 +228,7 @@ $(document).ready(function(){
             showAll(input);
         }else{
             id = $(this).attr('id');
-            adicionarCheckbox(name);
+            adicionarCheckbox(name , id);
             getListaVizinhos(id);
             console.log('lista vizinhos ' + lista_vizinhos);
             $.each(lista_vizinhos, function(k , val){
@@ -260,8 +266,3 @@ $(document).ready(function(){
     });
     
 });
-
-
-
-
-

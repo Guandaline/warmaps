@@ -29,6 +29,8 @@ switch ($func) {
         break;
     case 4:
         $res = $obj->getNewDefines($mapa);
+      //  echo count($res['paises']);
+      //  Utils::pa($res);
         break;
     case 999:
         $res = $obj->vizinhos($_POST);

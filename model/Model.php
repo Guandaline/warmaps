@@ -181,7 +181,7 @@ class Model {
         return $this->array;
     }
 
-    public function query() {
+    private function query() {
         $this->conn->query($this->sql);
     }
 

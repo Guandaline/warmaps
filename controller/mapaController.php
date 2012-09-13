@@ -53,7 +53,7 @@ class mapaController extends Controller {
                 if (stristr($linha, "id=")) {
                     $novo = explode("\"", $linha);
 
-                    if (!stristr($novo[1], "path") && stristr($novo[1], "t_")) {
+                    if (!stristr($novo[1], "path") && stristr($novo[1], "t_") ) {
                         $nome = explode("_", $novo[1]);
                         $territorios[$i]['id'] = $novo[1];
                         $territorios[$i]['name'] = $nome[1];
@@ -80,7 +80,7 @@ class mapaController extends Controller {
 
             $dados = array('id_mapa' => $id_mapa,
                 'label' => 'l_' . $value['name'],
-                'inome' => 't_' . $value['name'],
+                'inome' =>  $value['id'],
                 'nome' => $value['name']);
             $this->Territorio->data = $dados;
             $this->set('sql', $this->Territorio->save());
@@ -100,6 +100,12 @@ class mapaController extends Controller {
         
         $this->uses('territorio', '../');
         $this->Territorio->data['id_mapa'] = $mapa;
+        $t = $this->Territorio->select('id');
+        $this->uses('vizinho', '../');
+        foreach ($t as $v){
+            $this->Vizinho->data['territorio'] = $v;
+            $this->Vizinho->delete();
+        }
         $this->Territorio->delete();
         $this->uses('regiao', '../');
         $this->Regiao->data['id_mapa'] = $mapa;

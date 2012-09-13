@@ -11,7 +11,8 @@
         <link rel="stylesheet" type="text/css" href="view/war/estilos/game.css" />
 
         <script src="view/war/scripts/defines.js"></script>
-       
+        <script src="js/new_define.js"></script>
+        
         <script src="view/war/scripts/AI.js"></script>
         <script src="view/war/scripts/Carta.js"></script>
         <script src="view/war/scripts/Continente.js"></script>

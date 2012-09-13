@@ -73,27 +73,44 @@ class territorioController extends Controller {
         $this->uses('regiao', '../');
         $this->Regiao->data['id_mapa'] = $mapa;
         $regs = $this->Regiao->select();
-        $contis = array();
+        $defs = array();
 
         foreach ($regs as $val) {
 
-            $contis['continentes'][$val['nome']]['valorEstrategico'] = $val['valor_estrategico'];
-            $contis['continentes'][$val['nome']]['exercitos'] = $val['valor_estrategico'];
-            $this->Model->data['id_mapa'] = $mapa;
-            $paises = $this->select('nome');
+            $defs['continentes'][$val['nome']]['valorEstrategico'] = $val['valor_estrategico'];
+            $defs['continentes'][$val['nome']]['exercitos'] = $val['valor_estrategico'];
+            $this->Model->data['id_regiao'] = $val['id'];
+            $paises = $this->select();
 
             foreach ($paises as $p) {
             
-                $contis['continentes'][$val['nome']]['paises'][] = $p['mome'];
+                $defs['continentes'][$val['nome']]['paises'][] = $p['inome'];
                 
             }
             
-            $contis['continentes'][$val['nome']]['qtdPaises'] = count($paises);
+            $defs['continentes'][$val['nome']]['qtdPaises'] = count($paises);
         }
-
+        
+        $this->uses('vizinho', '../');
+        $this->Model->data = NULL;
         $this->Model->data['id_mapa'] = $mapa;
         $territorios = $this->select();
+        $lista = array();
+        foreach ($territorios as $t){
+            $lista[$t['id']] = $t['inome'];
+        }
         
+        foreach ($territorios as $t){
+            $defs['paises'][$t['inome']]['valorEstrategico'] = 2;
+            $defs['paises'][$t['inome']]['figura'] = 1;
+            $this->Vizinho->data['territorio'] = $t['id'];
+            $vizinhos = $this->Vizinho->select();
+            foreach ($vizinhos as $vi) {
+                $defs['paises'][$t['inome']]['vizinhos'][] = $lista[$vi['vizinho']];
+            }
+        }
+        
+        return $defs ;
         
         
     }
