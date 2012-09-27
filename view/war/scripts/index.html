@@ -1,0 +1,36 @@
+<html> 
+<head> 
+<title>BUSCA DIN&Acirc;MICA</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<script src="script.js"></script> 
+<script> 
+function pesquisa(valor) 
+{ 
+//FUNÇÃO QUE MONTA A URL E CHAMA A FUNÇÃO AJAX 
+url="busca_nome.php?valor="+valor; 
+ajax(url); 
+} 
+</script> 
+</head> 
+
+<body> 
+<table width="657" border="0" bgcolor="#f7f7f7"> 
+<tr> 
+<td align="center" bgcolor="#CCCCCC"><strong><font color="#FF0000" size="1" face="Verdana, Arial, Helvetica, sans-serif">&lt;- 
+BUSCA DIN&Acirc;MICA -&gt;</font></strong></td> 
+</tr> 
+<tr> 
+<td><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><strong>DIGITE 
+AQUI O NOME DA PESSOA</strong></font>: 
+<!-- NOTE Q A CADA TECLA PRESSIONADA É CHAMADA A FUNÇÃO PESQUISA PASSANDO O QUE O USUARIO TEM DIGITADO ATÉ O MOMENTO --> 
+<input type="text" name="nome" onKeyPress="pesquisa(this.value)"></td> 
+</tr> 
+<tr> 
+<td> 
+<!-- AQUI SERÁ APRESENTADO O RESULTADO DA BUSCA DINÂMICA.. OU SEJA OS NOMES --> 
+<div id="pagina"></div></td> 
+</tr> 
+</table> 
+
+</body> 
+</html> 

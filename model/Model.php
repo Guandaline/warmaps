@@ -21,8 +21,10 @@ class Model {
     function __construct($id = 0) {
         if ($this->useTable != FALSE) {
             $this->conn = new Connexao();
-            if($id == 0) $this->setID();
-            else $this->id = $id;
+            if ($id == 0)
+                $this->setID();
+            else
+                $this->id = $id;
         }
     }
 
@@ -34,22 +36,38 @@ class Model {
         $this->id = $this->array['id'];
         $this->array = array();
     }
-    
-    private function arrayToString($campos){
+
+    private function arrayToString($campos) {
         $string = '';
         $num = count($campos);
         $i = 0;
         foreach ($campos as $value) {
             $string .= $value;
-            if($i < $num - 1)
+            if ($i < $num - 1)
                 $string .= ', ';
         }
         return $string;
     }
+    
+    private function geraWhere(){
+        if (!empty($this->data)) {
+            $sql .= ' WHERE ';
+            $i = 0;
+            foreach ($this->data as $key => $value) {
+                $num = count($this->data);
+                $sql .= $key . ' = :' . $key;
+                if ($i < $num - 1)
+                    $sql .= ' AND ';
+
+                $i++;
+            }
+        }
+        $this->sql .= $sql;
+    }
 
     private function geraSelect($campos = null) {
         $sql = 'SELECT ';
-        if(is_array($campos)) {
+        if (is_array($campos)) {
             $campos = arrayToString($campos);
         }
         if ($campos != null) {
@@ -107,9 +125,15 @@ class Model {
     }
 
     private function geraDelete() {
-        $sql = 'DELETE FROM ' . $this->useTable . ' WHERE id = :id';
+        $sql = 'DELETE FROM ' . $this->useTable;
         $this->sql = $sql;
+        if (!empty($this->data)) {
+            $this->geraWhere();
+        }
+        
     }
+    
+    
 
     public function save() {
         $this->geraInsert();
@@ -125,16 +149,14 @@ class Model {
         $this->conn->execute($this->data + array('id' => $id));
     }
 
-    public function delete($id) {
-        if ($id > 0) {
+    public function delete() {
+
             $this->geraDelete();
             $this->conn->query($this->sql);
-            $this->conn->execute(array('id' => $id));
+            $this->conn->execute($this->data);
             $this->setID();
             return 1;
-        } else {
-            return 0;
-        }
+       
     }
 
     public function select($campos) {
@@ -159,11 +181,20 @@ class Model {
         return $this->array;
     }
 
-    /*
-      public function select(){
-      }
+    private function query() {
+        $this->conn->query($this->sql);
+    }
 
-     */
+    public function queryFetch($dados) {
+        $this->conn->query($this->sql);
+        $this->conn->execute($dados);
+    }
+
+    public function queryExecute($dados = null) {
+        $this->conn->query($this->sql);
+        $this->conn->execute($dados);
+    }
+
 }
 
 ?>

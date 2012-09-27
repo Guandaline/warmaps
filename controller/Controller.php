@@ -13,6 +13,7 @@ class Controller {
     protected $Model;
     protected $uses = array();
     protected $name;
+    
     function __construct() {
 
         $this->incluirModel();
@@ -31,13 +32,13 @@ class Controller {
     }
 
     /**
-      Inclue modulos no controller.
+      Inclui modulos no controller.
       @param string $model Nome do Modelo a ser utilizado.
       @return objectModel O novo modelo pode ser acessado pelo atributo $uses.
      * */
-    protected function uses($model) {
+    protected function uses($model, $nivel = '') {
         
-        include_once 'model/' . $model . 'Model.php';
+        include_once $nivel . 'model/' . $model . 'Model.php';
         $nameModel = ucfirst($model);
         $classModel = $model.'Model';
         $this->uses[$model] = $nameModel;
@@ -94,8 +95,8 @@ class Controller {
         $this->Model->update($id);
     }
 
-    public function delete($id) {
-        $this->Model->delete($id);
+    public function delete() {
+        $this->Model->delete();
     }
 
     public function select($campos) {

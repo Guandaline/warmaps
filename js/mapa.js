@@ -12,7 +12,7 @@ $(document).ready(function(){
         
             $.ajax({                       
                 context: $(this),
-                url: "ajax/ajax.php?controller=territorio&method=getListaTerritorios&parametros=30",
+                url: "ajax/territorio.php?func=2",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     territorios = msg;
@@ -24,13 +24,13 @@ $(document).ready(function(){
                                     .attr('name', val['name'].toString().substring(2))
                                     .attr('reg', val['reg']);
                     });
-                    console.log('dispara evento');
+                    //findVizinhos();
                     $('a[name=cores]').click();
                 },
                 async: false
             });
             
-        }, 1500);
+        }, 2000);
     }
     
     
@@ -38,14 +38,15 @@ $(document).ready(function(){
     function getListaLabels(){
             $.ajax({                       
                 context: $(this),
-                url: "ajax/ajax.php?controller=territorio&method=getListaLabels&parametros=30",
+                url: "ajax/territorio.php?func=3",
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     label = msg;
                     var l;                    //                 console.log(msg);
                     $.each(msg, function(k, val){/*percorrer json*/
                         l = $('#' + val);
-                        l.addClass('label').attr('id', k).attr('name', val);
+                        l.addClass('label').attr('id', k).attr('name', val).removeAttr('style');
+                        //$('<div>').addClass('tropas').attr('name', val).appendTo(l).show();
                         span = l.find('tspan');
                         span.text(' ');
                     });
@@ -66,14 +67,47 @@ $(document).ready(function(){
         });
     }
     
-    function inserirMapa(name){
+    var tabela = new Array( );
+    
+    function findVizinhos(){
+        var i = 0;
+        $('.territorio').each(function(){
+            id = $(this).attr('id');
+            d = $(this).attr('d');
+            $('<input>').addClass('path')
+                        .attr('name', id)
+                        .attr('value',d)
+                        .hide()
+                        .appendTo($('form[name=form_path]'));
+            i++;
+        });
         
+        $('form[name=form_path]').submit();
+    }
+    
+    $('form[name=form_path]').submit(function(e){
+            e.preventDefault();
+            var params = $(this).serialize();
+            $.ajax({
+                type: 'post',
+                data: params,
+                url: "ajax/territorio.php?func=4",
+                success: function(msg){
+                    console.log('Salvou?');
+                    console.log(msg);
+                    
+                }
+            });
+        });
+    
+    function inserirMapa(){
+        var arq = $('input[name=arquivo]').val();
         $("#game").svg({      
             
             onLoad: function() {       
                 var svg;        
                 svg = $("#game").svg('get');        
-                svg.load('file/mapas/mapa2.svg', {          
+                svg.load('file/mapas/' + arq, {          
                     addTo: true,          
                     changeSize: true       
                 })
@@ -158,6 +192,7 @@ $(document).ready(function(){
             var x = l.position().left;
             var id = $('[name='+ val.toString().substring(2) +'].territorio').attr('id');
             if(name != id){
+                               
                 $('<input>').attr('type', 'checkbox')
                 .attr('name', name)
                 .attr('id', id)
@@ -168,11 +203,12 @@ $(document).ready(function(){
                     left: x
                 })
                 .appendTo('div#inputs');
+                
             }
         });
     }
 
-    inserirMapa(name);
+    inserirMapa();
     getListaIdTerritorios();
     getListaLabels();
     
@@ -215,9 +251,17 @@ $(document).ready(function(){
         $.ajax({                       
             context: $(this),
             url: "ajax/vizinho.php?func=2&territorio=" + t_id 
-            + "&vizinho=" + v_id + '&val=' + val
+            + "&vizinho=" + v_id + '&val=' + val,
+        success: function(msg){
+            console.log(msg);
+        }
         });
         
     });
     
 });
+
+
+
+
+

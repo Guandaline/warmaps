@@ -7,6 +7,7 @@
 include_once '../bd/Connexao.php';
 /*Classe de funções uteis*/
 include_once '../lib/Utils.php';
+include_once '../lib/Session.php';
 
 /*classes principais*/
 include_once '../model/Model.php';
