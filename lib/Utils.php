@@ -22,7 +22,7 @@ class Utils {
 
     public static function createBd() {
 
-        $link = mysql_connect('localhost', 'root', '021190');
+        $link = mysql_connect('localhost', 'root', '12345');
         if (!$link) {
             die('Não foi possível conectar: ' . mysql_error());
         }

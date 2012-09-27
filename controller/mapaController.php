@@ -91,7 +91,7 @@ class mapaController extends Controller {
         $this->set('num_t', $num_territorios);
         $this->set('territorios', $territorios);
 
-
+        header("Location:index.php?view=mapa&action=config");
         return $territorios;
     }
     

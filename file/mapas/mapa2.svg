@@ -392,9 +392,7 @@
      x="327.0387"
      y="394.60284"
      id="l_brasil"
-     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1">
-         <input name="nome" type="checkbox"/>
-         <tspan
+     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"><tspan
        sodipodi:role="line"
        id="tspan2451"
        x="327.0387"
@@ -1290,7 +1288,7 @@
      xml:space="preserve"
      x="239.6349"
      y="391.75604"
-     id="l_bolivia"
+     id="l_Bolivia"
      style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-opacity:1"><tspan
        sodipodi:role="line"
        id="tspan2451-5"
