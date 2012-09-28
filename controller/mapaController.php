@@ -68,7 +68,7 @@ class mapaController extends Controller {
         $dados = array('numero_territorios' => $num_territorios,
             'nome' => $file_name,
             'tipo' => $tipo,
-            'mapa' => $mapa);
+            'mapa' => 'Mapa');
         $this->setData($dados);
         $this->save();
         $id_mapa = $this->getId();

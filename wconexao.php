@@ -12,7 +12,7 @@ function conecta()
 
   			$user ="root"; // nome do usuário
 
-  			$senha = "12345"; // senha para acessar o banco
+  			$senha = ""; // senha para acessar o banco
 
   			$nome_banco ="warmaps"; //nome do banco de dados
 

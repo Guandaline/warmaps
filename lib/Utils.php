@@ -20,9 +20,9 @@ class Utils {
         echo '</pre>';
     }
 
-    public static function createBd() {
+    public static function createBd($senha) {
 
-        $link = mysql_connect('localhost', 'root', '12345');
+        $link = mysql_connect('localhost', 'root', $senha);
         if (!$link) {
             die('Não foi possível conectar: ' . mysql_error());
         }

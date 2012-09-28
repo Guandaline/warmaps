@@ -3,7 +3,7 @@
 ini_set('display_errors', 1);
 include_once 'element/includes.php';
 
-$link = mysql_connect('localhost', 'root', '021190');
+$link = mysql_connect('localhost', 'root', '');
 
 $errmsg = null;
 
