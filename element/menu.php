@@ -8,5 +8,8 @@
      
         <a href="index.php?view=mapa&action=lista">
                 Mapas
+        </a>|
+        <a href="War.rar">
+                Download
         </a>
 </div>
