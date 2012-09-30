@@ -159,7 +159,7 @@ class Model {
        
     }
 
-    public function select($campos) {
+    public function select($campos = NULL) {
         $this->geraSelect($campos);
         $this->conn->query($this->sql);
         $this->conn->execute($this->data);

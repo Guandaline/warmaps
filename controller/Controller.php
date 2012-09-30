@@ -99,7 +99,7 @@ class Controller {
         $this->Model->delete();
     }
 
-    public function select($campos) {
+    public function select($campos = NULL) {
         return $this->Model->select($campos);
     }
 

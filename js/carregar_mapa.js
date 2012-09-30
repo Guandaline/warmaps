@@ -19,11 +19,9 @@ $(document).ready(function(){
         });
         
     } 
-    console.log('carregar_mapa');    
     inserirMapa();
    
     setTimeout(function(){
-        console.log('iniciar....');
         configTerritorio();
         iniciar();
     }, 2000);
