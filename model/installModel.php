@@ -21,7 +21,7 @@ class installModel extends Model{
                 $errmsg = "could not create [$dbname] db in mysql";
                 return false;
             }
-            $result = $this->mysql_select_db($dbname);
+            $result = mysql_select_db($dbname);
         }
 
         if (!$result) {
@@ -29,7 +29,7 @@ class installModel extends Model{
             return false;
         }
 
-        $result = mysql_import_file($dbsqlfile, $errmsg);
+        $result = $this->mysql_import_file($dbsqlfile, $errmsg);
  
         return $result;
     }
