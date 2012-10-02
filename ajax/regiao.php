@@ -22,11 +22,10 @@ switch ($func) {
         /*pegar dados do post*/
         $nome = $_POST['nome'];
         $cor = $_POST['cor'];
-        $valor = $_POST['estrategico'];
         $exercitos = $_POST['exercitos'];
         $id = isset($_POST['id']) ? $_POST['id'] : NULL;
         
-        $res = $obj->setRegiao($mapa, $nome, $exercitos, $valor, $cor, $id);
+        $res = $obj->setRegiao($mapa, $nome, $exercitos, $cor, $id);
         
         break;
     case 3:

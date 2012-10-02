@@ -27,7 +27,7 @@
                         msg = JSON.parse(msg);
                         if(msg){
                             $('input[name=nome]').val(msg[0].nome);
-                            $('input[name=estrategico]').val(msg[0].valor_estrategico);
+                            //$('input[name=estrategico]').val(msg[0].valor_estrategico);
                             $('input[name=exercitos]').val(msg[0].exercitos);
                         }
                     },
@@ -63,9 +63,6 @@ $id = isset($_GET['id']) ? $_GET['id'] : NULL;
             <option value="branco">Branco</option>
             <option value="preto">Preto</option>
         </select>
-        <br/>
-        Valor estratégico
-        <input name="estrategico" type="text"/>
         <br/>
         Exércitos: 
         <input name="exercitos" type="text"/>

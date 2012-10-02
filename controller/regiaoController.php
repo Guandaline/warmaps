@@ -18,11 +18,11 @@ class regiaoController extends Controller{
         return $res;
     }
     
-    public function setRegiao($mapa, $nome, $exercitos, $valor, $cor, $id = NULL){
+    public function setRegiao($mapa, $nome, $exercitos, $cor, $id = NULL){
         $this->Model->data['id_mapa'] = $mapa;
         $this->Model->data['nome'] = $nome;
         $this->Model->data['exercitos'] = $exercitos;
-        $this->Model->data['valor_estrategico'] = $valor;
+        //$this->Model->data['valor_estrategico'] = $valor;
         $this->Model->data['cor'] = $cor;
         if($id == NULL)
             $this->save();

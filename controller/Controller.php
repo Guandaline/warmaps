@@ -1,11 +1,9 @@
 <?php
 
-/* Definir a classe controler (atributos e metodos)
- * criar tarefas para desenvolver os metodos
- */
+
 
 /**
- * Classe que representa os dados.
+ * Classe responsável pela manibulação dos dados.
  * */
 class Controller {
 

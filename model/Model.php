@@ -1,9 +1,6 @@
 <?php
-
-//include_once 'bd/Connexao.php';
-//include 'bd/Connexao.php';
 /**
- * Abstrai todo o acesso ao banco de dados.
+ * Classe Resposável por todo acesso ao banco de dados.
  * */
 class Model {
 
@@ -28,6 +25,9 @@ class Model {
         }
     }
 
+    /**
+     * Seleciona o ultimo ID da tabela
+     */
     private function setID() {
         $sql = 'SELECT MAX(id) as id FROM ' . $this->useTable . ';';
         $this->conn->query($sql);
@@ -37,18 +37,30 @@ class Model {
         $this->array = array();
     }
 
+    /**
+     * Transforma um <b>Array</b> em uma <b>String</b>. <br/>
+     * @param Array $campos Um array de <b>strings</b>.<br/>
+     * @return String String com todos os campos do array<br/> 
+     * separados por virgula. 
+     */
     private function arrayToString($campos) {
         $string = '';
         $num = count($campos);
         $i = 0;
-        foreach ($campos as $value) {
-            $string .= $value;
-            if ($i < $num - 1)
-                $string .= ', ';
+        foreach ($campos as $value) { /*percorre os campos*/
+            $string .= $value; /*Insere campo na string*/
+            if ($i < $num - 1) /*Não coloca "," depois do ultimo campo*/
+                $string .= ', '; 
+            $i++;
         }
         return $string;
     }
     
+    /**
+     * Gera o WHERE dos <b>SQL's</b> <br/>
+     * Utiliza os campos desfinidos no atributo <b>data</b><br/>
+     * Insere a string gerada no final do atriburo <b>sql</b>
+     */
     private function geraWhere(){
         if (!empty($this->data)) {
             $sql .= ' WHERE ';
@@ -65,15 +77,22 @@ class Model {
         $this->sql .= $sql;
     }
 
+    /** 
+     * Gera Query SQL Select<br/>
+     * @param Array\String $campos Array ou String 
+     * com os campos que serão selecionados na consulta.<br/>
+     * Se $campos for Nulo todos os campos são selecionados. <br/>
+     * Insere a Consulta gerada no atriburo <b>sql</b>
+     */
     private function geraSelect($campos = null) {
         $sql = 'SELECT ';
         if (is_array($campos)) {
-            $campos = arrayToString($campos);
+            $campos = $this->arrayToString($campos); /*gera string com os campos*/
         }
         if ($campos != null) {
-            $sql .= $campos;
+            $sql .= $campos; /* caso tenha algum campo insere no sql*/
         } else {
-            $sql .= '*';
+            $sql .= '*'; /*Caso não tenha um campo especificado selecionara todos*/
         }
         $sql .= ' FROM ' . $this->useTable;
         if (!empty($this->data)) {
@@ -90,6 +109,13 @@ class Model {
         }
         $this->sql = $sql;
     }
+    
+    
+    /** 
+     * Gera Query SQL Insert<br/>
+     * Insere os campos no atributo <b>data</b> no banco<br/>
+     * Insere o sql gerado no atriburo <b>sql</b>
+     */
 
     private function geraInsert() {
         $num = count($this->data);
@@ -110,6 +136,11 @@ class Model {
         $this->sql = $sql;
     }
 
+    /** 
+     * Gera Query SQL UPDATE<br/>
+     * Atualiza os campos no atributo <b>data</b> no banco<br/>
+     * Guarda o sql gerado no atriburo <b>sql</b>
+     */
     private function geraUpdate() {
         $num = count($this->data);
         $i = 0;
@@ -124,17 +155,24 @@ class Model {
         $this->sql = $sql;
     }
 
+    /** 
+     * Gera Query SQL DELETE <br/>
+     */
     private function geraDelete() {
         $sql = 'DELETE FROM ' . $this->useTable;
         $this->sql = $sql;
         if (!empty($this->data)) {
-            $this->geraWhere();
+            $this->geraWhere(); /*Gera o where*/
         }
         
     }
     
     
-
+    
+    /** 
+     * Salva os dados no Banco
+     * @return String Query sql gerada para inserir dados no banco. 
+     */
     public function save() {
         $this->geraInsert();
         $this->conn->query($this->sql);
@@ -143,14 +181,22 @@ class Model {
         return $this->sql;
     }
 
+    /**
+     * Update
+     * @param int $id id a ser atualizado<br/>
+     * Utiliza os valores no atributo <b>data</b>
+     */
     public function update($id) {
         $this->geraUpdate();
         $this->conn->query($this->sql);
         $this->conn->execute($this->data + array('id' => $id));
     }
 
+    /**
+     * Deleta os campos onde os valores sejam iguais<br/>
+     * campos definidos atributo <b>data</b>
+     */
     public function delete() {
-
             $this->geraDelete();
             $this->conn->query($this->sql);
             $this->conn->execute($this->data);
@@ -159,6 +205,15 @@ class Model {
        
     }
 
+    
+    /**
+     * Seleciona os dados na tabela referente ao modelo.<br/>
+     * Filtrados pelos campos definido no atributo <b>data</b>
+     * @param Array\String $campos Array ou String 
+     * com os campos que serão selecionados na consulta.<br/>
+     * Se $campos for Nulo todos os campos são selecionados. <br/>
+     * @return Array resultado da consulta
+     */
     public function select($campos = NULL) {
         $this->geraSelect($campos);
         $this->conn->query($this->sql);
@@ -167,12 +222,22 @@ class Model {
         return $this->array;
     }
 
+    
+    /**
+     * Seleciona todos os campos da tabela referente ao modelo.
+     * @return Array resultado da consulta
+     */
     public function selectAll() {
         $sql = 'SELECT * FROM ' . $this->useTable . ' ORDER BY id;';
         $this->array = $this->conn->queryAll($sql, array());
         return $this->array;
     }
 
+    /**
+     * Seleciona todos os campos na tabela referente ao modelo.
+     * @param int $id Id a ser buscado na tabela.
+     * @return Array resultado da consulta
+     */
     public function selectById($id) {
         $sql = 'SELECT * FROM' . $this->useTable . ' WHERE id = :id;';
         $this->conn->query($sql);
@@ -181,15 +246,27 @@ class Model {
         return $this->array;
     }
 
+    /**
+     * Prepara a query sql
+     */
     private function query() {
         $this->conn->query($this->sql);
     }
 
+    /**
+     * Prepara e executa uma query sql
+     * @param Array campos utilizados na query
+     * @return 
+     */
     public function queryFetch($dados) {
         $this->conn->query($this->sql);
         $this->conn->execute($dados);
     }
 
+    /**
+     * Prepara e executa uma query sql
+     * @param Array campos utilizados na query
+     */    
     public function queryExecute($dados = null) {
         $this->conn->query($this->sql);
         $this->conn->execute($dados);
