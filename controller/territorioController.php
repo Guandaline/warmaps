@@ -10,6 +10,11 @@ class territorioController extends Controller {
         
     }
 
+    /**
+     * Pega a lista de territórios de um mapa;
+     * @param int $id Id do mapa.
+     * @return array Lista de territorios.
+     */
     public function getListaTerritorios($id) {
         $this->Model->data['id_mapa'] = (int) $id;
         $res = $this->select('id, inome, id_regiao');
@@ -20,7 +25,12 @@ class territorioController extends Controller {
         }
         return $arr;
     }
-
+    
+    /**
+     * Pega a lista de labels do mapa
+     * @param int $id Id do mapa.
+     * @return array Lista de labels.
+     */
     public function getListaLabels($id) {
         $this->Model->data['id_mapa'] = (int) $id;
         $res = $this->select('label');
@@ -32,51 +42,29 @@ class territorioController extends Controller {
         }
         return $arr;
     }
-
+    
+    /**
+     * Insere a região a qual o território pertence.
+     * @param int $territorio Id do território
+     * @param int $regiao Id da região
+     */
     public function setRegiao($territorio, $regiao) {
         $this->Model->data['id_regiao'] = $regiao;
         $this->update($territorio);
     }
 
-    public function vizinhos($dados) {
-
-        $aux = array();
-        foreach ($dados as $value) {
-            $t_id = $value['id'];
-            $d = explode(' ', $value['d']);
-
-            $tam = count($d);
-            $i = 0;
-            while ($i < $tam) {
-                if (strtoupper($d[$i]) == 'M') {
-                    $i++;
-                    $aux[$t_id]['pos'] = $d[$i];
-                }
-                if (strtoupper($d[$i]) == 'C') {
-                    $j = 0;
-                    $i++;
-                    do {
-
-                        $val = explode(',', $d[$i]);
-                        $aux[$t_id]['pt'][$j]['x'] = $val[0];
-                        $aux[$t_id]['pt'][$j]['y'] = $val[1];
-                        $j++;
-                        $i++;
-                    } while (strtoupper($d[$i]) != 'Z');
-                }
-                $i++;
-            }
-        }
-
-        return $aux;
-    }
-
+    /**
+     * Gera as novas definições do mapa como vizinhos e territórios.
+     * @param int $mapa id do mapa
+     * @return Array Todas as definições do novo mapa
+     */
     public function getNewDefines($mapa) {
         $this->uses('regiao', '../');
         $this->Regiao->data['id_mapa'] = $mapa;
         $regs = $this->Regiao->select();
         $defs = array();
 
+        /*Define as regiões*/
         foreach ($regs as $val) {
 
             $defs['continentes'][$val['nome']]['valorEstrategico'] = $val['valor_estrategico'];
@@ -102,7 +90,9 @@ class territorioController extends Controller {
             $lista[$t['id']] = $t['inome'];
         }
         
+        /*Gera as definições dos territorios e seus vizinhos*/
         foreach ($territorios as $t){
+            /*fazer calculo do valor estrategico aqui*/
             $defs['paises'][$t['inome']]['valorEstrategico'] = 2;
             $defs['paises'][$t['inome']]['figura'] = 1;
             $this->Vizinho->data['territorio'] = $t['id'];
