@@ -3,7 +3,13 @@
 
 
 /**
- * Classe responsável pela manibulação dos dados.
+ * Classe responsável pela manibulação dos dados.<br/>
+ * Suas classes filhas devem conter as <b>Actions</b><br/>
+ * Actions são metodos que sempre são executados <br/>
+ * Quando a pagina referente a action é chamata<br/>
+ * A action é executada.<br/>
+ * <b>Metodos</b> podem ser chamados quando uma pagina é aberta
+ * Os metodos são executados antes da 
  * */
 class Controller {
 

@@ -1,28 +1,38 @@
 <?php
-
+/**
+ * Controller do Mapa
+ * Metodos e Atributos referentes ao mapa estão aqui.
+ */
 class mapaController extends Controller {
 
     var $name = 'mapa';
 
-    public function index() {
-        
-    }
-
+    /**
+     * Action novo
+     */
     public function novo() {
-        $this->uses('tipo');
-        $tipos = $this->Tipo->selectAll();
-        $this->set('tipos', $tipos);
         $this->setTitulo('Novo Mapa');
     }
 
+    /**
+     * Action config
+     */
     public function config() {
-        
+        $this->setTitulo('Configurações do Mapa');
     }
 
+    /**
+     * Action lista
+     */
     public function lista() {
+        $this->setTitulo('Lista de Mapas');
         $this->set('mapas', $this->select('id , nome'));
     }
 
+    /**
+     * <b>Methodo</b><br/>
+     * Insere o mapa no banco de dados
+     */
     public function salvar($data) {
 
         $this->uses('territorio');
@@ -33,30 +43,34 @@ class mapaController extends Controller {
         $mensagem = '';
         $this->set('mensagem', $mensagem);
 
-        if (stristr($file_type, "svg"))
-            @move_uploaded_file($file_tmp_name, 'file/mapas/' . $file_name);
+        if (stristr($file_type, "svg"))/*valida o tipo de arquivo*/
+            @move_uploaded_file($file_tmp_name, 'file/mapas/' . $file_name);/*move arquivo para o local lifel/mapas*/
         else {
             $mensagem = "Formato de arquivo inválido";
             $this->set('mensagem', $mensagem);
             return;
         }
 
-        $arquivo = fopen("file/mapas/" . $file_name, "r");
-        $territorios = NULL;
+        $arquivo = fopen("file/mapas/" . $file_name, "r");/*abre o arquivo*/
+        $territorios = NULL; /*Guarda os territorios*/
 
-        if ($arquivo) {
-            $mapa = null;
+        if ($arquivo) { 
             $i = 0;
-            while (!feof($arquivo)) {
-                $linha = fgets($arquivo);
-                $mapa .= $linha;
-                if (stristr($linha, "id=")) {
-                    $novo = explode("\"", $linha);
+            while (!feof($arquivo)) { /*Percorre o arquivo buscando todos os territorios*/
+                $linha = fgets($arquivo);/*le uma linha do arquivo*/
 
+                if (stristr($linha, "id=")) {
+                    $novo = explode("\"", $linha);/*pega o id do elemento xml*/
+                    /*
+                     * Aqui é onde eu verifico se o id tem o "t_" 
+                     * É essa condição que tenho que mudar para pegar qualquer pais
+                     * Já o tinha feito porém perdi quando meu note deu problema.
+                     * Essa semana tento arrumar
+                     */
                     if (!stristr($novo[1], "path") && stristr($novo[1], "t_") ) {
                         $nome = explode("_", $novo[1]);
-                        $territorios[$i]['id'] = $novo[1];
-                        $territorios[$i]['name'] = $nome[1];
+                        $territorios[$i]['id'] = $novo[1];/*id do territorio*/
+                        $territorios[$i]['name'] = $nome[1];/*pega o nome do territorio*/
                         $territorios[$i]['path'] = $linha;
                         $i = $i + 1;
                     }
@@ -64,18 +78,25 @@ class mapaController extends Controller {
             }
         }
 
-        $num_territorios = count($territorios);
+        $num_territorios = count($territorios);/*pega o numero de territorios que existe no mapa*/
+        
+        /*dados do mapa a ser salvo no banco*/
         $dados = array('numero_territorios' => $num_territorios,
             'nome' => $file_name,
             'tipo' => $tipo,
             'mapa' => 'Mapa');
+        /*Seta os dados a serem salvos*/
         $this->setData($dados);
+        /*salva*/
         $this->save();
+        /*pega id do mapa inserido*/
         $id_mapa = $this->getId();
 
+        /*Adciona o mapa na sessão*/
         Session::setVal('mapa', $id_mapa);
         Session::setVal('nome', $file_name);
 
+        /*Salva todos o territorios encontrados no banco*/
         foreach ($territorios as $value) {
 
             $dados = array('id_mapa' => $id_mapa,
@@ -84,18 +105,18 @@ class mapaController extends Controller {
                 'nome' => $value['name']);
             $this->Territorio->data = $dados;
             $this->set('sql', $this->Territorio->save());
+            
         }
 
-        $this->set('dir', "file/mapas/" . $file_name);
-        $this->set('f_name', $file_name);
-        $this->set('num_t', $num_territorios);
-        $this->set('territorios', $territorios);
-
+        /*redireciona pra pagina de configuração sem o metodo de salvar*/
         header("Location:index.php?view=mapa&action=config");
-        return $territorios;
+        
     }
     
-    
+    /**
+     * <b>Methodo</b><br/>
+     * Insere o mapa no banco de dados
+     */
     public function excluir($mapa){
         
         $this->uses('territorio', '../');
@@ -114,38 +135,6 @@ class mapaController extends Controller {
         $this->Model->data['id'] = $mapa;
         $this->delete();
         
-    }
-
-
-
-    public function vizinhos() {
-        $id_mapa = Session::getVal('mapa');
-        $file_name = Session::getVal('nome');
-        $arquivo = fopen("file/mapas/" . $file_name, "r");
-
-        if (stristr($linha, "id=t_")) {
-            if (stristr($linha, "id=t_")) {
-                
-            }
-        }
-        
-        
-        $d = array();
-        
-        if ($arquivo) {
-            $i = 0;
-            while (!feof($arquivo)) {
-                $linha = fgets($arquivo);
-                if (strstr($linha, '<') && !strstr($linha, '>')) {
-                    while (!strstr($linha, '>')) {
-                        $linha = fgets($arquivo);
-                        if (stristr($linha, "id=t_")) {
-                            
-                        }
-                    }
-                }
-            }
-        }
     }
 
 }

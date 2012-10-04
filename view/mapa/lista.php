@@ -3,7 +3,7 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        
+        /*Coloca os dados do mapa na session*/
         $('.mapas').click(function(e){
             var nome = $(this).attr('name');
             var mapa = $(this).attr('id');
@@ -18,6 +18,7 @@
             
         });
         
+        /*Exclui um mapa*/
          $('.excluir').click(function(e){
             var mapa = $(this).attr('id');
             $.ajax({

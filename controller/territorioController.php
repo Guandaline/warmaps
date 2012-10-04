@@ -3,7 +3,9 @@
 class territorioController extends Controller {
 
     var $name = 'territorio';
-
+    /**
+     * Action index
+     */
     public function index() {
         
     }
@@ -112,10 +114,6 @@ class territorioController extends Controller {
         
         return $defs ;
         
-        
-    }
-
-    public function getRegiao() {
         
     }
 

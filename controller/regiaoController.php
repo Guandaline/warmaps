@@ -1,7 +1,11 @@
 <?php
 class regiaoController extends Controller{
     var $name = 'regiao';
-    
+    /**
+     * Paga a lisata de regiões de um mapa
+     * @param int $mapa id do mapa
+     * @return Array As regiões do mapa
+     */
     public function getListaRegiao($mapa){
         $this->Model->data['id_mapa'] = $mapa;
         $res = $this->select('id, nome');
@@ -12,6 +16,11 @@ class regiaoController extends Controller{
         return $arr;
     }
     
+    /**
+     * Pega od dados de uma região
+     * @param int $id Id da região
+     * @return Array Dados da Região
+     */
     public function getRegiao($id){
         $this->Model->data['id'] = (int)$id;
         $res = $this->select();
@@ -22,7 +31,6 @@ class regiaoController extends Controller{
         $this->Model->data['id_mapa'] = $mapa;
         $this->Model->data['nome'] = $nome;
         $this->Model->data['exercitos'] = $exercitos;
-        //$this->Model->data['valor_estrategico'] = $valor;
         $this->Model->data['cor'] = $cor;
         if($id == NULL)
             $this->save();

@@ -1,7 +1,10 @@
 <?php
 
 /**
- * Classe de Visão
+ * <b>Classe de Visão</b><br/>
+ * Responsavel por chamar o template e as paginas<br/>
+ * assim como as <b>Actions</b> de cada pagina.<br/>
+ * e se necessário os <b>Methodos</b>
  * */
 class View {
 
@@ -46,7 +49,6 @@ class View {
      * Inclue o Controller da View 
      * */
     public function incluirController() {
-        // include_once 'controller/'.$this->name.'Controller.php';
         $controller = $this->name . 'Controller';
         $this->controller = new $controller;
     }
