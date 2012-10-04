@@ -2,9 +2,8 @@
 
 include_once 'includes.php';
 
-$controller = isset($_GET['controller']) ? $_GET['controller'] : 'regiao';
+$controller = 'regiao';
 $func = isset($_GET['func']) ? $_GET['func'] : 0;
-$mapa = isset($_GET['mapa']) ? $_GET['mapa'] : NULL;
 
 Session::start("warmaps");
 $mapa = Session::getVal('mapa');

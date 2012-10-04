@@ -115,7 +115,7 @@ class mapaController extends Controller {
     
     /**
      * <b>Methodo</b><br/>
-     * Insere o mapa no banco de dados
+     * Remove o mapa do banco de dados
      */
     public function excluir($mapa){
         

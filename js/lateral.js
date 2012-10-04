@@ -1,5 +1,9 @@
 $(document).ready(function(){
     /*
+     *
+     *Esse codigo abaixo ainda pretendo arrumar
+     *Se for possivel
+
     function esconder(){
         $('div.options').hide();
         $('.lateral.large').removeClass('large');
@@ -22,6 +26,7 @@ $(document).ready(function(){
     });
     */
    
+   /*Muda para o mode de indicar vizinhos quando um território é clicado*/
     $('a.mod_territorios').click(function(){
         $('.regiao').each(function(){
             $(this).removeClass('regiao');
@@ -35,7 +40,9 @@ $(document).ready(function(){
     });
     
    
-    
+    /*
+     *Muda para o mode de indicar quais territórios pertence a qual religião
+     **/
     $('a.mod_regioes').click(function(){
         $('.territorio').each(function(){
             $(this).removeClass('territorio');

@@ -1,3 +1,7 @@
+/**
+ *Seta as novas definiçoes do jogo do war
+ **/
+
 function newDefines(){
     objetivos = defines.objetivos;
     $.ajax({
@@ -5,7 +9,6 @@ function newDefines(){
         url: "ajax/territorio.php?func=4",
         success: function(msg) {
             msg = JSON.parse(msg);
-            
             msg.objetivos = objetivos;
             defines = msg;
         },

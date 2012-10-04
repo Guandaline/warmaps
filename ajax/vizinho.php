@@ -2,7 +2,7 @@
 
 include_once 'includes.php';
 
-$controller = isset($_GET['controller']) ? $_GET['controller'] : 'vizinho';
+$controller = 'vizinho';
 $func = isset($_GET['func']) ? $_GET['func'] : 0;
 $territorio = isset($_GET['territorio']) ? $_GET['territorio'] : NULL;
 

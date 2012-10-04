@@ -2,7 +2,7 @@
 
 include_once 'includes.php';
 
-$controller = isset($_GET['controller']) ? $_GET['controller'] : 'territorio';
+$controller = 'territorio';
 $func = isset($_GET['func']) ? $_GET['func'] : 0;
 $territorio = isset($_GET['territorio']) ? $_GET['territorio'] : NULL;
 
@@ -29,11 +29,6 @@ switch ($func) {
         break;
     case 4:
         $res = $obj->getNewDefines($mapa);
-      //  echo count($res['paises']);
-      //  Utils::pa($res);
-        break;
-    case 999:
-        $res = $obj->vizinhos($_POST);
         break;
     default:
         $res = array('func invalida');

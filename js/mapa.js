@@ -1,5 +1,8 @@
 $(document).ready(function(){
     
+    /**
+     *Função para verificar se um elemento existe
+     **/
     jQuery.fn.exists = function (){
         return jQuery(this).length > 0 ? true : false;
     };
@@ -7,34 +10,39 @@ $(document).ready(function(){
     var territorios;
     var label;
     var lista_vizinhos;
+    
+    /*Pega lista de Territórios*/
     function getListaIdTerritorios(){
+        /*Aguarda um tempo para que o mapa seja carregado*/
         setTimeout(function(){
-        
+            /*pega os territórios via ajax*/
             $.ajax({                       
                 context: $(this),
                 url: "ajax/territorio.php?func=2",
                 success: function(msg) {
                     msg = JSON.parse(msg);
-                    territorios = msg;
-                    // console.log(msg);
+                    territorios = msg;/*pega o resultado*/
+
                     $.each(msg, function(k, val){/*percorrer json*/
+                        /*remove o estulo de todos os territórios*/
                         $('#' + val['name']).removeAttr('style');
+                        /*Adciona a classe e as configurações do território*/
                         $('#' + val['name']).addClass('territorio')
                                     .attr('id', k)
                                     .attr('name', val['name'].toString().substring(2))
                                     .attr('reg', val['reg']);
                     });
-                    //findVizinhos();
+                    /*Adiciona as cores das regiões caso exitam*/
                     $('a[name=cores]').click();
                 },
                 async: false
             });
             
-        }, 2000);
+        }, 3500);
     }
     
     
-    
+    /*Pega a lista de labels dos territórios*/
     function getListaLabels(){
             $.ajax({                       
                 context: $(this),
@@ -42,25 +50,29 @@ $(document).ready(function(){
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     label = msg;
-                    var l;                    //                 console.log(msg);
+                    var l;
                     $.each(msg, function(k, val){/*percorrer json*/
                         l = $('#' + val);
+                        /*remove o estilo a adciona os atributos*/
                         l.addClass('label').attr('id', k).attr('name', val).removeAttr('style');
-                        //$('<div>').addClass('tropas').attr('name', val).appendTo(l).show();
                         span = l.find('tspan');
-                        span.text(' ');
+                        span.text(' ');/*Esconde o 1*/
                     });
                 },
                 async: false
             });            
     }
     
+    /**
+     *Pega lista de vizinhos por território via ajax
+     **/
     function getListaVizinhos(territorio_id){
         var res;    
         $.ajax({                       
             context: $(this),
             url: "ajax/vizinho.php?func=1&territorio=" + territorio_id,
             success: function(msg) {
+                /*Guarda lista de vizinhos*/
                 lista_vizinhos = JSON.parse(msg);
             },
             async: false
@@ -69,21 +81,6 @@ $(document).ready(function(){
     
     var tabela = new Array( );
     
-    function findVizinhos(){
-        var i = 0;
-        $('.territorio').each(function(){
-            id = $(this).attr('id');
-            d = $(this).attr('d');
-            $('<input>').addClass('path')
-                        .attr('name', id)
-                        .attr('value',d)
-                        .hide()
-                        .appendTo($('form[name=form_path]'));
-            i++;
-        });
-        
-        $('form[name=form_path]').submit();
-    }
     
     $('form[name=form_path]').submit(function(e){
             e.preventDefault();
@@ -92,18 +89,19 @@ $(document).ready(function(){
                 type: 'post',
                 data: params,
                 url: "ajax/territorio.php?func=4",
-                success: function(msg){
-                    console.log('Salvou?');
-                    console.log(msg);
-                    
+                success: function(msg){                    
                 }
             });
         });
     
+    /**
+     *Insere o mapa na pagina
+     **/
     function inserirMapa(){
         var arq = $('input[name=arquivo]').val();
+        /*Pega o nome do arquivo*/
         $("#game").svg({      
-            
+            /*le o arquivo e insere na div#game*/
             onLoad: function() {       
                 var svg;        
                 svg = $("#game").svg('get');        
@@ -116,8 +114,11 @@ $(document).ready(function(){
             settings: {}
         });
         
-    } 
+    }
     
+    /**
+     *Pega o id do território pelo nome dele
+     **/
     function getTerritorioIdByName(name){
         var res;
         $.each(territorios, function(k, val){
@@ -128,6 +129,9 @@ $(document).ready(function(){
         return res;
     }
     
+    /**
+     *Pega o nome pelo id
+     **/
     function getTerritorioNameById(id){
         var r = null;
         $.each(territorios, function(k, val){
@@ -140,10 +144,16 @@ $(document).ready(function(){
         
     }
     
+    /**
+     *Pega o nome a partid do id do elemento
+     **/
     function getName(element, pos){
         return element.attr('id').toString().substring(pos);
     }
     
+    /**
+     *Pega os inputs caso existam
+     **/
     function getInput(name){
         var input = $('input[name=' + name + ']');
         if(input[0]){
@@ -153,24 +163,31 @@ $(document).ready(function(){
         return null
     }
     
+    /**
+     * Esconde todos os elementos em <b> element<b/>
+     **/
     function hiddeAll(element){
         element.each(function(){
             $(this).hide();
         });
     }
-    
+    /**
+     *Mostra todos os ementos de element
+     **/
     function showAll(element){
         element.each(function(){
             $(this).show();
         });
     }
     
+    /**Esconde ou mostra os elementos*/
     function toggleAll(element){
         element.each(function(){
             $(this).toggle();
         });
     }
    
+   /**Desseleciona território selecionaod*/
     function desselecionar(){
         var e = $('.territorio.selecionado');
         if(e.exists()){
@@ -183,6 +200,8 @@ $(document).ready(function(){
         }
     }
     
+    /**Aidciona checkbox em todos os territórios
+     */
     function adicionarCheckbox(name){
         var l, t;
         $.each(label, function(k, val){/*percorrer json*/
@@ -192,11 +211,10 @@ $(document).ready(function(){
             var x = l.position().left;
             var id = $('[name='+ val.toString().substring(2) +'].territorio').attr('id');
             if(name != id){
-                               
+                /**Cria o checkbox*/               
                 $('<input>').attr('type', 'checkbox')
                 .attr('name', name)
-                .attr('id', id)
-                /*.addClass(id)*/
+                .attr('id', id) 
                 .css({
                     position: 'absolute', 
                     top: y, 
@@ -212,36 +230,40 @@ $(document).ready(function(){
     getListaIdTerritorios();
     getListaLabels();
     
-       
+       /*Seleciona um território clicado*/
     $('.territorio').live('click', function(){
+        /*Desseleciona territorio caso ja esteja selecionado*/
         desselecionar();
         $(this).addClass('selecionado');
         var name = getName($(this), 0);
         var input = getInput(name);
         if(input != null){
-            showAll(input);
+            /*caso ja tenha sido mostrado os inputs não precisa criar novamente apenas se mostra eles*/
+            showAll(input); 
         }else{
+            /*Caso ainda não tenha sido mostrado cria os inputs*/
             id = $(this).attr('id');
             adicionarCheckbox(name);
             getListaVizinhos(id);
-            console.log('lista vizinhos ' + lista_vizinhos);
+            /*adiciona um checkbox em cada territorio do mapa que não seja o selecionado*/
             $.each(lista_vizinhos, function(k , val){
                 name_vizinho = val;
-                console.log('input[name=' + name + '] #' + name_vizinho);
                 $('input[name=' + name + '][id=' + name_vizinho + ']').attr('checked', true);
             });
         }
     });
-        
+        /*desseleciona território*/
     $('.territorio.selecionado').live('click', function(){
         $(this).removeClass('selecionado');
         var name = $(this).attr('id');
         var input = getInput(name);
         if(input != null){
+            /*esconde todos os inputs*/
             hiddeAll(input);
         }
     });
     
+    /*Salva vizinhos*/
     $('input[type=checkbox]').live('click', function(){
         var e = $(this);
         var t_id = e.attr('name');
@@ -253,7 +275,7 @@ $(document).ready(function(){
             url: "ajax/vizinho.php?func=2&territorio=" + t_id 
             + "&vizinho=" + v_id + '&val=' + val,
         success: function(msg){
-            console.log(msg);
+           
         }
         });
         

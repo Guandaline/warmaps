@@ -2,7 +2,7 @@
 class regiaoController extends Controller{
     var $name = 'regiao';
     /**
-     * Paga a lisata de regiões de um mapa
+     * Pega a lista de regiões de um mapa
      * @param int $mapa id do mapa
      * @return Array As regiões do mapa
      */
@@ -27,18 +27,37 @@ class regiaoController extends Controller{
         return $res;
     }
     
+    /**
+     * Cria uma nova Região
+     * @param int $mapa Id do mapa
+     * @param String $nome Nome da região
+     * @param int $exercitos Quantidade de exercitos de bonus
+     * @param String $cor a cor da nova região.
+     * @param int $id Id da região caso seja diferente de nulo<br/>
+     * realiza um update na tabela
+     * @return string O sql montado;
+     */
     public function setRegiao($mapa, $nome, $exercitos, $cor, $id = NULL){
-        $this->Model->data['id_mapa'] = $mapa;
-        $this->Model->data['nome'] = $nome;
-        $this->Model->data['exercitos'] = $exercitos;
-        $this->Model->data['cor'] = $cor;
-        if($id == NULL)
+        /*Dados a serem salvos*/
+        $dados = array('id_mapa' => $mapa,
+                        'nome' => $nome,
+                        'exercitos' => $exercitos,
+                        'cor' => $cor
+            );
+        $this->setData($dados);
+       
+        if($id == NULL)/*Salva*/
             $this->save();
-        else
+        else/*atualiza*/
             $this->update ($id);
         return $this->Model->sql;
     }
     
+    /**
+     * Pega as cores dos Territórios 
+     * @param int $id Id do mapa
+     * @return Array Lista de cores no mapa
+     */    
     public function getCores($mapa){
         $this->Model->data['id_mapa'] = $mapa;
         $res = $this->select('id, cor');
@@ -49,6 +68,12 @@ class regiaoController extends Controller{
         return $arr;
     }
     
+    
+    /**
+     * Excluir uma região.
+     * @param int $id Id da região
+     * @return Array Lista de territórios que foram afetados
+     */
     public function excluir($id){
         $this->uses('territorio', '../');
         $this->Territorio->data['id_regiao'] = $id;

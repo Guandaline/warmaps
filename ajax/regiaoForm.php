@@ -1,8 +1,11 @@
 <script type="text/javascript">
     $(document).ready(function(){
+        /*Ao enviar uma região ela é inserida via ajax*/
         $('form[name=form_regiao]').submit(function(e){
+            /*Cancela o evento*/
             e.preventDefault();
             var params = $(this).serialize();
+            /*insere via ajax*/
             $.ajax({
                 type: 'post',
                 data: params,
@@ -15,9 +18,11 @@
         });
         
         function edit(){
+        /*Caso exista um id significa que é uma edição de território*/
             input = $('input[name=id]');
             if(input[0]){
                 id = input.val();
+                /*Pega os dados via ajax*/
                 $.ajax({
                     context: $(this),
                     url: "ajax/regiao.php?func=3&id=" + id,
