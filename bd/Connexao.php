@@ -37,6 +37,10 @@ class Connexao {
         }
     }
 
+    /**
+     * Prepara a query SQL
+     * @param String $sql Query Sql a ser preparada
+     */
     public function query($sql) {
         try{
             $this->resultado = $this->conexao->prepare($sql);
@@ -45,6 +49,11 @@ class Connexao {
         }
     }
     
+    /**
+     * Executa a query com os dados
+     * @param Array $dados Dados necessarios para execução da query.<br/>
+     * Pode ser Nulo ou vazio.
+     */
     public function execute($dados = NULL){
         try{
             $this->resultado->execute($dados);
@@ -53,6 +62,10 @@ class Connexao {
         }
     }
     
+    /**
+     * Pega uma linha do resultado da consulta sql e retorna como objeto.
+     * @return Object obj O objeto de uma linha da consulta.
+     */
     public function fetchObj(){
         try{
             $this->obj = $this->resultado->fetch(PDO::FETCH_OBJ);
@@ -63,6 +76,10 @@ class Connexao {
         return $this->obj;
     }
    
+    /**
+     * Retorna uma linha do resultado da consulta.
+     * @return Array uma linha do resultado da consulta
+     */
     public function fetch(){
         try{
             $this->array = $this->resultado->fetch();
@@ -73,6 +90,10 @@ class Connexao {
         return $this->array;
     }
 
+    /**
+     * Retorna todo o resultado da consulta em um Array
+     * @return Array Todas a linhas resultantes da consulta.
+     */
     public function fetchAll(){
         try{
             $this->array = $this->resultado->fetchAll();
@@ -83,6 +104,12 @@ class Connexao {
         return $this->array;
     }
     
+    /**
+     * Prepara a query sql, executa e retorna os dados
+     * @param String $sql Consulta SQL.
+     * @param Array $dados dados necessários para execução da query.
+     * @return Array Todas a linhas resultantes da consulta.
+     */
     public function queryAll($sql, $dados){
         try{
             $this->query($sql);
@@ -94,6 +121,9 @@ class Connexao {
         }
     }
 
+    /**
+     * Fecha a conexão.
+     */
     public function close(){
         $this->conexao = NULL;
     }

@@ -21,18 +21,19 @@ class View {
         $action = is_string($action) ? $action : 'index';
         $this->action = $action;
 
-        if (is_string($method)) {
-            if (method_exists($this->controller, $method))
+        if (is_string($method)) { /* Verifica que deve executar um methodo antes de iniciar a pagina */
+            if (method_exists($this->controller, $method)) {/*Verifica se o method chamado existe*/
                 $this->controller->$method($dados);
-        }else {
-            $this->error = 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $method . '();<br/>';
+            } else {
+                /* Mensagens de erro */
+                $this->error = 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $method . '();<br/>';
+            }
         }
 
-
-        if (method_exists($this->controller, $action)) {
-            $this->controller->$action();
-            $this->vars = $this->controller->viewVars;
-            $this->setPage();
+        if (method_exists($this->controller, $action)) { /*verifica que existe aquela action*/
+            $this->controller->$action(); /*Chama a action da visão*/
+            $this->vars = $this->controller->viewVars;/*pega as variáveis da pagina*/
+            $this->setPage(); /*seta a pagina*/
         } else {
             $this->error .= 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $this->action . '()';
         }
@@ -43,7 +44,7 @@ class View {
 
     /**
      * Inclue o Controller da View 
-     * * */
+     * */
     public function incluirController() {
         // include_once 'controller/'.$this->name.'Controller.php';
         $controller = $this->name . 'Controller';
@@ -52,7 +53,7 @@ class View {
 
     /**
      * Inclue o Template 
-     * * */
+     * */
     private function incluirTemplate() {
         ob_start();
         extract($this->vars);

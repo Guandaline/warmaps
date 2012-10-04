@@ -205,7 +205,6 @@ class Model {
        
     }
 
-    
     /**
      * Seleciona os dados na tabela referente ao modelo.<br/>
      * Filtrados pelos campos definido no atributo <b>data</b>
@@ -256,11 +255,11 @@ class Model {
     /**
      * Prepara e executa uma query sql
      * @param Array campos utilizados na query
-     * @return 
+     * @return Array Resultado da consulta.
      */
     public function queryFetch($dados) {
         $this->conn->query($this->sql);
-        $this->conn->execute($dados);
+        return $this->conn->fetchAll($dados);
     }
 
     /**

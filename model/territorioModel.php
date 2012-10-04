@@ -1,8 +1,8 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Classe de modelo do controller territorio
+ * utiliza a tabela territorios
  */
 
 class territorioModel extends Model {

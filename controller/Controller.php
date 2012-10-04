@@ -44,7 +44,6 @@ class Controller {
     }
 
     /* retorna o nome do model */
-
     protected function getName() {
         return $this->Model->name;
     }
@@ -77,34 +76,71 @@ class Controller {
         $this->set('titulo', $titulo);
     }
 
+    /**
+     * Seta dos dados que devem ser usados em uma query sql
+     * @param Array $dados Campos que quevem ser  utilizados em um sql
+     */
     public function setData($dados) {
         $this->Model->data = $dados;
     }
-    
+    /**
+     * Pega o id maximo da tabela
+     * @return int id maximo da tabela
+     */
     public function getId() {
         return $this->Model->id;
     }
 
+    /** 
+     * Salva os dados no Banco
+     * @return String Query sql gerada para inserir dados no banco. 
+     */
     public function save() {
-        $this->Model->save();
+       return $this->Model->save();
     }
 
+    /**
+     * Update
+     * @param int $id id a ser atualizado<br/>
+     * Utiliza os valores no atributo <b>data</b>
+     */
     public function update($id) {
         $this->Model->update($id);
     }
 
+    /**
+     * Deleta os campos onde os valores sejam iguais<br/>
+     * campos definidos atributo <b>data</b>
+     */
     public function delete() {
         $this->Model->delete();
     }
-
+    
+    /**
+     * Seleciona os dados na tabela referente ao modelo.<br/>
+     * Filtrados pelos campos definido no atributo <b>data</b>
+     * @param Array\String $campos Array ou String 
+     * com os campos que serão selecionados na consulta.<br/>
+     * Se $campos for Nulo todos os campos são selecionados. <br/>
+     * @return Array resultado da consulta
+     */
     public function select($campos = NULL) {
         return $this->Model->select($campos);
     }
-
+    
+    /**
+     * Seleciona todos os campos da tabela referente ao modelo.
+     * @return Array resultado da consulta
+     */
     public function selectAll() {
         return $this->Model->selectAll();
     }
-
+    
+    /**
+     * Seleciona todos os campos na tabela referente ao modelo.
+     * @param int $id Id a ser buscado na tabela.
+     * @return Array resultado da consulta
+     */
     public function selectById($id) {
         return $this->Model->selectById($id);
     }

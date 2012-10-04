@@ -52,7 +52,6 @@ class regiaoController extends Controller{
         $this->Model->data = null;
         $this->Model->data['id'] = $id;
         $this->delete();
-        //$territorio = array('fudeo');
         return $territorio;
     }
     

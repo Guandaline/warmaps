@@ -8,8 +8,6 @@
                 data: params,
                 url: "ajax/regiao.php?func=2",
                 success: function(msg){
-                    //console.log('Salvou?');
-                    //console.log(msg);
                     $( "#dialog-form" ).dialog("close");
                 },
                 async: false
@@ -27,7 +25,6 @@
                         msg = JSON.parse(msg);
                         if(msg){
                             $('input[name=nome]').val(msg[0].nome);
-                            //$('input[name=estrategico]').val(msg[0].valor_estrategico);
                             $('input[name=exercitos]').val(msg[0].exercitos);
                         }
                     },
@@ -62,6 +59,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : NULL;
             <option value="azul">Azul</option>
             <option value="branco">Branco</option>
             <option value="preto">Preto</option>
+            <option value="rosa">Rosa</option>
         </select>
         <br/>
         Exércitos: 
