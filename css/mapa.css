@@ -78,3 +78,12 @@ root {
   fill: #f08dba;
 }
 
+.laranja{
+  fill:  #cc680f;
+}
+
+#game{
+    text-align: center;
+    background-color: #73d5ee;
+
+}

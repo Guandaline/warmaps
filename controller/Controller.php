@@ -29,24 +29,23 @@ class Controller {
      * */
     public function incluirModel($model = NULL) {
         $model = $this->name . 'Model';
-        //$nomeModel = ucfirst($this->name); 
-        //include_once 'model/'.$this->name.'Model.php';
-        //$this->Model = $nomeModel;
         $this->Model = new $model();
     }
 
     /**
       Inclui modulos no controller.
       @param string $model Nome do Modelo a ser utilizado.
+      @param String $nivel numero de diretórios acima do atual em "../"s
       @return objectModel O novo modelo pode ser acessado pelo atributo $uses.
      * */
     protected function uses($model, $nivel = '') {
-        
-        include_once $nivel . 'model/' . $model . 'Model.php';
-        $nameModel = ucfirst($model);
-        $classModel = $model.'Model';
-        $this->uses[$model] = $nameModel;
-        $this->$nameModel= new $classModel();
+        if(!isset($this->uses[$model])){
+            include_once $nivel . 'model/' . $model . 'Model.php';
+            $nameModel = ucfirst($model);
+            $classModel = $model.'Model';
+            $this->uses[$model] = $nameModel;
+            $this->$nameModel= new $classModel();
+        }
     }
 
     /* retorna o nome do model */

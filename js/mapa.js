@@ -7,14 +7,14 @@ $(document).ready(function(){
         return jQuery(this).length > 0 ? true : false;
     };
     
-    var territorios;
-    var label;
-    var lista_vizinhos;
+    var territorios; /*lista de dettirórios*/
+    var label; /*lista de labels*/
+    var lista_vizinhos; /*lista de vizinhos - muda de acordo com o território selecionado*/
     
     /*Pega lista de Territórios*/
     function getListaIdTerritorios(){
         /*Aguarda um tempo para que o mapa seja carregado*/
-        setTimeout(function(){
+       
             /*pega os territórios via ajax*/
             $.ajax({                       
                 context: $(this),
@@ -22,7 +22,7 @@ $(document).ready(function(){
                 success: function(msg) {
                     msg = JSON.parse(msg);
                     territorios = msg;/*pega o resultado*/
-
+                    
                     $.each(msg, function(k, val){/*percorrer json*/
                         /*remove o estulo de todos os territórios*/
                         $('#' + val['name']).removeAttr('style');
@@ -38,7 +38,7 @@ $(document).ready(function(){
                 async: false
             });
             
-        }, 3500);
+         
     }
     
     
@@ -62,6 +62,20 @@ $(document).ready(function(){
                 async: false
             });            
     }
+    
+    
+    setTimeout(function(){
+        getListaIdTerritorios();
+        
+        
+    }, 5000);
+    
+    setTimeout(function(){
+        
+        getListaLabels();
+        
+    }, 5000);
+    
     
     /**
      *Pega lista de vizinhos por território via ajax
@@ -227,8 +241,7 @@ $(document).ready(function(){
     }
 
     inserirMapa();
-    getListaIdTerritorios();
-    getListaLabels();
+    
     
        /*Seleciona um território clicado*/
     $('.territorio').live('click', function(){

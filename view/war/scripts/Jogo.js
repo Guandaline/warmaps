@@ -73,7 +73,7 @@ Jogo.prototype._init = function (){
 
     
 
-    this.jogadorAtualLabel = document.getElementById('jogadorAtualLabel');
+  //  this.jogadorAtualLabel = document.getElementById('jogadorAtualLabel');
 
     
 
@@ -279,7 +279,7 @@ Jogo.prototype.jogar = function (){
 
         this.jogadorAtual = this.jogadores[ idx ];
 
-        this.jogadorAtualLabel.textContent = this.jogadorAtual.nome +"  ->  "+ this.jogadorAtual.cor +" -> " +this.jogadorAtual.perfilNome; 
+       // this.jogadorAtualLabel.textContent = this.jogadorAtual.nome +"  ->  "+ this.jogadorAtual.cor +" -> " +this.jogadorAtual.perfilNome; 
 
 		
 
@@ -387,7 +387,7 @@ Jogo.prototype.batalha = function(ataque, defesa){
 
     insere(1,this.selecionado.jogador.nome,this.atacado.jogador.nome,this.selecionado.qtdExercitos,this.atacado.qtdExercitos);
     insere(5,0,0,0,0);	
-    this.jogadorAtualLabel.textContent = this.jogadorAtual.nome +"  ->  "+ this.jogadorAtual.cor +"->" +this.jogadorAtual.perfilNome; 
+   // this.jogadorAtualLabel.textContent = this.jogadorAtual.nome +"  ->  "+ this.jogadorAtual.cor +"->" +this.jogadorAtual.perfilNome; 
        
 	   
     a = ((ataque - defesa) > 0) ? defesa: ataque ;

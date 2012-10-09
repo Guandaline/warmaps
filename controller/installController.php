@@ -18,12 +18,21 @@ class installController extends Controller{
         $user = $data['post']['user'];
         $pass = $data['post']['pass'];
         
-        $this->Model->createDataBase($user, $pass);
-        $this->configDataBase($user, $pass);
+        $link = mysql_connect('localhost', $user, $pass);
         
-        /*Redireciona pra index e manda nenomear oa aquivo install.php*/
-        header("Location:index.php?remove=1&msg=".$errmsg);
+        $errmsg = '';
         
+        $res = $this->Model->mysql_install_db('warmaps', 'bd/warmaps.sql', $link, &$errmsg);
+        
+        if($res){
+            
+            $this->configDataBase($user, $pass);
+            /*Redireciona pra index e manda nenomear oa aquivo install.php*/
+            header("Location:index.php?remove=1&msg=".$errmsg);
+            
+        }else{
+            header("Location:install.php?msg=".$errmsg);
+        }
     }
     
     /**

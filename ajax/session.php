@@ -9,7 +9,5 @@ Session::start("warmaps");
 Session::setVal('mapa', $mapa);
 Session::setVal('nome', $nome);
 
-echo Session::getVal('mapa'). ' ';
-echo Session::getVal('nome');
 
 ?>

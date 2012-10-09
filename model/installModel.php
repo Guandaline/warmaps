@@ -17,20 +17,22 @@ class installModel extends Model{
      * @return Bool <b>True</b> caso a estrutura do banco tenha sido criada corretamente <br/>
      * <b>False</b> caso ocorra algum erro na importação do banco. 
      */
-    public function mysql_install_db($dbname, $dbsqlfile, &$errmsg) {
+    public function mysql_install_db($dbname, $dbsqlfile, $link, &$errmsg) {
         $result = true;
-
+        
         if (!mysql_select_db($dbname)) { /*Verifica se o banco ja existe*/
             $result = mysql_query("CREATE DATABASE $dbname"); /*Cria o banco*/
             if (!$result) {
-                $errmsg = "could not create [$dbname] db in mysql";
+                $errmsg = "Não foi possivel criar o banco  de dados[$dbname]. <br/>
+                            Certifique-se de que o usuário e senha estão corretos. <br/>
+                            Verifique as permissões do usuário do banco.";
                 return false;
             }
             $result = mysql_select_db($dbname); /*Seleciona o banco*/
         }
 
         if (!$result) { /*Mensagem de erro*/
-            $errmsg = "could not select [$dbname] database in mysql";
+            $errmsg = "Não foi possivel selecionar o banco de dados [$dbname]";
             return false;
         }
 
@@ -49,7 +51,7 @@ class installModel extends Model{
         $lines = file($filename);
 
         if (!$lines) {
-            $errmsg = "cannot open file $filename";
+            $errmsg = "Não foi possivel encontrar o arquivo $filename";
             return false;
         }
 
@@ -65,7 +67,7 @@ class installModel extends Model{
         }
 
         if (!$scriptfile) {
-            $errmsg = "no text found in $filename";
+            $errmsg = "Arquivo invalido $filename";
             return false;
         }
 
@@ -81,7 +83,7 @@ class installModel extends Model{
                 continue;
             }
             if (!mysql_query($query . ';')) {
-                $errmsg = "query " . $query . " failed";
+                $errmsg = "query " . $query . " falhou";
                 return false;
             }
         }

@@ -32,9 +32,9 @@
         
     </div>
 </div>   
-<?php echo Session::getVal('nome');?>
-<input type="hidden" value="<?php echo Session::getVal('nome');?>" name="arquivo"/>
-<div id="game" style="width: 95%; height: 90%; border: solid 1px #000; text-align: center; background-color: #4567BA;"></div>
+
+<input type="hidden" value="<?php echo $nome?>" name="arquivo"/>
+<div id="game" style=""></div>
 <div id="inputs"></div>
 <div id="dialog-form"></div>
 

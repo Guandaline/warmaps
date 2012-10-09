@@ -14,7 +14,7 @@ $(document).ready(function(){
     function getCores(){
         $.ajax({
             context: $(this),
-            url: "ajax/regiao.php?func=4&mapa=30",
+            url: "ajax/regiao.php?func=4",
             success: function(msg) {
                 msg = JSON.parse(msg);
                 cores = msg;
@@ -39,7 +39,7 @@ $(document).ready(function(){
         $.ajax({
             /*Montar um menu e atualizar toda vez que uma região for alterada*/
             context: $(this),
-            url: "ajax/regiao.php?func=1&mapa=30",
+            url: "ajax/regiao.php?func=1",
             success: function(msg) {
                 if(msg){
                     msg = JSON.parse(msg);

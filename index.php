@@ -1,6 +1,10 @@
 <?php
 
 ini_set('display_errors', 1);
+
+//session_save_path('./');
+//ini_set('session.gc_probaility', 1);
+
 include_once 'element/includes.php';
 
 if(file_exists("install.php")){

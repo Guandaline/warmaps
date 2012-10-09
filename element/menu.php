@@ -9,6 +9,9 @@
         <a href="index.php?view=mapa&action=lista">
                 Mapas
         </a>|
+        <a href="index.php?view=install">
+                install
+        </a>|
         <a href="War.rar">
                 Download
         </a>

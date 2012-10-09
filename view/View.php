@@ -23,10 +23,10 @@ class View {
         $this->incluirController();
         $action = is_string($action) ? $action : 'index';
         $this->action = $action;
-
+        $res = null;
         if (is_string($method)) { /* Verifica que deve executar um methodo antes de iniciar a pagina */
             if (method_exists($this->controller, $method)) {/*Verifica se o method chamado existe*/
-                $this->controller->$method($dados);
+               $res = $this->controller->$method($dados);
             } else {
                 /* Mensagens de erro */
                 $this->error = 'A classe controller ' . $this->name . 'Controller não possui o metodo ' . $method . '();<br/>';
@@ -43,6 +43,8 @@ class View {
 
         $this->incluirTemplate();
         $this->render();
+        
+        //Utils::pa($res);
     }
 
     /**

@@ -65,6 +65,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : NULL;
             <option value="branco">Branco</option>
             <option value="preto">Preto</option>
             <option value="rosa">Rosa</option>
+            <option value="laranja">Laranja</option>
         </select>
         <br/>
         Exércitos: 
