@@ -1,6 +1,7 @@
 <script src="js/mapa.js"></script>
 <script src="js/lateral.js"></script>
 <script src="js/regiao.js"></script>
+<script src="js/objetivo.js"></script>
 
 <div class="lateral">
     <div class="mostrar">  </div>
@@ -8,6 +9,12 @@
         <div>
             <a class="mod_territorios" href="#">
                 Indicar Vizinhos
+            </a>
+        </div>
+        <hr/>
+        <div>
+            <a class="objetivos" href="#">
+                Objetivos
             </a>
         </div>
         <hr/>
@@ -33,7 +40,10 @@
     </div>
 </div>   
 
-<input type="hidden" value="<?php echo $nome?>" name="arquivo"/>
+<div>
+    <?php echo $nome;?>
+</div>
+<input type="hidden" value="<?php echo $nome;?>" name="arquivo"/>
 <div id="game" style=""></div>
 <div id="inputs"></div>
 <div id="dialog-form"></div>

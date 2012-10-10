@@ -133,7 +133,7 @@ class mapaController extends Controller {
         $file_tmp_name = $data['file']['mapafile']['tmp_name'];
         $mensagem = '';
         $this->set('mensagem', $mensagem);
-
+        Session::start("warmaps");
         $id = $this->existe($file_name);
 
         if (stristr($file_type, "svg"))/* valida o tipo de arquivo */

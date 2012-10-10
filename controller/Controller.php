@@ -107,7 +107,8 @@ class Controller {
     /**
      * Update
      * @param int $id id a ser atualizado<br/>
-     * Utiliza os valores no atributo <b>data</b>
+     * Utiliza os valores no atributo <b>data</b> <br/>
+     * como parametros WHERE
      */
     public function update($id) {
         $this->Model->update($id);
@@ -115,7 +116,7 @@ class Controller {
 
     /**
      * Deleta os campos onde os valores sejam iguais<br/>
-     * campos definidos atributo <b>data</b>
+     * campos definidos no atributo <b>data</b>
      */
     public function delete() {
         $this->Model->delete();

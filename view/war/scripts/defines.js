@@ -876,7 +876,7 @@ defines.objetivos = [
 
 
 
-
+/*
 
 		{'name' : "conquistar asia e africa",
 
@@ -986,7 +986,7 @@ defines.objetivos = [
 
 			'tomarcontinente' : 0.5
 
-		}},
+		}},*/
 
 		
 

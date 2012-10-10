@@ -26,7 +26,7 @@ $(document).ready(function(){
     });
     */
    
-   /*Muda para o mode de indicar vizinhos quando um território é clicado*/
+   /*Muda para o modo de indicar vizinhos quando um território é clicado*/
     $('a.mod_territorios').click(function(){
         $('.regiao').each(function(){
             $(this).removeClass('regiao');

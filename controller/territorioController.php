@@ -102,6 +102,32 @@ class territorioController extends Controller {
             }
         }
         
+        $this->uses('objetivo', '../');
+        
+        $this->Regiao->data['id_mapa'] = $mapa;
+        $regis = $this->Regiao->select('nome');
+        $this->Objetivo->data['id_mapa'] = $mapa;
+        $objetivos = $this->Objetivo->select();
+        $ob = array();
+        $i = 0;
+        foreach ($objetivos as $val){
+            $ob[$i]['name'] = $val['nome'];
+            $ob[$i]['tipo'] = $val['tipo'];
+            $ob[$i]['classificacoes']['conquistarcontinente'] = $val['conquistarcontinente'];
+            $ob[$i]['classificacoes']['conquistafacil'] = $val['conquistafacil'];
+            $ob[$i]['classificacoes']['tomarcontinente'] = $val['tomarcontinente'];
+            $ob[$i]['parametro'][] = $val['reg1'];
+            $ob[$i]['parametro'][] = $val['reg2'];
+            if($val['outro'] == 1){
+                foreach ($regis as $r){
+                    if($r['nome'] != $val['reg1'] && $r['nome'] != $val['reg2'])
+                    $ob[$i]['parametro'][3][] = $r['nome']; 
+                }
+            }
+            $i++;
+        }
+        $defs['objetivos'] = $ob;
+        
         return $defs ;
         
         

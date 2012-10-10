@@ -2,24 +2,25 @@
 
 include_once 'includes.php';
 
-$controller = 'mapa';
+$controller = 'objetivo';
 $func = isset($_GET['func']) ? $_GET['func'] : 0; /*pega a função que deve ser executada*/
 
 /*pega o id do mapa na sessão*/
-Session::start("warmaps");
-$mapa = Session::getVal('mapa');
+
 
 /*Inclui o controlle e o modelo*/
 Utils::incluir($controller, 'controller', '../');
 Utils::incluir($controller, 'model', '../');
 
-$obj = new mapaController();/*cria o objeto */
+$obj = new objetivoController();/*cria o objeto */
 
 switch ($func) {/*Identifica o methodo*/
     case 1:
-        $mapa = isset($_GET['mapa']) ? $_GET['mapa'] : NULL;
-        $res = $obj->excluir($mapa);
-        //$res = array("Excluido");
+        $res = $obj->setObjetivo($_POST);
+        break;
+    case 2:
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+        $res = $obj->excluir($id);
         break;
     default:
         $res = array('func invalida');

@@ -10,8 +10,8 @@ $mapa = Session::getVal('mapa');
 
 Utils::incluir($controller, 'controller', '../');
 Utils::incluir($controller, 'model', '../');
-$classe = $controller . 'Controller';
-$obj = new $classe();
+
+$obj = new regiaoController();
 
 switch ($func) {
     case 1:
