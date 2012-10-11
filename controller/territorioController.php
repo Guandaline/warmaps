@@ -95,11 +95,13 @@ class territorioController extends Controller {
             $lista[$t['id']] = $t['inome'];
         }
         
+        $cartas = Utils::randFiguras(count($territorios));
+        $j = 0;
         /*Gera as definições dos territorios e seus vizinhos*/
         foreach ($territorios as $t){
             /*fazer calculo do valor estrategico aqui*/
             // = 2;
-            $defs['paises'][$t['inome']]['figura'] = 1;
+            $defs['paises'][$t['inome']]['figura'] = $cartas[$j];
             $this->Vizinho->data['territorio'] = $t['id'];
             $vizinhos = $this->Vizinho->select();
             $num_vizinhos = count($vizinhos);
@@ -116,6 +118,7 @@ class territorioController extends Controller {
             }
             
             $defs['paises'][$t['inome']]['valorEstrategico'] = $val + $num_vizinhos;
+            $j++;
         }
         
         $this->uses('objetivo', '../');
@@ -141,29 +144,11 @@ class territorioController extends Controller {
             }
             $i++;
         }
-        $clas = array();
+        $class = array();
         $class['conquistarcontinente'] = 0.9;
-            $class['conquistafacil'] = 0.5;
-            $class['tomarcontinente'] = 0.9;
-        
-        /*
-         * {{'name' : "conquistar 18 territorios com 2 exercitos",
-
-		  'tipo' : "conquistaTerritorios",
-
-		  'parametro' : 18,
-
-		'classificacoes' : {
-
-			'conquistarcontinente' : 0.5,
-
-			'conquistafacil' : 0.9,
-
-			'tomarcontinente' : 0.5
-
-		}},
-
-         */
+        $class['conquistafacil'] = 0.5;
+        $class['tomarcontinente'] = 0.9;
+   
          $ob[$i]['name'] = 'destruir o jodador azul';
          $ob[$i]['tipo'] = 'eliminaJogador';
          $ob[$i]['parametro'] = 'azul';

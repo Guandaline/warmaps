@@ -25,6 +25,14 @@ class Utils {
         print_r($var);
         echo '</pre>';
     }
+    
+    public static function randFiguras($tam){
+        $cartas = array();
+        for($i = 0; $i < $tam; $i++){
+            $cartas[] = rand(1, 3);
+        }
+        return $cartas;
+    }
 }
 
 ?>
