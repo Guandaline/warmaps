@@ -67,8 +67,8 @@ class territorioController extends Controller {
         /*Define as regiões*/
         foreach ($regs as $val) {
 
-            $defs['continentes'][$val['nome']]['valorEstrategico'] = $val['valor_estrategico'];
-            $defs['continentes'][$val['nome']]['exercitos'] = $val['valor_estrategico'];
+            // = $val['valor_estrategico'];
+            $defs['continentes'][$val['nome']]['exercitos'] = $val['exercitos'];
             $this->Model->data['id_regiao'] = $val['id'];
             $paises = $this->select();
 
@@ -77,8 +77,13 @@ class territorioController extends Controller {
                 $defs['continentes'][$val['nome']]['paises'][] = $p['inome'];
                 
             }
+              $tam = count($paises);
+            $exercitos = (int) $val['exercitos'];
+            $defs['continentes'][$val['nome']]['valorEstrategico'] = number_format($tam / $exercitos, 1);
             
-            $defs['continentes'][$val['nome']]['qtdPaises'] = count($paises);
+          
+            $defs['continentes'][$val['nome']]['qtdPaises'] = $tam;
+            
         }
         
         $this->uses('vizinho', '../');
@@ -93,17 +98,27 @@ class territorioController extends Controller {
         /*Gera as definições dos territorios e seus vizinhos*/
         foreach ($territorios as $t){
             /*fazer calculo do valor estrategico aqui*/
-            $defs['paises'][$t['inome']]['valorEstrategico'] = 2;
+            // = 2;
             $defs['paises'][$t['inome']]['figura'] = 1;
             $this->Vizinho->data['territorio'] = $t['id'];
             $vizinhos = $this->Vizinho->select();
+            $num_vizinhos = count($vizinhos);
+            $val = 0;
+            
             foreach ($vizinhos as $vi) {
+                $this->Model->data['id'] = $vi['vizinho'];
+                $t_vizinho = $this->Model->select('id_regiao');
+                $reg_vizinho = $t_vizinho[0]['id_regiao'];
                 $defs['paises'][$t['inome']]['vizinhos'][] = $lista[$vi['vizinho']];
+                if($t['id_regiao'] != $reg_vizinho){
+                    $val++;
+                }
             }
+            
+            $defs['paises'][$t['inome']]['valorEstrategico'] = $val + $num_vizinhos;
         }
         
         $this->uses('objetivo', '../');
-        
         $this->Regiao->data['id_mapa'] = $mapa;
         $regis = $this->Regiao->select('nome');
         $this->Objetivo->data['id_mapa'] = $mapa;
@@ -126,11 +141,76 @@ class territorioController extends Controller {
             }
             $i++;
         }
+        $clas = array();
+        $class['conquistarcontinente'] = 0.9;
+            $class['conquistafacil'] = 0.5;
+            $class['tomarcontinente'] = 0.9;
+        
+        /*
+         * {{'name' : "conquistar 18 territorios com 2 exercitos",
+
+		  'tipo' : "conquistaTerritorios",
+
+		  'parametro' : 18,
+
+		'classificacoes' : {
+
+			'conquistarcontinente' : 0.5,
+
+			'conquistafacil' : 0.9,
+
+			'tomarcontinente' : 0.5
+
+		}},
+
+         */
+         $ob[$i]['name'] = 'destruir o jodador azul';
+         $ob[$i]['tipo'] = 'eliminaJogador';
+         $ob[$i]['parametro'] = 'azul';
+         $ob[$i]['classificacoes'] = $class;
+         $i++;
+         $ob[$i]['name'] = 'destruir o jogador preto';
+         $ob[$i]['tipo'] = 'eliminaJogador';
+         $ob[$i]['parametro'] = 'preto';
+         $ob[$i]['classificacoes'] = $class;
+         $i++;
+         $ob[$i]['name'] = 'destruir o jogador branco';
+         $ob[$i]['tipo'] = 'eliminaJogador';
+         $ob[$i]['parametro'] = 'branco';
+         $ob[$i]['classificacoes'] = $class;
+         $i++;
+         $ob[$i]['name'] = 'destruir o jogador amarelo';
+         $ob[$i]['tipo'] = 'eliminaJogador';
+         $ob[$i]['parametro'] = 'amarelo';
+         $ob[$i]['classificacoes'] = $class;
+         $i++;
+         $ob[$i]['name'] = 'destruir o jogador vermelho';
+         $ob[$i]['tipo'] = 'eliminaJogador';
+         $ob[$i]['parametro'] = 'vermelho';
+         $ob[$i]['classificacoes'] = $class;
+         $i++;
+         $ob[$i]['name'] = 'destruir o jogador verde';
+         $ob[$i]['tipo'] = 'eliminaJogador';
+         $ob[$i]['parametro'] = 'verde';
+         $ob[$i]['classificacoes'] = $class;
+         $i++;
+         $ob[$i]['name'] = 'conquistar 18 territorios com 2 exercitos';
+         $ob[$i]['tipo'] = 'conquistaTerritorios';
+         $ob[$i]['parametro'][] = 18;
+         $ob[$i]['parametro'][] = 2;
+         $ob[$i]['classificacoes'] = $class;
+         $i++;
+         $ob[$i]['name'] = 'conquistar 24 territórios';
+         $ob[$i]['tipo'] = 'conquistaTerritorios';
+         $ob[$i]['parametro'] = 24;
+         $ob[$i]['classificacoes'] = $class;
+         $i++;
+
+         
         $defs['objetivos'] = $ob;
         
         return $defs ;
-        
-        
+
     }
 
 }

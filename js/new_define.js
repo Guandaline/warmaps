@@ -9,10 +9,8 @@ function newDefines(){
         url: "ajax/territorio.php?func=4",
         success: function(msg) {
             msg = JSON.parse(msg);
-            msg.objetivos[1] = objetivos;
-            msg.objetivos[2] = objetivos;
             defines = msg;
-            console.log(defines.objetivos);
+          //  console.log(defines);
         },
         async: false
     });
@@ -21,5 +19,5 @@ function newDefines(){
 
 
 
- newDefines();
+newDefines();
     

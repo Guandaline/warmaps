@@ -11,8 +11,8 @@ $(document).ready(function(){
                 $( "#dialog-form" ).dialog({
                     title: 'Novo Objetivo',
                     autoOpen: false,
-                    width: 500,
-                    height: 400,
+                    width: 700,
+                    height: 450,
                     position: [200, 80],
                     modal: true,
                     zIndex: 1500,
@@ -38,6 +38,7 @@ $(document).ready(function(){
             url: "ajax/objetivo.php?func=2&id=" + id,
             success: function(msg) {
                 /*remove a região do mapa*/
+                $('a.objetivos').click();
             },
             async: false
         });        
