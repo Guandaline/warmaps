@@ -30,7 +30,11 @@ class mapaController extends Controller {
         $this->setTitulo('Lista de Mapas');
         $this->set('mapas', $this->select('id , nome'));
     }
-
+    
+    
+    /*
+     * faz leitura do arquivo .svg
+     */
     private function percorreMapa($file_name) {
 
         $arquivo = fopen("file/mapas/" . $file_name, "r"); /* abre o arquivo */
@@ -43,12 +47,6 @@ class mapaController extends Controller {
 
                 if (stristr($linha, "id=")) {
                     $novo = explode("\"", $linha); /* pega o id do elemento xml */
-                    /*
-                     * Aqui é onde eu verifico se o id tem o "t_" 
-                     * É essa condição que tenho que mudar para pegar qualquer pais
-                     * Já o tinha feito porém perdi quando meu note deu problema.
-                     * Essa semana tento arrumar
-                     */
                     if (!stristr($novo[1], "path") && stristr($novo[1], "t_")) {
                         $nome = explode("_", $novo[1]);
                         $territorios[$i] = $nome[1]; /* pega o nome do territorio */
@@ -58,66 +56,69 @@ class mapaController extends Controller {
             }
         }
 
-        fclose($arquivo);
+        fclose($arquivo);/*Fecha o arquivo*/
 
-        return $territorios;
+        return $territorios; /*retorna lista de territorios*/
     }
-
+    
+    
+    /*Verifica as diferenças entre o mapa atual e novo mapa*/
     private function updateMapa($id_mapa, $mapa) {
 
-        $this->uses('territorio');
+        $this->uses('territorio');/*usa o modelo territorio*/
         $this->Territorio->data['id_mapa'] = $id_mapa;
-        $t_ant = $this->Territorio->select('id, nome');
+        $t_ant = $this->Territorio->select('id, nome');/*seleciona os territorios atuais*/
         $ant = array();
-        foreach ($t_ant as $val){
+        foreach ($t_ant as $val){/*cria lista com os nomes dos */
             $ant[] = $val['nome'];
         }
 
-         $territorios = $this->percorreMapa($mapa);
+         $territorios = $this->percorreMapa($mapa); /*pega lista de territórios novos*/
             
-         return $this->diffTerritorios($territorios, $ant, $id_mapa);
+        $this->diffTerritorios($territorios, $ant, $id_mapa); /*verifica diferença entre os territórios*/
     }
 
+    /*encontra os territorios novos e os removidos*/
     private function diffTerritorios($arr1, $arr2, $id_mapa) {
-
+        /* Pega lista de territorios novos*/
         $novos = array_diff($arr1, $arr2);
+        /*salva os novos territorios*/
         $this->saveTerritorio($novos, $id_mapa);
+        /*Lista de territorios removidos*/
         $remove = array_diff($arr2, $arr1);
-        return $this->removeTerritorio($remove, $id_mapa);
+        $this->removeTerritorio($remove, $id_mapa);
+        
     }
-
+    
+    /*Remove um territorio de um mapa*/
     private function removeTerritorio($territorio, $id_mapa) {
-        $this->uses('vizinho');
+        $this->uses('vizinho');/*Usa model Viizinho*/
         $teste = array();
         $this->Territorio->data = null;
-        foreach ($territorio as $val) {
-            
+        foreach ($territorio as $val) {/*percorre todos os territorios*/
             $this->Territorio->data['id_mapa'] = $id_mapa;
             $this->Territorio->data['nome'] = $val;
-            $tr = $this->Territorio->select('id');
-            $teste[] =  'sql = ' . $tr[0]['id']. ' '.$this->Territorio->sql. ' '. $id_mapa . ' '. $val;
-             $this->Territorio->delete();
-
+            $tr = $this->Territorio->select('id');/*pega o id dos territorios*/
+            $this->Territorio->delete();/*remove os vizinhos de um territorio*/
             $this->removeVizinhos($tr);
-
             $this->Vizinho->data['vizinho'] = $tr[0]['id'];
-            $teste [] = $this->Vizinho->select();
+            $this->Vizinho->delete();/*remove esse territorio como vizinho de outros*/
            
         }
-        
-        return 'Go sleep';
+
     }
 
+    /*salva os territorios*/
     private function saveTerritorio($territorios, $id_mapa) {
 
-        foreach ($territorios as $value) {
-
+        foreach ($territorios as $value) {/*percorre os territorios*/
+            /*gera os dados dos territorios*/
             $dados = array('id_mapa' => $id_mapa,
                 'label' => 'l_' . $value,
                 'inome' => 't_' . $value,
                 'nome' => $value);
             $this->Territorio->data = $dados;
-            $this->Territorio->save();
+            $this->Territorio->save();/*Salva o territorio*/
         }
     }
 
@@ -134,7 +135,8 @@ class mapaController extends Controller {
         $mensagem = '';
         $this->set('mensagem', $mensagem);
         Session::start("warmaps");
-        $id = $this->existe($file_name);
+        $id = $this->existe($file_name);/*verifica se o novo mapa existe*/
+        
 
         if (stristr($file_type, "svg"))/* valida o tipo de arquivo */
             move_uploaded_file($file_tmp_name, 'file/mapas/' . $file_name); /* move arquivo para o local lifel/mapas */
@@ -144,7 +146,7 @@ class mapaController extends Controller {
             return 0;
         }
 
-        if ($id != 0) {
+        if ($id != 0) {/*atualiza configuraçoes de um mapa*/
             Session::setVal('mapa', $id);
             Session::setVal('nome', $file_name);
             return $this->updateMapa($id, $file_name);
@@ -190,18 +192,19 @@ class mapaController extends Controller {
         $this->setData(array('nome' => $mapa));
         $res = $this->select('id');
         if (count($res) > 0) {
-            return $res[0]['id'];
+            return $res[0]['id'];/*retorna id do mapa*/
         }
 
-        return 0;
+        return 0; /*o mapa não existe*/
     }
 
+    /*remove todos os vizinhos de um territorios*/
     private function removeVizinhos($territorios) {
         $this->uses('vizinho', '../');
-        foreach ($territorios as $v) {
+        foreach ($territorios as $v) {/*percore a lista de territorios*/
             echo $v;
             $this->Vizinho->data['territorio'] = $v['id'];
-            $this->Vizinho->delete();
+            $this->Vizinho->delete();/*remove todos os vizinho de cada territorio*/
         }
     }
 
@@ -213,16 +216,16 @@ class mapaController extends Controller {
 
         $this->uses('territorio', '../');
         $this->Territorio->data['id_mapa'] = $mapa;
-        $territorios = $this->Territorio->select('id');
-        $this->removeVizinhos($territorios);
+        $territorios = $this->Territorio->select('id');/*seleciona os territorios do mapa*/
+        $this->removeVizinhos($territorios);/*remove os vizinhso do teritorio*/
         $this->uses('vizinho', '../');
-        $this->Territorio->delete();
+        $this->Territorio->delete();/*remove todos os territorios*/
         $this->uses('regiao', '../');
         $this->Regiao->data['id_mapa'] = $mapa;
-        $this->Regiao->delete();
+        $this->Regiao->delete();/*deleta todas as reriões*/
         $this->Model->data = null;
         $this->Model->data['id'] = $mapa;
-        $this->delete();
+        $this->delete();/*deleta o mapa*/
     }
 
 }

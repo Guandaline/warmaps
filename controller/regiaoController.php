@@ -23,7 +23,7 @@ class regiaoController extends Controller{
      */
     public function getRegiao($id){
         $this->Model->data['id'] = (int)$id;
-        $res = $this->select();
+        $res = $this->select();/*seleciona reguiao*/
         return $res;
     }
     
@@ -60,9 +60,9 @@ class regiaoController extends Controller{
      */    
     public function getCores($mapa){
         $this->Model->data['id_mapa'] = $mapa;
-        $res = $this->select('id, cor');
+        $res = $this->select('id, cor'); /*Pega as cores de cara região*/
         $arr = array();
-        foreach ($res as $val) {/*cira lista        */
+        foreach ($res as $val) {/*cira lista id => cor*/
             $arr [$val['id']]  = $val['cor'];
         }
         return $arr;
@@ -75,16 +75,16 @@ class regiaoController extends Controller{
      * @return Array Lista de territórios que foram afetados
      */
     public function excluir($id){
-        $this->uses('territorio', '../');
+        $this->uses('territorio', '../');/*Usa o Model território*/
         $this->Territorio->data['id_regiao'] = $id;
-        $territorio = $this->Territorio->select('id');
-        foreach ($territorio as $t){
+        $territorio = $this->Territorio->select('id'); /*Seleciona o id de todos os territórios*/
+        foreach ($territorio as $t){/*percorre todos os territorios*/
             $this->Territorio->data['id_regiao'] = null;
-            $this->Territorio->update($t['id']);            
+            $this->Territorio->update($t['id']); /*Remove id da região no territorio*/
         }
         $this->Model->data = null;
         $this->Model->data['id'] = $id;
-        $this->delete();
+        $this->delete();/*deleta a regiao*/
         return $territorio;
     }
     
