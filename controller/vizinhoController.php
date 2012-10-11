@@ -10,9 +10,9 @@ class vizinhoController extends Controller {
      */
     public function getVizinho($territorio) {
         $this->Model->data['territorio'] = $territorio;
-        $res = $this->select('vizinho');
+        $res = $this->select('vizinho'); /*Seleciona todos os vizinhos de um territorio*/
         $arr = array();
-        foreach ($res as $val) {
+        foreach ($res as $val) {/*gera uma lista sequencia dos vizinhos*/
             $arr []  = $val['vizinho'];
         }
         return $arr;
@@ -34,24 +34,17 @@ class vizinhoController extends Controller {
         if ($valor == 'true') {
             /*inseri vizinhos*/
             if (empty($id)) {
-                $this->save();
-                $id = $this->select('id');
-                $id = $id[0][0];
-                return 'salvo ' . $id;
+                $this->save();/*salva os vizinhos*/
             }
         } else {
             /*Remove vizinhos*/
             if (!empty($id)) {
                 $id = $id[0]['id'];
                 $this->Model->data = null;
-                $this->Model->data['id'] = $id;
-                $this->delete();
-                return 'removido ' . $id . ' ' . $this->Model->sql;
+                $this->Model->data['id'] = $id; 
+                $this->delete();/*remove a relação de vizinhos*/
             }
         }
-
-        /*Territorio não encontrado*/
-        return $id;
     }
 
 }

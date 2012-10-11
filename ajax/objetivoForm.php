@@ -39,17 +39,9 @@ $tomarcontinente = 0.5;
 $outros = false;
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
 $id_mapa = Session::getVal('mapa');
-$r1 = 0;
-$r2 = 0;
 $regs = $regiao->getListaRegiao($id_mapa);
 $objetivos = $obj->getLista($id_mapa);
-if ($id) {
-    $ors = $obj->getObjtivo($id);
-    $r1 = $ors['reg1'];
-    $r2 = $ors['reg2'];
-    $nome = $ors['nome'];
-    $outros = isset($ors['outro']) ? true : false;
-}
+
 ?>
 
 <div >

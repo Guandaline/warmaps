@@ -8,9 +8,9 @@ class regiaoController extends Controller{
      */
     public function getListaRegiao($mapa){
         $this->Model->data['id_mapa'] = $mapa;
-        $res = $this->select('id, nome');
+        $res = $this->select('id, nome');/*seleciona todas as regiões de um mapa*/
         $arr = array();
-        foreach ($res as $val) {
+        foreach ($res as $val) {/*cria um lista de id => nome de todas as regiões*/
             $arr [$val['id']]  = $val['nome'];
         }
         return $arr;
@@ -44,12 +44,12 @@ class regiaoController extends Controller{
                         'exercitos' => $exercitos,
                         'cor' => $cor
             );
-        $this->setData($dados);
+        $this->setData($dados);/*seta os dados*/
        
-        if($id == NULL)/*Salva*/
+        if($id == NULL)/*Se não tiver id Salva*/
             $this->save();
         else/*atualiza*/
-            $this->update ($id);
+            $this->update ($id); /*Atualiza*/
         return $this->Model->sql;
     }
     
@@ -62,7 +62,7 @@ class regiaoController extends Controller{
         $this->Model->data['id_mapa'] = $mapa;
         $res = $this->select('id, cor');
         $arr = array();
-        foreach ($res as $val) {
+        foreach ($res as $val) {/*cira lista        */
             $arr [$val['id']]  = $val['cor'];
         }
         return $arr;

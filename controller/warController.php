@@ -8,8 +8,8 @@ class warController extends Controller{
      */
     public function index(){
       
-        $this->set('nome', Session::getVal('nome'));
-        $this->set('id_mapa', Session::getVal('mapa'));
+        $this->set('nome', Session::getVal('nome'));/*seta o nome do mapa*/
+        $this->set('id_mapa', Session::getVal('mapa'));/*seta o id do mapa*/
     }
     
 }
