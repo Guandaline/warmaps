@@ -1,6 +1,5 @@
 $(document).ready(function(){
     
-    
     $('a.objetivos').click(function(){
         /*Insere o form via ajax*/
         $.ajax({
@@ -9,6 +8,7 @@ $(document).ready(function(){
             success: function(data){
                 $('#dialog-form').html(data);
                 $( "#dialog-form" ).dialog({
+                    /*definiçoes da janela*/
                     title: 'Novo Objetivo',
                     autoOpen: false,
                     width: 700,
@@ -30,9 +30,10 @@ $(document).ready(function(){
         });
     });
     
-    
+    /*exclui um objetivo*/
       $('a.excluir').live('click', function(){
-        var id = $(this).attr('id');
+        var id = $(this).attr('id');/*pega o id do objetivo*/
+        /*exclui via ajax*/
         $.ajax({
             context: $(this),
             url: "ajax/objetivo.php?func=2&id=" + id,

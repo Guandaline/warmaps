@@ -9,25 +9,26 @@ $(document).ready(function(){
     var cores, reg;
     
     /**
-     *Pega a lista de cores do mapa
+     *Pega a lista de cores de cada região
      **/
     function getCores(){
+        /*pega lista via ajax*/
         $.ajax({
             context: $(this),
             url: "ajax/regiao.php?func=4",
             success: function(msg) {
                 msg = JSON.parse(msg);
-                cores = msg;
+                cores = msg; /*guarda as cores*/
             },
             async: false
         });
     }
    
-    /**Muda a cor de um território*/
+    /**Muda a cor dos territórios*/
     function setCores(){
-        $('.territorio').each(function(){
-            reg = $(this).attr('reg');
-            $(this).addClass(cores[reg]);
+        $('.territorio').each(function(){/*percorre os territorios*/
+            reg = $(this).attr('reg'); /*pega a regiap*/
+            $(this).addClass(cores[reg]); /*adiciona a cor referente a sua região*/
         });        
     }
    
@@ -35,7 +36,7 @@ $(document).ready(function(){
     *Pega todas a regiões do mapa e coloca o menu lateral
     **/
     function getRegs(){
-        var dreg = $('div.regs');
+        var dreg = $('div.regs');/* div onde são listada as regioes*/
         $.ajax({
             /*Montar um menu e atualizar toda vez que uma região for alterada*/
             context: $(this),
@@ -46,6 +47,7 @@ $(document).ready(function(){
                     regioes = msg;
                     dreg.html('');
                     $.each(msg, function(k, val){/*percorrer json*/
+                        /*cria o link para editar uma regiao*/
                         $('<a>' + val +'</a>')
                         .addClass('editar_regiao')
                         .attr('name', val)
@@ -54,7 +56,7 @@ $(document).ready(function(){
                         .appendTo(dreg);
                         
                         $('<span> | </span>').appendTo(dreg);
-                        
+                        /*cria o link para excluir uma regiao*/
                         $('<a>Excluir</a>')
                         .addClass('excluir_regiao')
                         .attr('name', val)
@@ -63,14 +65,13 @@ $(document).ready(function(){
                         .appendTo(dreg);
                         
                         $('<span> | </span>').appendTo(dreg);
+                        /*cria link para marcar os territórios que pertencem a uma regiao*/
                         $('<a>Territorios</a>')
                         .addClass('territorios_regiao')
                         .attr('name', val)
                         .attr('id', k)
                         .val(val)
                         .appendTo(dreg);
-                       
-                        
                         $('<br/>').appendTo(dreg);
                         $('<hr/>').appendTo(dreg);
                     });
@@ -78,7 +79,7 @@ $(document).ready(function(){
             },
             async: false
         });
-         $('a[name=cores]').click();
+        $('a[name=cores]').click(); /*atualiza cores dos territorios casa tenha sido trocada a cor de uma região*/
     }
     
 
@@ -94,7 +95,7 @@ $(document).ready(function(){
     /**Adiciona região no território clicado**/
     $('.regiao').live('click', function(){
         t = $(this);
-        var territorio = t.attr('id');
+        var territorio = t.attr('id'); /*pega o id do territorio*/
         t.attr('class', 'regiao');
         t.attr('reg', reg);
         t.addClass(cores[reg]);
@@ -114,7 +115,7 @@ $(document).ready(function(){
      **/
     $('a.territorios_regiao').live('click', function(){
         $('a.mod_regioes').click();    
-        reg = $(this).attr('id');
+        reg = $(this).attr('id');/*pega o id da regiao que vai ser adicionado*/
         
     });
         
@@ -155,10 +156,10 @@ $(document).ready(function(){
        /*Pega os dados da região*/
        var id = $(this).attr('id');
         var name = $(this).attr('name');
-       
+       /*abre o formulario via ajax*/
         $.ajax({
             context: this,
-            url: "ajax/regiaoForm.php?id=" + id,
+            url: "ajax/regiaoForm.php?id=" + id, /*passa o id da regiao a ser editada*/
             success: function(data){
                 $('#dialog-form').html(data);
                 $( "#dialog-form" ).dialog({
@@ -184,7 +185,7 @@ $(document).ready(function(){
                         $('a[name='+ name + '].territorios_regiao').click();
                     }
                 });
-                $( "#dialog-form" ).dialog( "open" ); 
+                $( "#dialog-form" ).dialog( "open" ); /*abre janela*/
             },
             async: false
         });
@@ -206,7 +207,7 @@ $(document).ready(function(){
             async: false
         });
         
-        $('a.mod_territorios').click();
+        $('a.mod_territorios').click(); /*muda para o mode de indicação de vizinhos*/
     });
     
 });

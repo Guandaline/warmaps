@@ -30,8 +30,8 @@ $(document).ready(function(){
     inserirMapa();
    
     setTimeout(function(){
-        configTerritorio();
-        iniciar();
+        configTerritorio();/*configura o território*/
+        iniciar();/*inicia o jogo*/
     }, 3000);
     
 });

@@ -9,15 +9,13 @@ function newDefines(){
         url: "ajax/territorio.php?func=4",
         success: function(msg) {
             msg = JSON.parse(msg);
-            defines = msg;
+            defines = msg;/*seta novas definições*/
            // console.log(defines);
         },
         async: false
     });
     
 }
-
-
 
 newDefines();
     

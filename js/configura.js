@@ -2,6 +2,7 @@
  *Pega a lista de territórios e os configura no mapa
  **/
 function configTerritorio(){
+    /*pega os dados do território via ajax*/
     $.ajax({                       
         context: $(this),
         url: "ajax/territorio.php?func=2",
