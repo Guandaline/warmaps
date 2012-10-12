@@ -10,7 +10,7 @@ $(document).ready(function(){
     var territorios; /*lista de dettirórios*/
     var label; /*lista de labels*/
     var lista_vizinhos; /*lista de vizinhos - muda de acordo com o território selecionado*/
-    
+    var aut = [];
     /*Pega lista de Territórios*/
     function getListaIdTerritorios(){
         /*Aguarda um tempo para que o mapa seja carregado*/    
@@ -70,6 +70,14 @@ $(document).ready(function(){
     
     setTimeout(function(){
         getListaLabels();/*pega lsta de labsl*/
+    }, 5000);
+   
+   setTimeout(function(){
+        getTam();/*pega lsta de labsl*/
+        
+        $.each(aut, function(k, val){
+            console.log( k + ' ' + val['name']);
+        });
     }, 5000);
     
     
@@ -272,6 +280,45 @@ $(document).ready(function(){
         });
         
     });
+    
+    
+    function getTam(){
+        console.log('Tamanho: ');
+         i = 0;
+        $('.territorio').each(function(){
+            w = parseInt($(this)[0].getBoundingClientRect().width + 0);
+            h =  parseInt($(this)[0].getBoundingClientRect().height + 0);
+            x =  parseInt($(this).position().left);
+            y =  parseInt($(this).position().top);  
+            name = $(this).attr('name');
+            id = $(this).attr('id');
+            //aut[i] = [];
+            aut["'"+ id + "'"] = [];
+            aut["'"+ id + "'"]['name'] = name;
+            aut["'"+ id + "'"]['w'] = w;
+            aut["'"+ id + "'"]['h'] = h;
+            aut["'"+ id + "'"]['x'] = x;
+            aut["'"+ id + "'"]['y'] = y;
+            
+            /*
+            c_x = x + w / 2 - 8;
+            c_y = y + h / 2 - 8;
+            
+            $('<input>').attr('type', 'checkbox')
+                .attr('name', name)
+                .attr('id', id) 
+                .css({
+                    position: 'absolute', 
+                    top: c_y, 
+                    left: c_x
+                })
+                .appendTo('div#inputs').show();
+            console.log(name + ' w = ' + w + ' h = ' + h + ' x = ' + x + ' y = ' + y);*/
+        });
+    }
+    
+    /**/
+    
     
 });
 
