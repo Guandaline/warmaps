@@ -20,8 +20,8 @@ class Controller {
     
     function __construct() {
 
-        $this->incluirModel();
-        $this->setTitulo($this->name);
+        $this->incluirModel();/*inclui o model*/
+        $this->setTitulo($this->name);/*seta o titulo da pagina*/
     }
 
     /**
@@ -29,7 +29,7 @@ class Controller {
      * */
     public function incluirModel($model = NULL) {
         $model = $this->name . 'Model';
-        $this->Model = new $model();
+        $this->Model = new $model();/*instansia o model*/
     }
 
     /**
@@ -39,12 +39,12 @@ class Controller {
       @return objectModel O novo modelo pode ser acessado pelo atributo $uses.
      * */
     protected function uses($model, $nivel = '') {
-        if(!isset($this->uses[$model])){
-            include_once $nivel . 'model/' . $model . 'Model.php';
+        if(!isset($this->uses[$model])){/*verifica se o model ja foi incluso*/
+            include_once $nivel . 'model/' . $model . 'Model.php';/*inclui o model*/
             $nameModel = ucfirst($model);
-            $classModel = $model.'Model';
-            $this->uses[$model] = $nameModel;
-            $this->$nameModel= new $classModel();
+            $classModel = $model.'Model'; /*claseModel*/
+            $this->uses[$model] = $nameModel; /*adiciono o model na lida te models utilizados*/
+            $this->$nameModel= new $classModel(); /*instansia o model*/
         }
     }
 
@@ -61,16 +61,16 @@ class Controller {
      * tipo ou uma <b>array</b> contendo os valores das variáveis</p>
      * */
     public function set($var, $value = NULL) {
-        if (is_array($var)) {
-            if (is_array($value)) {
-                $data = array_combine($var, $value);
+        if (is_array($var)) {/*verifica se é array*/
+            if (is_array($value)) {/*caso sejam duas arrays*/
+                $data = array_combine($var, $value); /*pimeira array é a chave a segunda é o valor*/
             } else {
-                $data = $var;
+                $data = $var;/*adiciona o arry*/
             }
         } else {
-            $data = array($var => $value);
+            $data = array($var => $value);/* cria array*/
         }
-        $this->viewVars = array_merge($this->viewVars, $data);
+        $this->viewVars = array_merge($this->viewVars, $data); /*adciona na lista de variaveis*/
     }
 
     /**

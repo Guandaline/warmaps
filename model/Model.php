@@ -65,7 +65,7 @@ class Model {
         if (!empty($this->data)) {
             $sql .= ' WHERE ';
             $i = 0;
-            foreach ($this->data as $key => $value) {
+            foreach ($this->data as $key => $value) { /* cria parametros do sql*/
                 $num = count($this->data);
                 $sql .= $key . ' = :' . $key;
                 if ($i < $num - 1)
@@ -98,7 +98,7 @@ class Model {
         if (!empty($this->data)) {
             $sql .= ' WHERE ';
             $i = 0;
-            foreach ($this->data as $key => $value) {
+            foreach ($this->data as $key => $value) { /*cria os parametros*/
                 $num = count($this->data);
                 $sql .= $key . ' = :' . $key;
                 if ($i < $num - 1)
@@ -122,7 +122,7 @@ class Model {
         $i = 0;
         $valores = $num == 1 ? 'VALUE (' : 'VALUES (';
         $sql = 'INSERT INTO ' . $this->useTable . ' ( ';
-        foreach ($this->data as $key => $value) {
+        foreach ($this->data as $key => $value) {/*cria os parametros*/
             $sql .= $key;
             if ($i < $num - 1)
                 $sql .= ', ';
@@ -145,7 +145,7 @@ class Model {
         $num = count($this->data);
         $i = 0;
         $sql = 'UPDATE ' . $this->useTable . ' SET ';
-        foreach ($this->data as $key => $value) {
+        foreach ($this->data as $key => $value) {/*cria os parametros*/
             $sql .= $key . ' = :' . $key;
             if ($i < $num - 1)
                 $sql .= ', ';
@@ -175,9 +175,9 @@ class Model {
      */
     public function save() {
         $this->geraInsert();
-        $this->conn->query($this->sql);
-        $this->conn->execute($this->data);
-        $this->setID();
+        $this->conn->query($this->sql);/*prepara a query*/
+        $this->conn->execute($this->data); /*executa a query*/
+        $this->setID(); /*seta o ultimo id*/
         return $this->sql;
     }
 

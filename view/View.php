@@ -60,7 +60,7 @@ class View {
      * */
     private function incluirTemplate() {
         ob_start();
-        extract($this->vars);
+        extract($this->vars); /*cria as variaveis da pagina, setadas pelo controle*/
         include 'template/' . $this->template . '.php';
         $this->html = ob_get_clean();
         ob_clean();
