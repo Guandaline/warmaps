@@ -23,6 +23,11 @@ switch ($func) {
         $val = isset($_GET['val']) ? $_GET['val'] : NULL;
         $res = $obj->setVizinho($territorio, $vizinho, $val);
         break;
+    case 3:
+        $vizinho = isset($_GET['vizinho']) ? $_GET['vizinho'] : NULL;
+        $val = isset($_GET['val']) ? $_GET['val'] : NULL;
+        $res = $obj->setVizinhoIni($territorio, $vizinho);
+        break;
     default:
         $res = array('func invalida');
         break;

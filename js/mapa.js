@@ -10,32 +10,32 @@ $(document).ready(function(){
     var territorios; /*lista de dettirórios*/
     var label; /*lista de labels*/
     var lista_vizinhos; /*lista de vizinhos - muda de acordo com o território selecionado*/
-    var aut = [];
+    var aut = {};/*lita de territorios com suas posições e dimensões no mapa*/
     /*Pega lista de Territórios*/
     function getListaIdTerritorios(){
         /*Aguarda um tempo para que o mapa seja carregado*/    
-            /*pega os territórios via ajax*/
-            $.ajax({                       
-                context: $(this),
-                url: "ajax/territorio.php?func=2",
-                success: function(msg) {
-                    msg = JSON.parse(msg);
-                    territorios = msg;/*pega o resultado*/
+        /*pega os territórios via ajax*/
+        $.ajax({                       
+            context: $(this),
+            url: "ajax/territorio.php?func=2",
+            success: function(msg) {
+                msg = JSON.parse(msg);
+                territorios = msg;/*pega o resultado*/
                     
-                    $.each(msg, function(k, val){/*percorrer json*/
-                        /*remove o estulo de todos os territórios*/
-                        $('#' + val['name']).removeAttr('style');
-                        /*Adciona a classe e as configurações do território*/
-                        $('#' + val['name']).addClass('territorio')
-                                    .attr('id', k) /*adciona o id do territorio*/
-                                    .attr('name', val['name'].toString().substring(2)) /*adiciona o nome do territorio*/
-                                    .attr('reg', val['reg']);/*adiciona a regiao*/
-                    });
-                    /*Adiciona as cores das regiões caso exitam*/
-                    $('a[name=cores]').click();
-                },
-                async: false
-            });
+                $.each(msg, function(k, val){/*percorrer json*/
+                    /*remove o estulo de todos os territórios*/
+                    $('#' + val['name']).removeAttr('style');
+                    /*Adciona a classe e as configurações do território*/
+                    $('#' + val['name']).addClass('territorio')
+                    .attr('id', k) /*adciona o id do territorio*/
+                    .attr('name', val['name'].toString().substring(2)) /*adiciona o nome do territorio*/
+                    .attr('reg', val['reg']);/*adiciona a regiao*/
+                });
+                /*Adiciona as cores das regiões caso exitam*/
+                $('a[name=cores]').click();
+            },
+            async: false
+        });
             
          
     }
@@ -44,23 +44,23 @@ $(document).ready(function(){
     /*Pega a lista de labels dos territórios*/
     function getListaLabels(){
         /*pega os labels via ajax*/
-            $.ajax({                       
-                context: $(this),
-                url: "ajax/territorio.php?func=3",
-                success: function(msg) {
-                    msg = JSON.parse(msg);
-                    label = msg;
-                    var l;
-                    $.each(msg, function(k, val){/*percorrer json*/
-                        l = $('#' + val);
-                        /*remove o estilo a adciona os atributos*/
-                        l.addClass('label').attr('id', k).attr('name', val).removeAttr('style');
-                        span = l.find('tspan');
-                        span.text(' ');/*Esconde o 1*/
-                    });
-                },
-                async: false
-            });            
+        $.ajax({                       
+            context: $(this),
+            url: "ajax/territorio.php?func=3",
+            success: function(msg) {
+                msg = JSON.parse(msg);
+                label = msg;
+                var l;
+                $.each(msg, function(k, val){/*percorrer json*/
+                    l = $('#' + val);
+                    /*remove o estilo a adciona os atributos*/
+                    l.addClass('label').attr('id', k).attr('name', val).removeAttr('style');
+                    span = l.find('tspan');
+                    span.text(' ');/*Esconde o 1*/
+                });
+            },
+            async: false
+        });            
     }
     
     
@@ -72,11 +72,14 @@ $(document).ready(function(){
         getListaLabels();/*pega lsta de labsl*/
     }, 5000);
    
-   setTimeout(function(){
-        getTam();/*pega lsta de labsl*/
-        
-        $.each(aut, function(k, val){
-            console.log( k + ' ' + val['name']);
+    setTimeout(function(){
+        getTam();/*pega lista de territorios e seus tamanhos*/
+        $.each(aut, function(k, val){/*percorre a lista de terrotorios com suas posições*/
+            $.each(aut, function(key, value){   /*compara todos com todos*/
+                if(k != key){/*se não for ele mesmo*/
+                    calcVizinhos(val, value);/*calcula vizinhos*/
+                }
+            });
         });
     }, 5000);
     
@@ -188,7 +191,7 @@ $(document).ready(function(){
         });
     }
    
-   /**Desseleciona território selecionaod*/
+    /**Desseleciona território selecionaod*/
     function desselecionar(){
         var e = $('.territorio.selecionado');/*pega o territorio selecionado*/
         if(e.exists()){/*se houver um selecionado*/
@@ -230,7 +233,7 @@ $(document).ready(function(){
     inserirMapa();/*insere o mapa na pagina*/
     
     
-       /*Seleciona um território clicado*/
+    /*Seleciona um território clicado*/
     $('.territorio').live('click', function(){
         /*Desseleciona territorio caso ja esteja selecionado*/
         desselecionar();
@@ -252,7 +255,7 @@ $(document).ready(function(){
             });
         }
     });
-        /*desseleciona território*/
+    /*desseleciona território*/
     $('.territorio.selecionado').live('click', function(){
         $(this).removeClass('selecionado');
         var name = $(this).attr('id');
@@ -273,10 +276,10 @@ $(document).ready(function(){
         $.ajax({                       
             context: $(this),
             url: "ajax/vizinho.php?func=2&territorio=" + t_id 
-            + "&vizinho=" + v_id + '&val=' + val,
-        success: function(msg){
+                + "&vizinho=" + v_id + '&val=' + val,
+            success: function(msg){
            
-        }
+            }
         });
         
     });
@@ -284,21 +287,21 @@ $(document).ready(function(){
     
     function getTam(){
         console.log('Tamanho: ');
-         i = 0;
+        i = 0;
         $('.territorio').each(function(){
-            w = parseInt($(this)[0].getBoundingClientRect().width + 0);
-            h =  parseInt($(this)[0].getBoundingClientRect().height + 0);
-            x =  parseInt($(this).position().left);
-            y =  parseInt($(this).position().top);  
-            name = $(this).attr('name');
-            id = $(this).attr('id');
-            //aut[i] = [];
-            aut["'"+ id + "'"] = [];
-            aut["'"+ id + "'"]['name'] = name;
-            aut["'"+ id + "'"]['w'] = w;
-            aut["'"+ id + "'"]['h'] = h;
-            aut["'"+ id + "'"]['x'] = x;
-            aut["'"+ id + "'"]['y'] = y;
+            w = parseInt($(this)[0].getBoundingClientRect().width);/*largura do territorio*/
+            h =  parseInt($(this)[0].getBoundingClientRect().height);/*altura do territorio*/
+            x =  parseInt($(this).position().left);/*posição x*/
+            y =  parseInt($(this).position().top);  /*posição y*/
+            name = $(this).attr('name');/*nome*/
+            id = $(this).attr('id');/*id*/
+            /*adiciona na lista*/
+            aut[name] = {};
+            aut[name]['id'] = id;
+            aut[name]['w'] = w;
+            aut[name]['h'] = h;
+            aut[name]['x'] = x;
+            aut[name]['y'] = y;
             
             /*
             c_x = x + w / 2 - 8;
@@ -318,8 +321,50 @@ $(document).ready(function(){
     }
     
     /**/
+    function calcVizinhos(t1, t2, n1, n2){
+        /*posição do territorio 1*/
+        id1 = t1['id'];
+        p1x = t1['x'];
+        p1y = t1['y'];
+        p1h = t1['h'] + p1y;
+        p1w = t1['w'] + p1x;
+        /*posição do territorio 2*/
+        id2 = t2['id'];
+        p2x = t2['x'];
+        p2y = t2['y'];
+        p2h = t2['h'] + p2y;
+        p2w = t2['w'] + p2x;
+        
+        /*verifica se algum ponto do territorio2 esta na area do territorio1*/
+        if(pertenceConjunto(p1x, p1y, p1w, p1h, p2x, p2y)
+           || pertenceConjunto(p1x, p1y, p1w, p1h, p2w, p2y) 
+           || pertenceConjunto(p1x, p1y, p1w, p1h, p2x, p2h) 
+           || pertenceConjunto(p1x, p1y, p1w, p1h, p2w, p2h) 
+        ){
+            //console.log('vizinhos: ' + n1 + ' ===> ' + n2);
+           /*salva o os vizinhos*/
+           $.ajax({                       
+            context: $(this),
+            url: "ajax/vizinho.php?func=3&territorio=" + id1 
+                + "&vizinho=" + id2 + '&val=' + 'true',
+            success: function(msg){
+           
+            }
+        });
+        }
+        
+    }
     
-    
+    /*verifica se um ponte pertence a um quadrado*/
+    function pertenceConjunto(p1x, p1y, p1w, p1h, p2x, p2y){
+        /*compara os pontos*/
+        if(((p1x <= p2x) && (p1y <= p2y)) 
+            && ((p1w >= p2x) && (p1h >= p2y))
+        ){
+            return true;
+        }
+        return false
+    }
 });
 
 
