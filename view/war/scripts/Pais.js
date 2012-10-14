@@ -46,7 +46,7 @@ Pais.prototype._init = function (name, continente){
 
     this.noMapa = document.getElementById( name );
        
-    this.noMapaLabel = document.getElementById("l_" + name.toString().substring(2));
+    this.noMapaLabel = document.getElementById("l_" + name);
 
 
 

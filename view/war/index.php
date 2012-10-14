@@ -32,12 +32,14 @@
 
     </head>
 
-    <?php
-    //require 'view/war/index2.xhtml';
-    echo $nome;
-    ?>
+  
     <body id="body">
         <input type="hidden" value="<?php echo $nome; ?>" name="arquivo"/>
+        <div style="text-align: center;">
+                <button id="setaCartas">Trocar Cartas</button> 
+                <button id="setaMover">Mover Tropas</button>
+                <button id="setaAvancar">Terminar turno</button>
+            </div>
 
         <div id="terminal" class="prompt" 
              style="position:fixed; bottom: 0px; left: 0px; width: 20%; height: 35%; 
@@ -53,11 +55,7 @@
             <div id="game" >
 
             </div>
-            <div style="text-align: center;">
-                <button id="setaCartas">Cartas</button> 
-                <button id="setaMover">Mover</button>
-                <button id="setaAvancar">Terminar turno</button>
-            </div>
+            
         </div>
 
     </body>
