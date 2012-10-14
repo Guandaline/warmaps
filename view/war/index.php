@@ -53,6 +53,11 @@
             <div id="game" >
 
             </div>
+            <div style="text-align: center;">
+                <button id="setaCartas">Cartas</button> 
+                <button id="setaMover">Mover</button>
+                <button id="setaAvancar">Terminar turno</button>
+            </div>
         </div>
 
     </body>

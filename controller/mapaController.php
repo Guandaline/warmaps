@@ -45,11 +45,16 @@ class mapaController extends Controller {
             while (!feof($arquivo)) { /* Percorre o arquivo buscando todos os territorios */
                 $linha = fgets($arquivo); /* le uma linha do arquivo */
 
-                if (stristr($linha, "id=")) {
+                if (stristr($linha, " id=")) {
                     $novo = explode("\"", $linha); /* pega o id do elemento xml */
-                    if (!stristr($novo[1], "path") && stristr($novo[1], "t_")) {
-                        $nome = explode("_", $novo[1]);
-                        $territorios[$i] = $nome[1]; /* pega o nome do territorio */
+                    if (!stristr($novo[1], "path") && !stristr($novo[1], "path") && !stristr($novo[1], "circle")
+                            && !stristr($novo[1], "rect") && !stristr($novo[1], "l_") && !stristr($novo[1], "image")
+                            && !stristr($novo[1], "tspan") && !stristr($novo[1], "text") && !stristr($novo[1], "flow")
+                            && !stristr($novo[1], "false") && !stristr($novo[1], "Arrow") && !stristr($novo[1], "namedview")
+                            && !stristr($novo[1], "perspective") && !stristr($novo[1], "defs") && !stristr($novo[1], "metadata")
+                            && !stristr($novo[1], "svg")) {
+                        //$nome = explode("_", $novo[1]);
+                        $territorios[$i] = $novo[1]; /* pega o nome do territorio */
                         $i = $i + 1;
                     }
                 }
@@ -115,7 +120,7 @@ class mapaController extends Controller {
             /*gera os dados dos territorios*/
             $dados = array('id_mapa' => $id_mapa,
                 'label' => 'l_' . $value,
-                'inome' => 't_' . $value,
+                'inome' => $value,
                 'nome' => $value);
             $this->Territorio->data = $dados;
             $this->Territorio->save();/*Salva o territorio*/
@@ -149,7 +154,7 @@ class mapaController extends Controller {
         if ($id != 0) {/*atualiza configuraçoes de um mapa*/
             Session::setVal('mapa', $id);
             Session::setVal('nome', $file_name);
-            return $this->updateMapa($id, $file_name);
+            $this->updateMapa($id, $file_name);
             
             header("Location:index.php?view=mapa&action=config");
             return 1;

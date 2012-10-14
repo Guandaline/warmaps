@@ -18,6 +18,20 @@ class vizinhoController extends Controller {
         }
         return $arr;
     }
+   
+    /**
+     * <b>Methodo</b><br/>
+     * Pega os vizinhos de todos os territorios
+     * @param int $territorio Id do territoro
+     */
+    public function haveVizinho($territorio) {
+        $this->Model->data['territorio'] = $territorio;
+        $res = $this->select('vizinho'); /* Seleciona todos os vizinhos de um territorio */
+        if(!empty($res)){
+           return 1; 
+        }
+        return 0;
+    }
 
     /**
      * Insere ou remove o vizinho<br/>

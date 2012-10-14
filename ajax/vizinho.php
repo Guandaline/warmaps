@@ -12,7 +12,7 @@ $mapa = Session::getVal('mapa');
 Utils::incluir($controller, 'controller', '../');
 Utils::incluir($controller, 'model', '../');
 $classe = $controller . 'Controller';
-$obj = new $classe();
+$obj = new vizinhoController();
 
 switch ($func) {
     case 1:
@@ -28,6 +28,9 @@ switch ($func) {
         $val = isset($_GET['val']) ? $_GET['val'] : NULL;
         $res = $obj->setVizinhoIni($territorio, $vizinho);
         break;
+    case 4:
+        $res = $obj->haveVizinho($territorio);
+        break;
     default:
         $res = array('func invalida');
         break;
@@ -35,5 +38,4 @@ switch ($func) {
 
 
 echo json_encode($res);
-
 ?>

@@ -5,8 +5,6 @@
 function insere(tipo,valor1,valor2,valor3,valor4) 
 { 
 
-		
-
     //FUNÇÃO QUE MONTA A URL E CHAMA A FUNÇÃO AJAX 
 
     //alert(valor3);
