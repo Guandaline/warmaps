@@ -41,12 +41,10 @@
 </div>   
 
 <div>
-    <?php echo $nome;?>
+    <?php $viz = isset($_GET['viz']) ? $_GET['viz'] : 0;?>
 </div>
+<input type="hidden" value="<?php echo $viz;?>" name="findviz" id="findviz"/>
 <input type="hidden" value="<?php echo $nome;?>" name="arquivo"/>
 <div id="game" style=""></div>
 <div id="inputs"></div>
 <div id="dialog-form"></div>
-
-<form name="form_path" method="post" action="">
-</form>

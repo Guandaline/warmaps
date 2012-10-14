@@ -158,7 +158,7 @@ class mapaController extends Controller {
             Session::setVal('nome', $file_name);
             $this->updateMapa($id, $file_name);
             
-            header("Location:index.php?view=mapa&action=config");
+            header("Location:index.php?view=mapa&action=config&viz=1");
             return 1;
         }
 
@@ -186,7 +186,7 @@ class mapaController extends Controller {
         $this->saveTerritorio($territorios, $id_mapa);
 
         /* redireciona pra pagina de configuração sem o metodo de salvar */
-        header("Location:index.php?view=mapa&action=config");
+        header("Location:index.php?view=mapa&action=config&viz=1");
         return 1;
     }
 

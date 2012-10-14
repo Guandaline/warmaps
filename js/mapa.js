@@ -72,24 +72,16 @@ $(document).ready(function(){
     setTimeout(function(){
         svg = $('#game').svg('get');
         getTam();/*pega lista de territorios e seus tamanhos*/
-        $.each(aut, function(k, val){/*percorre a lista de terrotorios com suas posições*/
-            $.ajax({                       
-                context: $(this),
-                url: "ajax/vizinho.php?func=4&territorio=" + val['id'],
-                success: function(msg) {
-                    console.log('msg' + msg);
-                 if(msg == 0){   
-                    $.each(aut, function(key, value){   /*compara todos com todos*/
-                        if(k != key){/*se não for ele mesmo*/
-                            calcVizinhos(val, value);/*calcula vizinhos*/
-                        }
-                    });
-                }
-                },
-                async: false
+        find = $("#findviz").val();
+        if(find == 1){
+            $.each(aut, function(k, val){/*percorre a lista de terrotorios com suas posições*/ 
+                $.each(aut, function(key, value){   /*compara todos com todos*/
+                    if(k != key){/*se não for ele mesmo*/
+                        calcVizinhos(val, value);/*calcula vizinhos*/
+                    }
+                });
             });
-            
-        });
+        }
     }, 5000);
     
     setTimeout(function(){
