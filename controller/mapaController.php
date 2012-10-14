@@ -88,10 +88,12 @@ class mapaController extends Controller {
         /* Pega lista de territorios novos*/
         $novos = array_diff($arr1, $arr2);
         /*salva os novos territorios*/
-        $this->saveTerritorio($novos, $id_mapa);
+        if(count($novos) > 0)
+            $this->saveTerritorio($novos, $id_mapa);
         /*Lista de territorios removidos*/
         $remove = array_diff($arr2, $arr1);
-        $this->removeTerritorio($remove, $id_mapa);
+        if(count($remove) > 0)
+            $this->removeTerritorio($remove, $id_mapa);
         
     }
     
