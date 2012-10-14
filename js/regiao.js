@@ -208,6 +208,7 @@ $(document).ready(function(){
         });
         
         $('a.mod_territorios').click(); /*muda para o mode de indicação de vizinhos*/
+        alert("Região excluida!");
     });
     
 });

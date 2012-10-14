@@ -62,6 +62,7 @@ class Model {
      * Insere a string gerada no final do atriburo <b>sql</b>
      */
     private function geraWhere(){
+        $sql = '';
         if (!empty($this->data)) {
             $sql .= ' WHERE ';
             $i = 0;

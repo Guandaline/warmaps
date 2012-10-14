@@ -25,6 +25,7 @@ $(document).ready(function(){
         esconder();
     });
     */
+       alert("Utilize a barra lateral para Criar novas Regiões ou Novos Objetivos!");
    
    /*Muda para o modo de indicar vizinhos quando um território é clicado*/
     $('a.mod_territorios').click(function(){
@@ -37,6 +38,7 @@ $(document).ready(function(){
         $('input').each(function(){/*esconde todos os inputs*/
             $(this).hide();
         });
+        alert("Clique nos Territórios para indicar seus vizinhos!");
     });
     
    
@@ -44,6 +46,7 @@ $(document).ready(function(){
      *Muda para o mode de indicar quais territórios pertence a qual religião
      **/
     $('a.mod_regioes').click(function(){
+        /**/
         /*muda de territorio para regiao*/
         $('.territorio').each(function(){
             $(this).removeClass('territorio');
@@ -53,6 +56,7 @@ $(document).ready(function(){
         $('input').each(function(){/*esconde todos os inputs*/
             $(this).hide();
         });
+        alert("Clique nos Territórios para indicar sua Região.");
     });
     
 });
