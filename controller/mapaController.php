@@ -230,6 +230,9 @@ class mapaController extends Controller {
         $this->uses('regiao', '../');
         $this->Regiao->data['id_mapa'] = $mapa;
         $this->Regiao->delete();/*deleta todas as reriões*/
+        $this->uses('objetivo', '../');
+        $this->Objetivo->data['id_mapa'] = $mapa;
+        $this->Objetivo->delete();
         $this->Model->data = null;
         $this->Model->data['id'] = $mapa;
         $this->delete();/*deleta o mapa*/
