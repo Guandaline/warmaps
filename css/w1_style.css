@@ -127,3 +127,40 @@ a.mapas{
 a.mapas:hover{
     color: gray;
 }
+
+.form-obj{
+    display: block;
+}
+
+.form-obj .left{
+    display: inline-block;
+    width: 180px;
+    padding-right: 5px;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.form-obj .right{
+    display: inline-block;
+    width: 350px;
+    text-align: left;
+    margin-top: 5px;
+}
+.form-reg{
+    display: block;
+}
+
+.form-reg .left{
+    display: inline-block;
+    width: 90px;
+    padding-right: 5px;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.form-reg .right{
+    display: inline-block;
+    width: 120px;
+    text-align: left;
+    margin-top: 5px;
+}

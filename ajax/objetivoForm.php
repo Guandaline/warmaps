@@ -39,15 +39,15 @@ $conquistafacil = 0.9;
 $tomarcontinente = 0.5;
 $outros = false;
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
-$id_mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
+$id_mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /* pega o id do mapa */
 $regs = $regiao->getListaRegiao($id_mapa);
 $objetivos = $obj->getLista($id_mapa);
-
+$nome = "";
 ?>
 
 <div >
     <br/>
-    <div class="form-dir">
+    <div class="form-obj">
         <form name="form_obj" method="post" action="">
             <input type="hidden" name="id" value="<?php echo $id; ?>"/>
             <input type="hidden" name="id_mapa" value="<?php echo $id_mapa; ?>"/>
@@ -55,54 +55,63 @@ $objetivos = $obj->getLista($id_mapa);
             <input type="hidden" name="conquistarcontinente" value="<?php echo $conquistarcontinente; ?>"/>
             <input type="hidden" name="conquistafacil" value="<?php echo $conquistafacil; ?>"/>
             <input type="hidden" name="tomarcontinente" value="<?php echo $tomarcontinente; ?>"/>
-            Descrição: <input type="text" name="nome" value="<?php echo $nome ?>" >
+            <div class="left"> Descrição:</div>
+            <div class="right"> 
+                <input type="text" name="nome" value="<?php echo $nome ?>"  > </div>
             <br/>
-            Primeiro Continente:
-            <select name="reg1">
-                <option value=""  selected></option>
-<?php
-foreach ($regs as $val) {
-    ?>
-                    <option value="<?php echo $val; ?>"><?php echo $val; ?></option>
+            <div class="left"> Primeiro Continente: </div>
+            <div class="right"> 
+                <select name="reg1">
+                    <option value=""  selected></option>
                     <?php
-                }
-                ?>
-            </select>
+                    foreach ($regs as $val) {
+                        ?>
+                        <option value="<?php echo $val; ?>"><?php echo $val; ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+            </div>
             <br/>
-            Segundo Continente:
-            <select name="reg2">
-                <option value="" selected></option>
-<?php
-foreach ($regs as $val) {
-    ?>
-                    <option value="<?php echo $val; ?>"><?php echo $val; ?></option>
+            <div class="left"> Segundo Continente: </div>
+            <div class="right"> 
+                <select name="reg2">
+                    <option value="" selected></option>
                     <?php
-                }
-                ?>
-            </select>
+                    foreach ($regs as $val) {
+                        ?>
+                        <option value="<?php echo $val; ?>"><?php echo $val; ?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+            </div>
             <br/>
-            Terceiro Qualquer:
-            <select name="outro">
-                <option value="0">Nenhum</option>
-                <option value="1" <?php if ($outros) echo 'selected'; ?>>Outros</option>
-            </select>
+            <div class="left"> Terceiro Qualquer: </div>
+            <div class="right"> 
+                <select name="outro">
+                    <option value="0">Nenhum</option>
+                    <option value="1" <?php if ($outros) echo 'selected'; ?>>Outros</option>
+                </select>
+            </div>
             <br/>
-            <input type="submit" name="enviar" value="enviar"/>
+            <div style="text-align: center; margin-top: 5px;"> <input type="submit" name="enviar" value="enviar"/> </div>
         </form>
     </div>
-    <hr>
+    <hr/>
     <div class="lista-lateral">
-<?php
-foreach ($objetivos as $key => $value) {
-    ?>
+        <?php
+        foreach ($objetivos as $key => $value) {
+            ?>
             <div>
-            <?php echo $value . ' ('; ?> 
+                <?php echo $value . ' ('; ?> 
                 <a href="#" class="excluir" id="<?php echo $key; ?>" style="color: red;">
                     Excluir
                 </a>)
-            </div>    
-    <?php
-}
-?>
+            </div>   
+            <hr/>
+            <?php
+        }
+        ?>
     </div>
 </div>

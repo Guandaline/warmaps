@@ -1,7 +1,3 @@
- <?php
-   $path = getcwd();
-   echo "O seu caminho absoluto é: ";
-   echo $path;
-   echo "<br/>O seu caminho __DIR__ é: ";
-   echo __DIR__;
- ?>
+<div style="text-align: center; border-bottom: solid 1px #000; font-weight: bold; font-size: 18px; margin: 10px; width: 95%;">
+    WarMaps
+</div>
