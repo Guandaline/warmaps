@@ -4,9 +4,7 @@ include_once 'includes.php';
 
 $controller = 'regiao';
 $func = isset($_GET['func']) ? $_GET['func'] : 0;
-
-Session::start("warmaps");
-$mapa = Session::getVal('mapa');
+$mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
 
 Utils::incluir($controller, 'controller', '../');
 Utils::incluir($controller, 'model', '../');

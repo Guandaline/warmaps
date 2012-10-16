@@ -5,13 +5,12 @@ include_once 'includes.php';
 $controller = 'vizinho';
 $func = isset($_GET['func']) ? $_GET['func'] : 0;
 $territorio = isset($_GET['territorio']) ? $_GET['territorio'] : NULL;
-
-Session::start("warmaps");
-$mapa = Session::getVal('mapa');
+$mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
 
 Utils::incluir($controller, 'controller', '../');
 Utils::incluir($controller, 'model', '../');
-$classe = $controller . 'Controller';
+
+
 $obj = new vizinhoController();
 
 switch ($func) {

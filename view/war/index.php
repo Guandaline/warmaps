@@ -5,8 +5,8 @@
         <title>Jogo De WAR</title>
 
         <link rel="stylesheet" type="text/css" href="view/war/estilos/estilo.css" />
-        <link rel="stylesheet" type="text/css" href="view/war/estilos/game.css" />
-
+        <link rel="stylesheet" type="text/css" href="view/war/estilos/game.css" />  
+        
         <script src="view/war/scripts/defines.js"></script>
         <script src="js/new_define.js"></script>
         <script src="js/configura.js"></script>
@@ -35,6 +35,7 @@
   
     <body id="body">
         <input type="hidden" value="<?php echo $nome; ?>" name="arquivo"/>
+        <input type="hidden" value="<?php echo $mapa; ?>" name="id_mapa" id="id_mapa"/>
         <div style="text-align: center;">
                 <button id="setaCartas">Trocar Cartas</button> 
                 <button id="setaMover">Mover Tropas</button>

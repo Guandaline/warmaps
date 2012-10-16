@@ -19,8 +19,10 @@ class mapaController extends Controller {
      * Action config
      */
     public function config() {
+        $mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
+        $nome = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
         $this->setTitulo('Configurações do Mapa');
-        $this->set('nome', Session::getVal('nome'));
+        $this->set('nome', $nome);
     }
 
     /**
@@ -141,7 +143,7 @@ class mapaController extends Controller {
         $file_tmp_name = $data['file']['mapafile']['tmp_name'];
         $mensagem = '';
         $this->set('mensagem', $mensagem);
-        Session::start("warmaps");
+       
         $id = $this->existe($file_name);/*verifica se o novo mapa existe*/
         
 
@@ -154,11 +156,10 @@ class mapaController extends Controller {
         }
 
         if ($id != 0) {/*atualiza configuraçoes de um mapa*/
-            Session::setVal('mapa', $id);
-            Session::setVal('nome', $file_name);
+            
             $this->updateMapa($id, $file_name);
             
-            header("Location:index.php?view=mapa&action=config&viz=1");
+            header("Location:index.php?view=mapa&action=config&viz=1&id_mapa=".$id."&nome=".$file_name);
             return 1;
         }
 
@@ -178,15 +179,11 @@ class mapaController extends Controller {
         /* pega id do mapa inserido */
         $id_mapa = $this->getId();
 
-        /* Adciona o mapa na sessão */
-        Session::setVal('mapa', $id_mapa);
-        Session::setVal('nome', $file_name);
-
         /* Salva todos o territorios encontrados no banco */
         $this->saveTerritorio($territorios, $id_mapa);
 
         /* redireciona pra pagina de configuração sem o metodo de salvar */
-        header("Location:index.php?view=mapa&action=config&viz=1");
+        header("Location:index.php?view=mapa&action=config&viz=1&id_mapa=".$id."&nome=".$file_name);
         return 1;
     }
 

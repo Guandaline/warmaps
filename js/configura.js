@@ -5,7 +5,7 @@ function configTerritorio(){
     /*pega os dados do território via ajax*/
     $.ajax({                       
         context: $(this),
-        url: "ajax/territorio.php?func=2",
+        url: "ajax/territorio.php?func=2&id_mapa=" + mapa,
         success: function(msg) {
             msg = JSON.parse(msg);
             $.each(msg, function(k, val){/*percorrer json*/

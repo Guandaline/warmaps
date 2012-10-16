@@ -6,7 +6,7 @@ $(document).ready(function(){
     jQuery.fn.exists = function (){
         return jQuery(this).length > 0 ? true : false;
     };
-    
+    mapa = $("#id_mapa").val();
     var territorios; /*lista de dettirórios*/
     var label; /*lista de labels*/
     var lista_vizinhos; /*lista de vizinhos - muda de acordo com o território selecionado*/
@@ -18,7 +18,7 @@ $(document).ready(function(){
         /*pega os territórios via ajax*/
         $.ajax({                       
             context: $(this),
-            url: "ajax/territorio.php?func=2",
+            url: "ajax/territorio.php?func=2&id_mapa="+mapa,
             success: function(msg) {
                 msg = JSON.parse(msg);
                 territorios = msg;/*pega o resultado*/
@@ -47,7 +47,7 @@ $(document).ready(function(){
         /*pega os labels via ajax*/
         $.ajax({                       
             context: $(this),
-            url: "ajax/territorio.php?func=3",
+            url: "ajax/territorio.php?func=3&id_mapa="+mapa,
             success: function(msg) {
                 msg = JSON.parse(msg);
                 label = msg;
@@ -95,7 +95,7 @@ $(document).ready(function(){
         /*pega lista de vizinhos de um territorio*/
         $.ajax({                       
             context: $(this),
-            url: "ajax/vizinho.php?func=1&territorio=" + territorio_id,
+            url: "ajax/vizinho.php?func=1&territorio=" + territorio_id +"&id_mapa=" + mapa,
             success: function(msg) {
                 /*Guarda lista de vizinhos*/
                 lista_vizinhos = JSON.parse(msg);
@@ -279,7 +279,7 @@ $(document).ready(function(){
         /*faz a alteração via ajax*/
         $.ajax({                       
             context: $(this),
-            url: "ajax/vizinho.php?func=2&territorio=" + t_id 
+            url: "ajax/vizinho.php?func=2&territorio=" + t_id + "&id_mapa=" + mapa
             + "&vizinho=" + v_id + '&val=' + val,
             success: function(msg){
            
@@ -340,7 +340,7 @@ $(document).ready(function(){
             /*salva o os vizinhos*/
             $.ajax({                       
                 context: $(this),
-                url: "ajax/vizinho.php?func=3&territorio=" + id1 
+                url: "ajax/vizinho.php?func=3&territorio=" + id1 + "&id_mapa=" + mapa
                 + "&vizinho=" + id2 + '&val=' + 'true',
                 success: function(msg){
            

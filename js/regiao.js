@@ -5,7 +5,7 @@
  **/
 
 $(document).ready(function(){
-    
+    mapa = $("#id_mapa").val();
     var cores, reg;
     
     /**
@@ -15,7 +15,7 @@ $(document).ready(function(){
         /*pega lista via ajax*/
         $.ajax({
             context: $(this),
-            url: "ajax/regiao.php?func=4",
+            url: "ajax/regiao.php?func=4&id_mapa="+mapa,
             success: function(msg) {
                 msg = JSON.parse(msg);
                 cores = msg; /*guarda as cores*/
@@ -40,7 +40,7 @@ $(document).ready(function(){
         $.ajax({
             /*Montar um menu e atualizar toda vez que uma região for alterada*/
             context: $(this),
-            url: "ajax/regiao.php?func=1",
+            url: "ajax/regiao.php?func=1&id_mapa="+mapa,
             success: function(msg) {
                 if(msg){
                     msg = JSON.parse(msg);
@@ -102,7 +102,7 @@ $(document).ready(function(){
         /*Salva região no banco*/
         $.ajax({
             context: this,
-            url: "ajax/territorio.php?func=1&regiao=" + reg + "&territorio=" + territorio,
+            url: "ajax/territorio.php?func=1&regiao=" + reg + "&territorio=" + territorio + "&id_mapa=" + mapa,
             success: function(data){
                 
             } 
@@ -124,7 +124,7 @@ $(document).ready(function(){
         /*Insere o form via ajax*/
         $.ajax({
             context: this,
-            url: "ajax/regiaoForm.php?",
+            url: "ajax/regiaoForm.php?id_mapa=" + mapa,
             success: function(data){
                 $('#dialog-form').html(data);
                 $( "#dialog-form" ).dialog({
@@ -159,7 +159,7 @@ $(document).ready(function(){
        /*abre o formulario via ajax*/
         $.ajax({
             context: this,
-            url: "ajax/regiaoForm.php?id=" + id, /*passa o id da regiao a ser editada*/
+            url: "ajax/regiaoForm.php?id=" + id + "&id_mapa="+mapa, /*passa o id da regiao a ser editada*/
             success: function(data){
                 $('#dialog-form').html(data);
                 $( "#dialog-form" ).dialog({
@@ -198,7 +198,7 @@ $(document).ready(function(){
         var id = $(this).attr('id');
         $.ajax({
             context: $(this),
-            url: "ajax/regiao.php?func=5&id=" + id,
+            url: "ajax/regiao.php?func=5&id=" + id + "&id_mapa="+mapa,
             success: function(msg) {
                 getRegs();
                 /*remove a região do mapa*/

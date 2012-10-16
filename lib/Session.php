@@ -7,7 +7,7 @@ class Session {
      * @param String $var Nome da sessão
      */
     public static function start($var = NULL) {
-        if (!isset($_SESSION[$var ]))/*verifica se a sesão ja foi criada*/
+        if (!isset($_SESSION[$var]))/*verifica se a sesão ja foi criada*/
             session_start($var);/*inicia a sessão*/
     }
     

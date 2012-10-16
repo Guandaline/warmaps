@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         /*Ao enviar uma região ela é inserida via ajax*/
+        mapa = $("#id_mapa").val();
         $('form[name=form_regiao]').submit(function(e){
             /*Cancela o evento*/
             e.preventDefault();
@@ -9,7 +10,7 @@
             $.ajax({
                 type: 'post',
                 data: params,
-                url: "ajax/regiao.php?func=2",
+                url: "ajax/regiao.php?func=2&id_mapa="+mapa,
                 success: function(msg){
                     $( "#dialog-form" ).dialog("close");
                 },
@@ -25,7 +26,7 @@
                 /*Pega os dados via ajax*/
                 $.ajax({
                     context: $(this),
-                    url: "ajax/regiao.php?func=3&id=" + id,
+                    url: "ajax/regiao.php?func=3&id=" + id + "&id_mapa=" + mapa,
                     success: function(msg) {
                         msg = JSON.parse(msg);
                         if(msg){
@@ -43,10 +44,13 @@
 </script>
 <?php
 $id = isset($_GET['id']) ? $_GET['id'] : NULL;
+$mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : NULL;
+
 ?>
 
 <div>
     <form name="form_regiao" method="post" action="">
+        <input type="hidden" value="<?php echo $mapa; ?>" name="id_mapa" id="id_mapa"/>
         <?php
         if ($id !== NULL) {
             ?>

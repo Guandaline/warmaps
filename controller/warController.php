@@ -7,9 +7,10 @@ class warController extends Controller{
      * Pega os dados da sessao e passa para a pagina
      */
     public function index(){
-      
-        $this->set('nome', Session::getVal('nome'));/*seta o nome do mapa*/
-        $this->set('id_mapa', Session::getVal('mapa'));/*seta o id do mapa*/
+        $mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
+        $nome = isset($_GET['nome']) ? $_GET['nome'] : 0; 
+        $this->set('nome', $nome);/*seta o nome do mapa*/
+        $this->set('mapa',$mapa);/*seta o id do mapa*/
     }
     
 }

@@ -1,10 +1,10 @@
 $(document).ready(function(){
-    
+    mapa = $("#id_mapa").val();
     $('a.objetivos').click(function(){
         /*Insere o form via ajax*/
         $.ajax({
             context: this,
-            url: "ajax/objetivoForm.php",
+            url: "ajax/objetivoForm.php?id_mapa="+mapa,
             success: function(data){
                 $('#dialog-form').html(data);
                 $( "#dialog-form" ).dialog({
@@ -36,7 +36,7 @@ $(document).ready(function(){
         /*exclui via ajax*/
         $.ajax({
             context: $(this),
-            url: "ajax/objetivo.php?func=2&id=" + id,
+            url: "ajax/objetivo.php?func=2&id=" + id + "&id_mapa=" + mapa,
             success: function(msg) {
                 /*remove a região do mapa*/
                 $('a.objetivos').click();

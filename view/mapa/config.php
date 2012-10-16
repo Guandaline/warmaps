@@ -41,10 +41,16 @@
 </div>   
 
 <div>
-    <?php $viz = isset($_GET['viz']) ? $_GET['viz'] : 0;?>
+    <?php
+        $mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
+        $nome = isset($_GET['nome']) ? $_GET['nome'] : 0; /*pega o id do mapa*/
+        $viz = isset($_GET['viz']) ? $_GET['viz'] : 0;
+        echo 'Arquivo: ' . $nome;
+    ?>
 </div>
 <input type="hidden" value="<?php echo $viz;?>" name="findviz" id="findviz"/>
 <input type="hidden" value="<?php echo $nome;?>" name="arquivo"/>
+<input type="hidden" value="<?php echo $mapa; ?>" name="id_mapa" id="id_mapa"/>
 <div id="game" style=""></div>
 <div id="inputs"></div>
 <div id="dialog-form"></div>

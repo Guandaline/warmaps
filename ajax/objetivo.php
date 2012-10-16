@@ -4,7 +4,7 @@ include_once 'includes.php';
 
 $controller = 'objetivo';
 $func = isset($_GET['func']) ? $_GET['func'] : 0; /*pega a função que deve ser executada*/
-
+$mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
 /*pega o id do mapa na sessão*/
 
 

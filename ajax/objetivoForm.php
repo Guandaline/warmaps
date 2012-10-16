@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         /*Ao enviar uma região ela é inserida via ajax*/
+        mapa = $("input[name=id_mapa]").val();
         $('form[name=form_obj]').submit(function(e){
             /*Cancela o evento*/
             e.preventDefault();
@@ -9,7 +10,7 @@
             $.ajax({
                 type: 'post',
                 data: params,
-                url: "ajax/objetivo.php?func=1",
+                url: "ajax/objetivo.php?func=1&id_mapa="+mapa,
                 success: function(msg){
                     $( "#dialog-form" ).dialog("close");
                 },
@@ -38,7 +39,7 @@ $conquistafacil = 0.9;
 $tomarcontinente = 0.5;
 $outros = false;
 $id = isset($_GET['id']) ? $_GET['id'] : 0;
-$id_mapa = Session::getVal('mapa');
+$id_mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
 $regs = $regiao->getListaRegiao($id_mapa);
 $objetivos = $obj->getLista($id_mapa);
 
