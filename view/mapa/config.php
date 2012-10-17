@@ -45,7 +45,6 @@
         $mapa = isset($_GET['id_mapa']) ? $_GET['id_mapa'] : 0; /*pega o id do mapa*/
         $nome = isset($_GET['nome']) ? $_GET['nome'] : 0; /*pega o id do mapa*/
         $viz = isset($_GET['viz']) ? $_GET['viz'] : 0;
-        echo 'Arquivo: ' . $nome;
     ?>
 </div>
 <input type="hidden" value="<?php echo $viz;?>" name="findviz" id="findviz"/>

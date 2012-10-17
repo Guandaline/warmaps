@@ -183,7 +183,7 @@ class mapaController extends Controller {
         $this->saveTerritorio($territorios, $id_mapa);
 
         /* redireciona pra pagina de configuração sem o metodo de salvar */
-        header("Location:index.php?view=mapa&action=config&viz=1&id_mapa=".$id."&nome=".$file_name);
+        header("Location:index.php?view=mapa&action=config&viz=1&id_mapa=".$id_mapa."&nome=".$file_name);
         return 1;
     }
 

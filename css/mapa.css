@@ -87,3 +87,10 @@ root {
     background-color: #73d5ee;
 
 }
+
+rect:hover{
+    fill: green;
+    fill-opacity: 0.5;
+    stroke-width: 2;
+    stroke: black;
+}

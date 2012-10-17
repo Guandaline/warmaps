@@ -312,7 +312,7 @@ $(document).ready(function(){
         // c_x = x + w / 2 -dx;
         // c_y = y + h / 2 -dy;
         // text = svg.text(c_x, c_y, "1", {name : 'l_'+ name, id: id, 'class': 'label'});
-
+          //  svg.rect(x -dx, y - dy, w, h, {'fill-opacity': 0, 'stroke-width': 2, stroke: 'red'});
         });
     }
     

@@ -15,7 +15,7 @@ function newDefines(){
         success: function(msg) {
             msg = JSON.parse(msg);
             defines = msg;/*seta novas definições*/
-            console.log("mapaaa = " + mapa);
+            //console.log(defines);
         },
         async: false
     });
