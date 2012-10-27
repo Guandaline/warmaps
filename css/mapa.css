@@ -20,7 +20,11 @@ root {
     fill-opacity: 1;
     stroke-width: 2;
     stroke: #fff;
+    text-shadow: 1px 1px 10px #fff;
 }
+
+
+
 .continente{
   fill-opacity: 1;
 }
@@ -85,6 +89,7 @@ root {
 #game{
     text-align: center;
     background-color: #73d5ee;
+    width: 100%;
 
 }
 

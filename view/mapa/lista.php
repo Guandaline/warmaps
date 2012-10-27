@@ -37,14 +37,11 @@
 
 
 ?>
-
-<fieldset>
-    <legend>
-        <h1>
-            Lista de Mapas
-        </h1>
-    </legend>
-
+<br/>   
+<div style="text-align: center; border-bottom: solid 1px #000; font-weight: bold; font-size: 26px; margin: 1px; width: 95%;">
+            Lista de mapas
+    </div>
+<br/>
     <div class="box-mapas">
         <?php
         foreach ($mapas as $k => $val) {
@@ -74,4 +71,3 @@
         }
         ?>
     </div>
-</fieldset>

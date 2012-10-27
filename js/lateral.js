@@ -3,31 +3,35 @@ $(document).ready(function(){
      *
      *Esse codigo abaixo ainda pretendo arrumar
      *Se for possivel
-
+*/
+ $('div.mostrar').hide();
+ 
     function esconder(){
         $('div.options').hide();
         $('.lateral.large').removeClass('large');
         $('div.lateral').addClass('small');
-        $('div.mostrar').show();
-        console.log('q papo é esse?');
+        $('div.mostrar').hide();
+        
     }
     
     $('div.lateral').addClass('small');
 
-    $('.lateral.small').click(function(){
+    $('.lateral.small').on('hover',     function(){
         $(this).removeClass('samll');
         $(this).addClass('large');
         $('div.options').show();
-        $('div.mostrar').hide();
+        $('div.mostrar').show();
     });
+    
+    
     
     $('div#game').click(function(){
         esconder();
     });
-    */
-       alert("Utilize a barra lateral para Criar novas Regiões ou Novos Objetivos!");
+    
+    alert("Utilize a barra lateral para Criar novas Regiões ou Novos Objetivos!");
    
-   /*Muda para o modo de indicar vizinhos quando um território é clicado*/
+    /*Muda para o modo de indicar vizinhos quando um território é clicado*/
     $('a.mod_territorios').click(function(){
         /*muda de classe regiao para territorio*/
         $('.regiao').each(function(){/*percorre todos os territorios*/
@@ -39,6 +43,7 @@ $(document).ready(function(){
             $(this).hide();
         });
         alert("Clique nos Territórios para indicar seus vizinhos!");
+        esconder();
     });
     
    
@@ -57,6 +62,7 @@ $(document).ready(function(){
             $(this).hide();
         });
         alert("Clique nos Territórios para indicar sua Região.");
+        esconder();
     });
     
 });

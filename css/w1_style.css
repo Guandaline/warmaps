@@ -3,7 +3,7 @@ html{
 }
 
 body{
-    background-image: url('../image/Background-Light.jpg');
+    background-image: url('image/Background-Light.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     width: 100%;
@@ -11,8 +11,8 @@ body{
 
 #conteudo{
     display: block;
-    width: 100%;
-    padding: 40px;
+    width: 95%;
+    padding: 30px 0 0 30px;
     position: relative;
 }
 
@@ -46,6 +46,30 @@ body{
     text-shadow: 1px 1px 10px #ffffff;
 }
 
+a.excluir:hover{
+    color: red;
+}
+
+a.excluir_regiao:hover{
+    text-shadow: 1px 1px 10px red;
+}
+
+a.nova_regiao:hover{
+    text-shadow: 1px 1px 10px #fff;
+}
+a.objetivos:hover{
+    text-shadow: 1px 1px 10px #fff;
+}
+a.mod_territorios:hover{
+    text-shadow: 1px 1px 10px #fff;
+}
+a.territorios_regiao:hover{
+    text-shadow: 1px 1px 10px #fff;
+}
+a.editar_regiao:hover{
+    text-shadow: 1px 1px 10px #fff;
+}
+
 a, a:visited{
     text-decoration: none;
     color: #ddd;
@@ -65,7 +89,7 @@ svg{
 .lateral{
     position: fixed;
     height: 100%;
-    width: 5px;
+    width: 15px;
     z-index: 1000;
     left: 0;
     top: 30px;
@@ -83,7 +107,7 @@ svg{
     width: 300px;
 }
 .small{
-    width: 3px;
+    width: 20px;
 }
 
 .large{
@@ -127,6 +151,8 @@ a.mapas{
 a.mapas:hover{
     color: gray;
 }
+
+
 
 .form-obj{
     display: block;

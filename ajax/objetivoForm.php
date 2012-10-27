@@ -46,7 +46,6 @@ $nome = "";
 ?>
 
 <div >
-    <br/>
     <div class="form-obj">
         <form name="form_obj" method="post" action="">
             <input type="hidden" name="id" value="<?php echo $id; ?>"/>
@@ -57,7 +56,7 @@ $nome = "";
             <input type="hidden" name="tomarcontinente" value="<?php echo $tomarcontinente; ?>"/>
             <div class="left"> Descrição:</div>
             <div class="right"> 
-                <input type="text" name="nome" value="<?php echo $nome ?>"  > </div>
+                <input type="text" name="nome" value="<?php echo $nome ?>"  style="width: 95%;"> </div>
             <br/>
             <div class="left"> Primeiro Continente: </div>
             <div class="right"> 
@@ -97,6 +96,12 @@ $nome = "";
             <br/>
             <div style="text-align: center; margin-top: 5px;"> <input type="submit" name="enviar" value="enviar"/> </div>
         </form>
+    </div>
+    <br/>
+    <div style="text-align: center;">
+        <strong>
+            Lista de Objetivos
+        </strong>
     </div>
     <hr/>
     <div class="lista-lateral">

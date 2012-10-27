@@ -78,7 +78,7 @@ class territorioController extends Controller {
             }
             $tam = count($paises);/*pega a quantidade de paises de uma região*/
             $exercitos = (int) $val['exercitos'];/* pega a quantidade de exercios de bonus de uma região*/
-            $defs['continentes'][$val['nome']]['valorEstrategico'] = number_format($tam / $exercitos, 1);/*defini o valor estratégico de uma região*/
+            $defs['continentes'][$val['nome']]['valorEstrategico'] = number_format($exercitos / $tam, 1);/*defini o valor estratégico de uma região*/
             $defs['continentes'][$val['nome']]['qtdPaises'] = $tam; /*define quantidade de paises*/
             
         }

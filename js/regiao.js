@@ -53,6 +53,15 @@ $(document).ready(function(){
                         .attr('name', val)
                         .attr('id', k)
                         .val(val)
+                        .appendTo(dreg);                      
+                        
+                        $('<span> | </span>').appendTo(dreg);
+                        /*cria link para marcar os territórios que pertencem a uma regiao*/
+                        $('<a>Territórios</a>')
+                        .addClass('territorios_regiao')
+                        .attr('name', val)
+                        .attr('id', k)
+                        .val(val)
                         .appendTo(dreg);
                         
                         $('<span> | </span>').appendTo(dreg);
@@ -64,14 +73,6 @@ $(document).ready(function(){
                         .val(val)
                         .appendTo(dreg);
                         
-                        $('<span> | </span>').appendTo(dreg);
-                        /*cria link para marcar os territórios que pertencem a uma regiao*/
-                        $('<a>Territorios</a>')
-                        .addClass('territorios_regiao')
-                        .attr('name', val)
-                        .attr('id', k)
-                        .val(val)
-                        .appendTo(dreg);
                         $('<br/>').appendTo(dreg);
                         $('<hr/>').appendTo(dreg);
                     });
@@ -207,8 +208,8 @@ $(document).ready(function(){
             async: false
         });
         
-        $('a.mod_territorios').click(); /*muda para o mode de indicação de vizinhos*/
         alert("Região excluida!");
+        $('a.mod_territorios').click(); /*muda para o mode de indicação de vizinhos*/
     });
     
 });

@@ -4,7 +4,7 @@
 <script src="js/objetivo.js"></script>
 
 <div class="lateral">
-    <div class="mostrar">  </div>
+    <div class="mostrar">  
     <div class="options">
         <div>
             <a class="mod_territorios" href="#">
@@ -13,14 +13,14 @@
         </div>
         <hr/>
         <div>
-            <a class="objetivos" href="#">
-                Objetivos
+            <a class="nova_regiao" href="#">
+                Nova região
             </a>
         </div>
         <hr/>
         <div>
-            <a class="nova_regiao" href="#">
-                Nova região
+            <a class="objetivos" href="#">
+                Objetivos
             </a>
         </div>
         <div style="display: none;">
@@ -38,6 +38,7 @@
         </div>
         
     </div>
+        </div>
 </div>   
 
 <div>
