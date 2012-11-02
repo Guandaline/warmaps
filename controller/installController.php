@@ -27,7 +27,7 @@ class installController extends Controller{
         if($res){
             
             $this->configDataBase($user, $pass);
-            /*Redireciona pra index e manda nenomear oa aquivo install.php*/
+            /*Redireciona pra index e manda nenomear o aquivo install.php*/
             header("Location:index.php?remove=1&msg=".$errmsg);
             
         }else{

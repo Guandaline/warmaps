@@ -54,7 +54,7 @@ class mapaController extends Controller {
                             && !stristr($novo[1], "tspan") && !stristr($novo[1], "text") && !stristr($novo[1], "flow")
                             && !stristr($novo[1], "false") && !stristr($novo[1], "Arrow") && !stristr($novo[1], "namedview")
                             && !stristr($novo[1], "perspective") && !stristr($novo[1], "defs") && !stristr($novo[1], "metadata")
-                            && !stristr($novo[1], "svg")) {
+                            && !stristr($novo[1], "svg") && !stristr($novo[1], "line")) {
                         //$nome = explode("_", $novo[1]);
                         $territorios[$i] = $novo[1]; /* pega o nome do territorio */
                         $i = $i + 1;
