@@ -47,7 +47,7 @@ class Utils {
     public static function randFiguras($tam){
         $cartas = array();
         for($i = 0; $i < $tam; $i++){
-            $cartas[] = rand(0, 2);/*pega um numero aleatório ente 0 e 2*/
+            $cartas[$i] = ($i % 3);/**/
         }
         return $cartas;
     }
