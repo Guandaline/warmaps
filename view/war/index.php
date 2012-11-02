@@ -36,15 +36,15 @@
     <body id="body">
         <input type="hidden" value="<?php echo $nome; ?>" name="arquivo"/>
         <input type="hidden" value="<?php echo $mapa; ?>" name="id_mapa" id="id_mapa"/>
-        <div style="text-align: center;">
+        <div style="text-align: center; margin: 5px 0 0 0;">
                 <button id="setaCartas">Trocar Cartas</button> 
                 <button id="setaMover">Mover Tropas</button>
                 <button id="setaAvancar">Terminar turno</button>
             </div>
 
         <div id="terminal" class="prompt" 
-             style="position:fixed; bottom: 0px; left: 0px; width: 20%; height: 35%; 
-             background-color: black; color: white; padding: 5px; overflow:auto;" >
+             style="position:fixed; bottom: 0px; left: 0%;  height: 35%; 
+             background-color: #696969;  overflow:auto;" >
 
             Terminal.
 
