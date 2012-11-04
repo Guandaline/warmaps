@@ -278,8 +278,7 @@ Pais.prototype.pintar = function(){
 Pais.prototype.relacionarVizinhos = function(){
 
   for( i = 0; i < defines.paises[ this.nome ].vizinhos.length; i++ ){
-      console.log(this.nome);
-      console.log(defines.paises[this.nome ].vizinhos[i]);
+
       this.vizinhos.push( defines.paises[ defines.paises[this.nome ].vizinhos[i] ].instancia );
 
       //this.

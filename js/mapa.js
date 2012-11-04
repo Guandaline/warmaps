@@ -213,7 +213,6 @@ $(document).ready(function(){
     function adicionarCheckbox(name){
         var l, t;
         $.each(label, function(k, val){/*percorrer json*/
-            console.log(val)
             l = $('[name='+ val +'].label');/*pega o label do territorio*/
             t = l.find('tspan');/*pega o tspan, elemento dentro do texto*/
             var y = l.position().top;/*pega a posiçao do elemento*/
