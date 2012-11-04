@@ -54,7 +54,7 @@ class mapaController extends Controller {
                             && !stristr($novo[1], "tspan") && !stristr($novo[1], "text") && !stristr($novo[1], "flow")
                             && !stristr($novo[1], "false") && !stristr($novo[1], "Arrow") && !stristr($novo[1], "namedview")
                             && !stristr($novo[1], "perspective") && !stristr($novo[1], "defs") && !stristr($novo[1], "metadata")
-                            && !stristr($novo[1], "svg") && !stristr($novo[1], "line")) {
+                            && !stristr($novo[1], "svg") && !stristr($novo[1], "line") && !stristr($novo[1], "layer")) {
                         //$nome = explode("_", $novo[1]);
                         $territorios[$i] = $novo[1]; /* pega o nome do territorio */
                         $i = $i + 1;
@@ -108,10 +108,10 @@ class mapaController extends Controller {
             $this->Territorio->data['id_mapa'] = $id_mapa;
             $this->Territorio->data['nome'] = $val;
             $tr = $this->Territorio->select('id');/*pega o id dos territorios*/
-            $this->Territorio->delete();/*remove os vizinhos de um territorio*/
             $this->removeVizinhos($tr);
             $this->Vizinho->data['vizinho'] = $tr[0]['id'];
             $this->Vizinho->delete();/*remove esse territorio como vizinho de outros*/
+            $this->Territorio->delete();/*remove os vizinhos de um territorio*/
            
         }
 
@@ -206,7 +206,6 @@ class mapaController extends Controller {
     private function removeVizinhos($territorios) {
         $this->uses('vizinho', '../');
         foreach ($territorios as $v) {/*percore a lista de territorios*/
-            echo $v;
             $this->Vizinho->data['territorio'] = $v['id'];
             $this->Vizinho->delete();/*remove todos os vizinho de cada territorio*/
         }
