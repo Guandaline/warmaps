@@ -4,8 +4,10 @@
 <br/>
 <div style="text-align: center;">
     <p> 
-        Ferramenta Integrada ao jogo War Para inserção e edição de mapas. 
+        Ferramenta do jogo War Para inserção e edição de mapas ao jogo. 
     </p>
+    <br/>
+    <br/>
     <div style="width: 100%; display: block; margin: 20px;" >   
         <div style="width: 45%; display: inline-block">   
             <img src="image/War-logo-600x300.jpg" width="400" height="200"/>
