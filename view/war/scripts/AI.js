@@ -186,7 +186,7 @@ AI.prototype.distribuiExercitosContinente = function (){
 
  		if( this.isMyContinente( jogo.continentes[ i ] ) ){
 
-			warAlert( " o continente -=-> " + jogo.continentes[ i ].nome + " � do " + jogo.jogadorAtual.cor );
+			warAlert( " o continente -=-> " + jogo.continentes[ i ].nome + " é do " + jogo.jogadorAtual.cor );
 
 			this.qtdExercitos = jogo.continentes[ i ].qtdExercitos;
 

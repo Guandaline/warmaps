@@ -13,7 +13,7 @@ function insere(tipo,valor1,valor2,valor3,valor4)
 
     var str= new String(pagina);
 
-    pagina=str.replace("war.xhtml","scripts/banco.php");
+    pagina=str.replace("index.php","scripts/banco.php");
 
     //alert(pagina);
 

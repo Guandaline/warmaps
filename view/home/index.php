@@ -4,7 +4,7 @@
 <br/>
 <div style="text-align: center;">
     <p> 
-        Ferramenta do jogo War Para inserção e edição de mapas ao jogo. 
+        Ferramenta do jogo War para inserção e edição de mapas ao jogo. 
     </p>
     <br/>
     <br/>

@@ -119,7 +119,7 @@ Pais.prototype.distribuiExercitos = function(){
 						jogo.jogadorAtual.idxCont++;
 					if( jogo.jogadorAtual.isMyContinente( jogo.continentes[ jogo.jogadorAtual.idxCont ] )){
 						jogo.jogadorAtual.qtdExercitos = jogo.continentes[ jogo.jogadorAtual.idxCont ].qtdExercitos; 			
-						warAlert( "Voc� tem --> " + jogo.jogadorAtual.qtdExercitos + " exercitos para distribuir no continente -->  " + jogo.continentes[ jogo.jogadorAtual.idxCont ].nome );
+						warAlert( "Você tem --> " + jogo.jogadorAtual.qtdExercitos + " exercitos para distribuir no continente -->  " + jogo.continentes[ jogo.jogadorAtual.idxCont ].nome );
 					}
 					jogo.jogadorAtual.idxCont++;
 				}

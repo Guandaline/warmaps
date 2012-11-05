@@ -22,7 +22,7 @@ function conecta()
 
   			$conexao = mysql_connect($localhost,$user,$senha) or die ("Configuracao de Banco de Dados Errada!");
 
-  			mysql_select_db("$nome_banco",$conexao);
+  			mysql_select_db($nome_banco,$conexao);
 
 		
 
